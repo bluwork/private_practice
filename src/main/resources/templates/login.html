@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <title>Spring Security Example </title>
+    <title>Ordinacija Sign In </title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -11,7 +11,7 @@
 
 <div class="container">
 
-    <div class="row" style="margin-top:20px">
+    <div class="login-wrap" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <form th:action="@{/login}" method="post">
                 <fieldset>
@@ -30,11 +30,11 @@
 
                     <div class="form-group">
                         <input type="text" name="username" id="username" class="form-control input-lg"
-                               placeholder="UserName" required="true" autofocus="true"/>
+                               placeholder="Please enter your user name" required="true" autofocus="true"/>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" id="password" class="form-control input-lg"
-                               placeholder="Password" required="true"/>
+                               placeholder="Your password" required="true"/>
                     </div>
 
                     <div class="row">
