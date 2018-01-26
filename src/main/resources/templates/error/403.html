@@ -1,24 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+    <head>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
+    <div th:replace="fragments/header :: header"/>
 
-<div class="container">
+    <div class="container">
 
-    <div class="starter-template">
-        <h1>403 - Access is denied</h1>
-        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+        <div class="starter-template">
+            <h1>403 - Access is denied</h1>
+            <div th:inline="text">Hello<span sec:authentication="name"></span>,
                 you do not have permission to access this page.</div>
+            <svg> <circle cx="60" cy="60" r="40" fill="green">
+            <animate dur="3s" attributeName="r" values="40; 60; 40"
+                     repeatCount="indefinite" />
+            </circle> </svg>
+        </div>
+
     </div>
+    <!-- /.container -->
 
-</div>
-<!-- /.container -->
-
-<div th:replace="fragments/footer :: footer"/>
+    <div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>

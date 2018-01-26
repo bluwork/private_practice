@@ -9,45 +9,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
  * @author bobanlukic
  */
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-    
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private UserDetailsService appUserDetailsService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(appUserDetailsService);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       http.csrf().disable()
-               .authorizeRequests()
-                   .antMatchers("/", "/home", "/about").permitAll()
-                   .antMatchers("/admin/").hasAnyRole("ADMIN")
-                   .antMatchers("/user/").hasAnyRole("USER")
-                   .anyRequest().authenticated()
-               .and()
-               .formLogin()
-                   .loginPage("/login")
-                   .permitAll()
-                   .and()
-               .logout()
-                   .permitAll()
-                   .and()
-               .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-    }
-    
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin").password("password").roles("ADMIN");
+        http.authorizeRequests()
+                 .antMatchers(
+                            "/",
+                            "/error/**",
+                            "/home",
+                            "/about",
+                            "/js/**",
+                            "/css/**",
+                            "/img/**",
+                            "/webjars/**").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/physician/**").hasAnyAuthority("ADMIN", "PHYSICIAN")
+                .antMatchers("/nurse/**").hasAnyAuthority("ADMIN", "PHYSICIAN", "NURSE")
+                .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable().and()
+                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll().defaultSuccessUrl("/home", true).failureUrl("/403").and().logout()
+                .permitAll();
     }
     
     

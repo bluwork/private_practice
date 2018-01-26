@@ -29,9 +29,13 @@ public class HomeController {
     public String admin() {
         return "/admin";
     }
-    @RequestMapping("/user")
-    public String user() {
-        return "/user";
+    @RequestMapping("/physician")
+    public String physician() {
+        return "/physician";
+    }
+    @RequestMapping("/nurse")
+    public String nurse() {
+        return "/nurse";
     }
     @RequestMapping("/about")
     public String about() {
@@ -42,7 +46,7 @@ public class HomeController {
         return "/login";
     }
     @RequestMapping("/403")
-    public String error403() {
+    public String accessDenied() {
         return "/error/403";
     }
 }
