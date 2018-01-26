@@ -1,0 +1,38 @@
+## YAML configuration file for Ordinacija app
+## Author Boban Lukic
+databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: bbnlkc
+        changes:
+            - sqlFile:
+                path: ordinacija_ddl/app_user.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+            - sqlFile:
+                path: ordinacija_ddl/roles.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+            - sqlFile:
+                path: ordinacija_ddl/patient.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+            - sqlFile:
+                path: ordinacija_ddl/city.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+            - sqlFile:
+                path: ordinacija_ddl/contact_info.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+            - sqlFile:
+                path: ordinacija_ddl/vitals.sql
+                relativeToChangeLogFile: true
+                splitStatements: true
+                stripComments: true
+

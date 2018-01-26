@@ -1,26 +1,16 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
     <div th:replace="fragments/header :: header-css"/>
-</head>
-<body>
-
+    </head>
+    <body>
     <div th:replace="fragments/header :: header"/>
-
     <div class="container">
-
         <div class="starter-template">
             <h1>Admin page (Spring Security protected)</h1>
-
             <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
-
         </div>
-
     </div>
-    <!-- /.container -->
-
     <div th:replace="fragments/footer :: footer"/>
-
-</body>
+    </body>
 </html>

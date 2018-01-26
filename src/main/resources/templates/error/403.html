@@ -11,11 +11,11 @@
 
         <div class="starter-template">
             <h1>403 - Access is denied</h1>
-            <div th:inline="text">Hello<span sec:authentication="name"></span>,
-                you do not have permission to access this page.</div>
-            <svg> <circle cx="60" cy="60" r="40" fill="green">
-            <animate dur="3s" attributeName="r" values="40; 60; 40"
-                     repeatCount="indefinite" />
+            <div th:inline="text">Sorry  <span sec:authentication="name"></span>,
+                but you don't have permission to access this page.</div>
+            <svg> <circle cx="60" cy="60" r="40" fill="red">
+            <animate dur="700ms" attributeName="r" values="40; 60; 40"
+                     repeatCount="5" />
             </circle> </svg>
         </div>
 

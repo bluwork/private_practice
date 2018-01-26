@@ -44,8 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/physician/**").hasAnyAuthority("ADMIN", "PHYSICIAN")
                 .antMatchers("/nurse/**").hasAnyAuthority("ADMIN", "PHYSICIAN", "NURSE")
-                .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable().and()
-                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll().defaultSuccessUrl("/home", true).failureUrl("/403").and().logout()
+                .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable()
+                .and()
+                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll().defaultSuccessUrl("/home", true).failureUrl("/403")
+                .and()
+                .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
                 .permitAll();
     }
     

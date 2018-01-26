@@ -1,0 +1,11 @@
+html {
+      
+    background-image: url("../img/repeatable_background.png");
+}
+body { 
+    
+    padding-top: 40px;
+}
+footer {
+    text-align: left;
+}

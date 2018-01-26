@@ -89,7 +89,11 @@
             <artifactId>tether</artifactId>
             <version>1.4.3</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>

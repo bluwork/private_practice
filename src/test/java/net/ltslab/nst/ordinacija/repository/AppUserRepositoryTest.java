@@ -53,7 +53,6 @@ public class AppUserRepositoryTest {
         assertThat(badCredentials).isEqualTo(null);
           
         List<AppUser> allUsers = repository.findAll();
-        assertThat(allUsers.get(0)).isEqualTo(user);
-          
+        assertThat(allUsers.get(0)).isEqualTo(user);        
     }
 }
