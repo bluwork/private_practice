@@ -34,6 +34,7 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
  */
 @Entity
 @Table(name = "app_user")
+@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "AppUser.findAll", query = "SELECT au FROM AppUser au"),
 //    @NamedQuery(name = "AppUser.findByUsername", query = "SELECT au FROM AppUser au WHERE au.username = :username"),

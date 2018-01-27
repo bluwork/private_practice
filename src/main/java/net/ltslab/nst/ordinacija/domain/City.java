@@ -11,6 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table (name = "City")
+@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c"),
 //    @NamedQuery(name = "City.findByZipCode", query = "SELECT c FROM City c WHERE c.zipCode = :zipCode"),

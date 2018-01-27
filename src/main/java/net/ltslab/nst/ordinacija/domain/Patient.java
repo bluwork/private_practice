@@ -18,13 +18,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
+import net.ltslab.nst.ordinacija.domain.enums.Gender;
 
 /**
  *
@@ -33,6 +33,7 @@ import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 
 @Entity
 @Table(name = "patient")
+@XmlRootElement
 //@NamedQueries({
 //    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p"),
 //    @NamedQuery(name = "Patient.findByFirstName", query = "SELECT p FROM Patient p WHERE p.firstName = :firstName"),
@@ -57,12 +58,16 @@ public class Patient implements Serializable {
     private String lastName;
     
    
-    @OneToOne(mappedBy = "patient")
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
     
     @Column(name = "dob")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
+    
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     
     @Column(name = "blood_type")
     @Enumerated(EnumType.STRING)
@@ -72,19 +77,21 @@ public class Patient implements Serializable {
     private String allergies;
     
 //    @ElementCollection(fetch = FetchType.EAGER, targetClass = Vitals.class)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
+    @OneToMany( mappedBy = "patient", cascade = CascadeType.ALL)
+//    @OneToMany
     @Column(name = "vitals")
     private List<Vitals> vitals;
 
     public Patient() {
     }
 
-    public Patient(String firstName, String middleName, String lastName, ContactInfo contactInfo, Date dateOfBirth, BloodType bloodType, String allergies, List<Vitals> vitals) {
+    public Patient(String firstName, String middleName, String lastName, ContactInfo contactInfo, Date dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.contactInfo = contactInfo;
         this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
         this.bloodType = bloodType;
         this.allergies = allergies;
         this.vitals = vitals;
@@ -138,6 +145,14 @@ public class Patient implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     public BloodType getBloodType() {
         return bloodType;
     }
@@ -166,6 +181,7 @@ public class Patient implements Serializable {
     }
     
     public void addVitals(Vitals vitals){
+        vitals.setPatient(this);
         getVitals().add(vitals);
     }
     
@@ -201,6 +217,11 @@ public class Patient implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender=" + gender + ", bloodType=" + bloodType + '}';
     }
     
     

@@ -11,13 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author bobanlukic
  */
 @Entity
-@Table(name = "contact_info")
+@Table(name = "contact_info")      
+@XmlRootElement
 class ContactInfo implements Serializable {
 
     private static final long serialVersionUID = 5434251891946172712L;    
