@@ -25,6 +25,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.Role;
 
 /**
@@ -33,13 +34,13 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
  */
 @Entity
 @Table(name = "app_user")
-@NamedQueries({
-    @NamedQuery(name = "AppUser.findAll", query = "SELECT au FROM AppUser au"),
-    @NamedQuery(name = "AppUser.findByUsername", query = "SELECT au FROM AppUser au WHERE au.username = :username"),
-    @NamedQuery(name = "AppUser.findByPassword", query = "SELECT au FROM AppUser au WHERE au.password = :password"),
-    @NamedQuery(name = "AppUser.findByFirstName", query = "SELECT au FROM AppUser au WHERE au.firstName = :firstName"),
-    @NamedQuery(name = "AppUser.findByLastName", query = "SELECT au FROM AppUser au WHERE au.lastName = :lastName")
-}) 
+//@NamedQueries({
+//    @NamedQuery(name = "AppUser.findAll", query = "SELECT au FROM AppUser au"),
+//    @NamedQuery(name = "AppUser.findByUsername", query = "SELECT au FROM AppUser au WHERE au.username = :username"),
+//    @NamedQuery(name = "AppUser.findByPassword", query = "SELECT au FROM AppUser au WHERE au.password = :password"),
+//    @NamedQuery(name = "AppUser.findByFirstName", query = "SELECT au FROM AppUser au WHERE au.firstName = :firstName"),
+//    @NamedQuery(name = "AppUser.findByLastName", query = "SELECT au FROM AppUser au WHERE au.lastName = :lastName")
+//}) 
 
 public class AppUser implements Serializable {
 

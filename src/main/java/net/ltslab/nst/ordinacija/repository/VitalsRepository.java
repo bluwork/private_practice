@@ -5,7 +5,8 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-import net.ltslab.nst.ordinacija.domain.AppUser;
+import java.util.List;
+import net.ltslab.nst.ordinacija.domain.Vitals;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,8 +14,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bobanlukic
  */
 
-public interface AppUserRepository extends JpaRepository<AppUser, Long>{
+public interface VitalsRepository extends JpaRepository<Vitals, Long>{
 
-    public AppUser findByUsername(String username);
+    public List<Vitals> findByPatientId(Long patientId);
     
 }

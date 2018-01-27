@@ -18,6 +18,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,8 +30,14 @@ import net.ltslab.nst.ordinacija.domain.enums.BloodType;
  *
  * @author bobanlukic
  */
+
 @Entity
 @Table(name = "patient")
+//@NamedQueries({
+//    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p"),
+//    @NamedQuery(name = "Patient.findByFirstName", query = "SELECT p FROM Patient p WHERE p.firstName = :firstName"),
+//    @NamedQuery(name = "Patient.findByLastName", query = "SELECT p FROM Patient p WHERE p.lastName = :lastName")
+//})
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 3259832604765001001L;

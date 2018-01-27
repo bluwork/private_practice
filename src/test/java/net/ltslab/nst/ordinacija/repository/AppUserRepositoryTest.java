@@ -39,6 +39,7 @@ public class AppUserRepositoryTest {
         testRoles.add(Role.NURSE);
         
         entityManager.persist(new AppUser("Dusko Dugousko", "Pass123", "Dusko", "Dugousko", testRoles));
+        entityManager.flush();
         
         AppUser user = repository.findByUsername("Dusko Dugousko");
         

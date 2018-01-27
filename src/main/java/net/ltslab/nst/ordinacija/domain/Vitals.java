@@ -138,6 +138,7 @@ public class Vitals implements Serializable {
     }
 
     public Vitals(Patient patient, Date measuringDate, Integer diastolicBP, Integer systolicBP, Float bodyTemp, Integer heartRate, Integer height, Integer mass) {
+        
         this.patient = patient;
         this.measuringDate = measuringDate;
         this.diastolicBP = diastolicBP;

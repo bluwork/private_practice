@@ -2,7 +2,7 @@
 ## Author Boban Lukic
 databaseChangeLog:
     - changeSet:
-        id: 1
+        id: 2
         author: bbnlkc
         changes:
             - sqlFile:
