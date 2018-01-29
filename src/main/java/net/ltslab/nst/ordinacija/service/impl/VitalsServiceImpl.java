@@ -7,9 +7,9 @@ package net.ltslab.nst.ordinacija.service.impl;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Vitals;
-import net.ltslab.nst.ordinacija.repository.VitalsRepository;
 import net.ltslab.nst.ordinacija.service.VitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import net.ltslab.nst.ordinacija.dao.VitalsDao;
 
 /**
  *
@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class VitalsServiceImpl implements VitalsService {
     
     @Autowired
-    VitalsRepository vitalsRepository;
+    VitalsDao vitalsRepository;
 
     @Override
     public List<Vitals> getAllVitals(Long patientId) {

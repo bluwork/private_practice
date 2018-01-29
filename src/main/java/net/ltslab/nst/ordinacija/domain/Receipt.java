@@ -10,11 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 /**
  *
  * @author bobanlukic
  */
+
 @Entity
 @XmlRootElement
 public class Receipt implements Serializable {
@@ -23,9 +23,5 @@ public class Receipt implements Serializable {
     
     @Id
     private Long id;
-    
-    
-    
-   
-    
+       
 }

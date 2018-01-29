@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.repository;
+package net.ltslab.nst.ordinacija.dao;
 
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
@@ -24,33 +24,33 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
-public class PatientRepositoryTest {
+public class PatientDaoTest {
 
 
     @Autowired
-    private PatientRepository patientRepository;
+    private PatientDao patientDao;
 
     @Test
    
     public void repositoryTest() throws Exception {
 
         // Test findAll()
-        assertThat(patientRepository.findAll().size()).isEqualTo(4);
+        assertThat(patientDao.findAll().size()).isEqualTo(4);
         
         // Test findById
-        Patient patientOne = patientRepository.findOne(1L);
+        Patient patientOne = patientDao.findOne(1L);
         
         assertThat(patientOne.getFirstName()).isEqualTo("Milovan");
         assertThat(patientOne.getGender()).isEqualTo(Gender.MALE);
       
         // Test save - update
         patientOne.setGender(Gender.FEMALE);
-        patientRepository.save(patientOne);
-        assertThat(patientRepository.findOne(1L).getGender()).isEqualTo(Gender.FEMALE);
+        patientDao.save(patientOne);
+        assertThat(patientDao.findOne(1L).getGender()).isEqualTo(Gender.FEMALE);
         
         // Test delete
-        patientRepository.delete(2L);
-        for (Patient p : patientRepository.findAll()) {
+        patientDao.delete(2L);
+        for (Patient p : patientDao.findAll()) {
             assertThat(p.getId()).isNotEqualTo(2L);
         }
       

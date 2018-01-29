@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.config;
+package net.ltslab.nst.ordinacija.init;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

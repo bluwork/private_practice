@@ -20,8 +20,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,13 +33,6 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
 @Entity
 @Table(name = "app_user")
 @XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "AppUser.findAll", query = "SELECT au FROM AppUser au"),
-//    @NamedQuery(name = "AppUser.findByUsername", query = "SELECT au FROM AppUser au WHERE au.username = :username"),
-//    @NamedQuery(name = "AppUser.findByPassword", query = "SELECT au FROM AppUser au WHERE au.password = :password"),
-//    @NamedQuery(name = "AppUser.findByFirstName", query = "SELECT au FROM AppUser au WHERE au.firstName = :firstName"),
-//    @NamedQuery(name = "AppUser.findByLastName", query = "SELECT au FROM AppUser au WHERE au.lastName = :lastName")
-//}) 
 
 public class AppUser implements Serializable {
 
@@ -53,19 +44,18 @@ public class AppUser implements Serializable {
     private Long id;
     
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "username")
+    @Size(min = 1, max = 30)
+    @Column(name = "username", unique = true)
     private String username;
     
-    @Size(max = 50)
     @Column(name = "password")
     private String password;
     
-    @Size(max = 50)
+    @Size(max = 30)
     @Column(name = "first_name")
     private String firstName;
     
-    @Size(max = 50)
+    @Size(max = 30)
     @Column(name = "last_name")
     private String lastName;
     
@@ -185,6 +175,4 @@ public class AppUser implements Serializable {
         return "AppUser{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + '}';
     }
    
-    
-    
 }

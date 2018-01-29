@@ -6,7 +6,6 @@
 package net.ltslab.nst.ordinacija.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author bobanlukic
  */
 @Controller
-public class CityController {
+public class NurseController {
     
-    @RequestMapping("/all_cities")
-    public String page(Model model) {
-        model.addAttribute("attribute", "value");
-        return "all_cities";
-    }
+    @RequestMapping("/nurse")
+    public String nurse() {
+        return "nurse";
+    } 
 }

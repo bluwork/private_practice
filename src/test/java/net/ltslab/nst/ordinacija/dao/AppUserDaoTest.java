@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.repository;
+package net.ltslab.nst.ordinacija.dao;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
@@ -25,17 +25,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
-public class AppUserRepositoryTest {
+public class AppUserDaoTest {
    
     @Autowired
-    private AppUserRepository repository;
+    private AppUserDao appUserDao;
 
     @Test
     @Timed(millis = 500)
     public void repositoryTest() throws Exception {
         
             
-        AppUser user = repository.findByUsername("admin");
+        AppUser user = appUserDao.findByUsername("admin");
         
         assertThat(user.getUsername()).isEqualTo("admin");
         assertThat(user.getPassword()).isEqualTo("Adm1n");
@@ -43,10 +43,10 @@ public class AppUserRepositoryTest {
         assertThat(user.getLastName()).isEqualTo("Lukic");
         
         
-        AppUser badCredentials = repository.findByUsername("abcd");
+        AppUser badCredentials = appUserDao.findByUsername("abcd");
         assertThat(badCredentials).isEqualTo(null);
           
-        List<AppUser> allUsers = repository.findAll();
+        List<AppUser> allUsers = appUserDao.findAll();
         assertThat(allUsers.get(1).getPassword()).isEqualTo("D0ktor");
     }
 }

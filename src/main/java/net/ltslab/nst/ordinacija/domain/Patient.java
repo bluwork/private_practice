@@ -43,11 +43,6 @@ import org.hibernate.search.annotations.Store;
 @Table(name = "patient")
 @XmlRootElement
 @Indexed
-//@NamedQueries({
-//    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p"),
-//    @NamedQuery(name = "Patient.findByFirstName", query = "SELECT p FROM Patient p WHERE p.firstName = :firstName"),
-//    @NamedQuery(name = "Patient.findByLastName", query = "SELECT p FROM Patient p WHERE p.lastName = :lastName")
-//})
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 3259832604765001001L;

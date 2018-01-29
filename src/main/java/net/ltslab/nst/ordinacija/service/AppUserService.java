@@ -15,4 +15,6 @@ import net.ltslab.nst.ordinacija.domain.AppUser;
 public interface AppUserService {
     
     AppUser findByUsername(String username);
+
+    public void addOrUpdateUser(AppUser appUser);
 }

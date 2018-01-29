@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.repository.AppUserRepository;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import net.ltslab.nst.ordinacija.dao.AppUserDao;
 
 /**
  *

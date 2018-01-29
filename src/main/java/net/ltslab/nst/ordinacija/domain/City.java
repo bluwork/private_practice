@@ -7,8 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,13 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author bobanlukic
  */
+
 @Entity
 @Table (name = "City")
 @XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c"),
-//    @NamedQuery(name = "City.findByZipCode", query = "SELECT c FROM City c WHERE c.zipCode = :zipCode"),
-//    @NamedQuery(name = "City.findByName", query = "SELECT c FROM City c WHERE c.name = :name")})
+
 public class City implements Serializable{
 
     private static final long serialVersionUID = -3754667614870120626L;
@@ -88,12 +84,5 @@ public class City implements Serializable{
             return false;
         }
         return true;
-    }
-
-  
-    
-    
-    
-    
-    
+    }    
 }

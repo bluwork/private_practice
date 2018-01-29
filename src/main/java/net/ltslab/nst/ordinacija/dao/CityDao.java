@@ -3,19 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.repository;
+package net.ltslab.nst.ordinacija.dao;
 
 import java.util.List;
-import net.ltslab.nst.ordinacija.domain.Vitals;
+import net.ltslab.nst.ordinacija.domain.City;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author bobanlukic
  */
-
-public interface VitalsRepository extends JpaRepository<Vitals, Long>{
-
-    public List<Vitals> findByPatientId(Long patientId);
+@Repository
+public interface CityDao extends JpaRepository<City, Long> {
+    
+    List<City> findByZipCode(Long zipCode);
+    
+    List<City> findByName(String name);
     
 }

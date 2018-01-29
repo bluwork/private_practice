@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.repository;
+package net.ltslab.nst.ordinacija.dao;
+
+
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,22 +19,22 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author bobanlukic
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("test")
-public class PatientSearchRepositoryTest {
 
+@RunWith(SpringRunner.class)
+@DataJpaTest
+@ActiveProfiles("test")
+public class CityDaoTest {
+    
 
     @Autowired
-    private PatientSearchRepository searchRepo;
-
+    CityDao cityDao;
+    
+    
     @Test
-   
-    public void repositoryTest() throws Exception {
-
-        assertThat(searchRepo.search("Milovan").size()==1).isEqualTo(true);
-        assertThat(searchRepo.search("Boban").size()==0).isEqualTo(true);
+    public void cityRepositoryTest() {
         
-      
+        assertThat(cityDao.findAll().get(0).getZipCode()).isEqualTo(11000L);
+        
     }
+    
 }

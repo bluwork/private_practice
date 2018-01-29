@@ -6,7 +6,6 @@
 package net.ltslab.nst.ordinacija.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PhysicianController {
     
     @RequestMapping("/physician")
-    public String physicianPage(Model model) {
-        model.addAttribute("attribute", "value");
+    public String physicianPage(/*Model model*/) {
+        //model.addAttribute("attribute", "value");
         return "physician";
     }
     

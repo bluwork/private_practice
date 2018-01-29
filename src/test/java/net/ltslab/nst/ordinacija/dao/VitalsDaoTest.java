@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.repository;
+package net.ltslab.nst.ordinacija.dao;
+
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -27,13 +27,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
-public class VitalsRepositoryTest {
+public class VitalsDaoTest {
     
     @Autowired
-    private VitalsRepository repository;
+    private VitalsDao vitalsDao;
     
     @Autowired 
-    private PatientRepository patientRepository;
+    private PatientDao patientDao;
     
     @Test
    
@@ -42,7 +42,7 @@ public class VitalsRepositoryTest {
         
         
         
-        List<Vitals> patientVitals = repository.findByPatientId(1L);
+        List<Vitals> patientVitals = vitalsDao.findByPatientId(1L);
        
         
         assertThat(patientVitals.get(0).getBodyTemp()).isEqualTo(36.8f);
@@ -50,16 +50,16 @@ public class VitalsRepositoryTest {
         assertThat(patientVitals.get(0).getMass()).isEqualTo(84);
         
         
-        Patient patientOne = patientRepository.getOne(1L);
+        Patient patientOne = patientDao.getOne(1L);
         
         Vitals oneVitals = new Vitals (new Date(System.currentTimeMillis()), 80, 120, 36.5f, 70, 192, 91);
         
         patientOne.addVitals(oneVitals);
         
-        patientRepository.saveAndFlush(patientOne);
+        patientDao.saveAndFlush(patientOne);
         
         
-        patientVitals = repository.findByPatientId(1L);
+        patientVitals = vitalsDao.findByPatientId(1L);
         
         
         assertThat(patientVitals.get(2).getBodyTemp()).isEqualTo(36.5f);
