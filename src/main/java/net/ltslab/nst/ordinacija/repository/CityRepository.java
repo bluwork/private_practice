@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +14,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bobanlukic
  */
 public interface CityRepository extends JpaRepository<City, Long> {
+    
+    List<City> findByZipCode(Long zipCode);
+    
+    List<City> findByName(String name);
     
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Search results</h1>
+<ol>
+  <li th:each="patient : ${searchResults}">
+    <b><span th:text="${patient.firstName}"></span></b> - 
+    <span th:text="${patient.middleName}"></span> -
+    <span th:text="${patient.lastName}"></span> -
+    <span th:text="${patient.bloodType}"></span> -
+    <span th:text="${patient.contactInfo.phone}"></span> -
+    <span th:text="${patient.contactInfo.address}"></span> -
+    <span th:text="${patient.contactInfo.email}"></span>
+  </li>
+</ol>
+</body>
+</html>

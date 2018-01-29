@@ -1,21 +1,32 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Ordinacija</title>
-    <div th:replace="fragments/header :: header-css"/>
-       
+        <div th:replace="fragments/header :: header-css"/>
+        <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
     </head>
     <body>
-    <div th:replace="fragments/header :: header"/>
-    <div class="container">
-        <div class="starter-template">
-            <h1>Ordinacija Home page</h1>
-            <h2><a th:href="@{/admin}">Admin</a></h2>
-            <h2><a th:href="@{/physician}">Physician</a></h2>
-            <h2><a th:href="@{/nurse}">Nurse</a></h2>
-            <h2><a th:href="@{/about}">About</a></h2>
+        <div class="container">
+
+
+
+            <div class="wrapper">
+                <header class="header"><div th:replace="fragments/header :: header"/></header>
+                <aside class="sidebar">
+                    <div class="site">
+                        <div class="item-admin"><h2><a th:href="@{/admin}">Admin</a></h2></div>
+                        <div class="item-about"><h2><a th:href="@{/about}">About</a></h2></div>
+                        <div class="item-physician"><h2><a th:href="@{/physician}">Physician</a></h2></div>
+                        <div class="item-nurse"><h2><a th:href="@{/nurse}">Nurse</a></h2></div>
+                    </div>
+                </aside>
+                <article class="content">
+                    <h1>2 column, header and footer</h1>
+                    <p>This example uses line-based positioning, to position the header and footer, stretching them across the grid.</p>
+                </article>
+                <footer class="footer"><div th:replace="fragments/footer :: footer"/></footer>
+            </div>
         </div>
-    </div>
-    <div th:replace="fragments/footer :: footer"/>
     </body>
 </html>

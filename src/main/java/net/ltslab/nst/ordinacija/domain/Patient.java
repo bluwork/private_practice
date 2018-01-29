@@ -25,6 +25,14 @@ import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
@@ -34,6 +42,7 @@ import net.ltslab.nst.ordinacija.domain.enums.Gender;
 @Entity
 @Table(name = "patient")
 @XmlRootElement
+@Indexed
 //@NamedQueries({
 //    @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p"),
 //    @NamedQuery(name = "Patient.findByFirstName", query = "SELECT p FROM Patient p WHERE p.firstName = :firstName"),
@@ -48,20 +57,25 @@ public class Patient implements Serializable {
     @Column(name = "id")
     private Long id;
     
+    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
     @Column(name = "first_name")
     private String firstName;
     
+    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
     @Column(name = "middle_name")
     private String middleName;
     
+    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
     @Column(name = "last_name")
     private String lastName;
     
-   
+    @IndexedEmbedded
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
     
+    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
     @Column(name = "dob")
+    @DateBridge(resolution=Resolution.DAY)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     

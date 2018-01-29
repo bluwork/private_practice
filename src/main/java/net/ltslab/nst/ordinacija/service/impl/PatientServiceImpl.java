@@ -8,6 +8,7 @@ package net.ltslab.nst.ordinacija.service.impl;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.repository.PatientRepository;
+import net.ltslab.nst.ordinacija.repository.PatientSearchRepository;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class PatientServiceImpl implements PatientService{
 
     @Autowired 
     PatientRepository patientRepository;
+    
+    @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
+    PatientSearchRepository patientSearchRepository;
 
     @Override
     public List<Patient> getAllPatient() {
@@ -41,6 +45,11 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public void deletePatient(Long id) {
         patientRepository.delete(id);
+    }
+
+    @Override
+    public List<Patient> searchForPatient(String searchText) {
+        return patientSearchRepository.search(searchText);       
     }
     
 }

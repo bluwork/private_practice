@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.search.annotations.Field;
 
 /**
  *
@@ -32,12 +33,14 @@ class ContactInfo implements Serializable {
     @OneToOne
     private Patient patient;
     
+    @Field
     @Column(name = "phone")
     private String phone;
     
     @Column(name = "address")
-    private String adress;
+    private String address;
     
+    @Field
     @Column(name = "email")
     private String email;
     
@@ -68,12 +71,12 @@ class ContactInfo implements Serializable {
         this.phone = phone;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -95,10 +98,10 @@ class ContactInfo implements Serializable {
     public ContactInfo() {
     }
 
-    public ContactInfo(Patient patient, String phone, String adress, String email, City city) {
+    public ContactInfo(Patient patient, String phone, String address, String email, City city) {
         this.patient = patient;
         this.phone = phone;
-        this.adress = adress;
+        this.address = address;
         this.email = email;
         this.city = city;
     }

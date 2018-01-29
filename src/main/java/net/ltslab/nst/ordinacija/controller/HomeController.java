@@ -19,34 +19,33 @@ public class HomeController {
     
     @RequestMapping("/")
     public String root() {
-        return "/home";
+        return "home";
     }
+    
     @RequestMapping("/home")
     public String home() {
-        return "/home";
+        return "home";
     }
+
     @RequestMapping("/admin")
     public String admin() {
-        return "/admin";
+        return "admin";
     }
-    @RequestMapping("/physician")
-    public String physician() {
-        return "/physician";
-    }
+
     @RequestMapping("/nurse")
     public String nurse() {
-        return "/nurse";
+        return "nurse";
     }
     @RequestMapping("/about")
     public String about() {
-        return "/about";
+        return "about";
     }
     @RequestMapping("/login")
     public String login() {
-        return "/login";
+        return "login";
     }
     @RequestMapping("/403")
     public String accessDenied() {
-        return "/error/403";
+        return "error/403";
     }
 }

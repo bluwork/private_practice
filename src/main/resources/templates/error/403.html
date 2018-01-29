@@ -1,28 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <head>
-    <div th:replace="fragments/header :: header-css"/>
-</head>
-<body>
-
-    <div th:replace="fragments/header :: header"/>
-
-    <div class="container">
-
-        <div class="starter-template">
-            <h1>403 - Access is denied</h1>
-            <div th:inline="text">Sorry  <span sec:authentication="name"></span>,
-                but you don't have permission to access this page.</div>
-            <svg> <circle cx="60" cy="60" r="40" fill="red">
-            <animate dur="700ms" attributeName="r" values="40; 60; 40"
-                     repeatCount="5" />
-            </circle> </svg>
+        <div th:replace="fragments/header :: header-css"/>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"/>
+        <div class="container">
+            <div class="starter-template" >
+                <h1>403 - Access is denied</h1>
+                <div th:inline="text">Sorry 
+                    
+                        <span sec:authorized="name"></span> 
+                   
+                    ,
+                    but you don't have permission to access this page.</div>
+                <svg> <circle cx="60" cy="60" r="40" fill="red">
+                        <animate dur="700ms" attributeName="r" values="40; 60; 40"
+                                 repeatCount="5" />
+                    </circle> </svg>
+            </div>
         </div>
-
-    </div>
-    <!-- /.container -->
-
-    <div th:replace="fragments/footer :: footer"/>
-
-</body>
+        <div th:replace="fragments/footer :: footer"/>
+    </body>
 </html>

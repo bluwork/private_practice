@@ -23,5 +23,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     public List<Patient> findByFirstName(String firstName);
 
     public List<Patient> findByFirstNameAndBloodType(String firstName, BloodType bloodType);
+
       
 }

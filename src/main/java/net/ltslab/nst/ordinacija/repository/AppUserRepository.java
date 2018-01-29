@@ -13,8 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bobanlukic
  */
 
-public interface AppUserRepository extends JpaRepository<AppUser, Long>{
-
-    public AppUser findByUsername(String username);
+public interface AppUserRepository extends JpaRepository<AppUser, Long> { 
+    
+    public AppUser findByUsername(String username);   
     
 }
