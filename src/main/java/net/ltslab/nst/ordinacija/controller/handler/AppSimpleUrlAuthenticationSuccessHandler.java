@@ -25,11 +25,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AppSimpleUrlAuthenticationSuccessHandler implements
-        AuthenticationSuccessHandler{
+        AuthenticationSuccessHandler {
 
-    
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-    
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         handleAuthSuccess(request, response, authentication);
@@ -37,15 +36,13 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
     }
 
     private void handleAuthSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-    
+
         String targetUrl = determineRedirectionUrl(authentication);
- 
+
         if (response.isCommitted()) {
             return;
         }
- 
         redirectStrategy.sendRedirect(request, response, targetUrl);
-    
     }
 
     private void clearAuthAttributes(HttpServletRequest request) {
@@ -55,22 +52,22 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
- 
+
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
-    
 
     private String determineRedirectionUrl(Authentication authentication) {
         boolean isNurse = false;
         boolean isPhysician = false;
         boolean isAdmin = false;
-        
+
         Collection<? extends GrantedAuthority> authorities
-         = authentication.getAuthorities();
+                = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("NURSE")) {
                 isNurse = true;
@@ -78,13 +75,12 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
             } else if (grantedAuthority.getAuthority().equals("PHYSICIAN")) {
                 isPhysician = true;
                 break;
-            }
-            else if (grantedAuthority.getAuthority().equals("ADMIN")) {
+            } else if (grantedAuthority.getAuthority().equals("ADMIN")) {
                 isAdmin = true;
                 break;
             }
         }
- 
+
         if (isNurse) {
             return "/nurse";
         } else if (isPhysician) {
@@ -95,7 +91,4 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
             throw new IllegalStateException();
         }
     }
-
-    
-    
 }

@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
-                .antMatchers("/admin/**", "/all_cities").hasAnyAuthority("ADMIN")
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/physician/**").hasAnyAuthority("ADMIN", "PHYSICIAN")
                 .antMatchers("/nurse/**").hasAnyAuthority("ADMIN", "PHYSICIAN", "NURSE")
                 .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable()

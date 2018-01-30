@@ -16,18 +16,23 @@
                     <tr>
                         <th>Id</th>
                         <th>First Name</th>
+                        <th>Middle Name</th>
                         <th>Last Name</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th>Address</th>
                     </tr>
                     <tr th:each="patient : ${patients}">
                         <td th:text="${patient.id}"></td>
                         <td th:text="${patient.firstName}"></td>
+                        <td th:text="${patient.middleName}"></td>
                         <td th:text="${patient.lastName}"></td>
                         <td th:text="${patient.contactInfo?.phone}"></td>
                         <td th:text="${patient.contactInfo?.email}"></td>
+                        <td th:text="${patient.contactInfo?.address}"></td>
 
                     </tr>
+                    
                 </table>
 
 

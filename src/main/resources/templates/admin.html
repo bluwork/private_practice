@@ -1,26 +1,30 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
     <head>
-    <div th:replace="fragments/header :: header-css"/>
-    <link type="text/css" rel="stylesheet" href="../static/css/admin.css" th:href="@{/css/admin.css}"/>
-</head>
-<body>
-    
+        <div th:replace="fragments/header :: header-css"/>
+    </head>
+    <body>
+        <!--<div th:replace="fragments/header :: header"/>-->
 
 
-
-
-    <div class="admin">
-        <div class="box header">Header</div>
-        <div class="box sidebar">Sidebar</div>
-        <div class="box content">
-            <h1>Admin page (Spring Security protected)</h1>
-            <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <div class="container ">
+        <div class="admin">
+            <div class="box header">Header</div>
+            <div class="box sidebar">
+                <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/patient/search}">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="searchText"/>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <a th:href="@{/all_patients}">Show all patients</a>
+            </div>
+            <div class="box content">
+                <h1>Admin page (Spring Security protected)</h1>
+                <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+            </div>
+            <div class="box footer"><div th:replace="fragments/footer :: footer"/></div>
         </div>
-        <div class="box footer"><div th:replace="fragments/footer :: footer"/></div>
-    </div>
-
-
-</body>
+        </div>
+    </body>
 </html>

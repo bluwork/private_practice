@@ -44,7 +44,7 @@ public class PatientController {
         patientService.addOrUpdatePatient(patient);
     }
 
-    @RequestMapping("/search")
+    @RequestMapping("/patient/search")
     public String search(@RequestParam String searchText, Model model) {
         List searchResults = null;
         try {

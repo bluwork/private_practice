@@ -37,7 +37,7 @@ public class AdminController {
         model.addAttribute("roles", Role.values());
         return "/admin/add_user";
     }
-    
+     
     @RequestMapping(method=RequestMethod.POST, value="/admin/new_user")
     public void addUser(@ModelAttribute AppUser appUser, Model model) {
         appUserService.addOrUpdateUser(appUser);
