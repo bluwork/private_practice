@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import org.springframework.data.domain.Page;
 
 /**
  *
@@ -19,4 +20,6 @@ public interface PatientService {
     void addOrUpdatePatient(Patient patient);
     void deletePatient(Long id);
     List<Patient> searchForPatient(String searchText);
+
+    public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage);
 }

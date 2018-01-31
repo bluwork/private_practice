@@ -9,6 +9,7 @@ import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author bobanlukic
  */
+
 @Controller
 public class PatientController {
 
@@ -31,6 +33,16 @@ public class PatientController {
         List<Patient> allPatients = patientService.getAllPatient();
         model.addAttribute("patients", allPatients);
         return "/all_patients";
+    }
+    
+    @RequestMapping("/page_patients")
+    public String showPagePatients(Model model, 
+            @RequestParam(defaultValue="0") int pageNumber, 
+            @RequestParam(defaultValue="5") int patientsByPage) {
+        Page<Patient> allPatients = patientService.getAllPatientsPaged(pageNumber, patientsByPage);
+        model.addAttribute("patients", allPatients);
+        model.addAttribute("currentPage", pageNumber);
+        return "/page_patients";
     }
 
     @RequestMapping("/add_new_patient")

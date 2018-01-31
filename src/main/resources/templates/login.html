@@ -3,11 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     
-    <head>
-        <title>Ordinacija Sign In </title>
-        <div th:replace="fragments/header :: header-css"/>
-    </head>
-    
+<head th:replace="fragments/layout :: head_fragment (pageTitle='Sign In')"/>
     <body>
         
         <div class="container">

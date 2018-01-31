@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org">
-    <head>
-       <div th:replace="fragments/header :: header-css"/>
-    </head>
+   <head th:replace="fragments/layout :: head_fragment (pageTitle='All cities')"/>
     <body>
         <div th:replace="fragments/header :: header"/>
         <h1>All cities table</h1>

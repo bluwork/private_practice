@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns ="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head_fragment (pageTitle)">
+        <title th:text="${pageTitle}"></title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+        <link href="../static/css/normalize.css" th:href="@{/css/normalize.css}" rel="stylesheet" />
+        <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    </head>
+    <body>
+    </body>
+</html>

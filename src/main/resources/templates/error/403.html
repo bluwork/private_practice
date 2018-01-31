@@ -2,12 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-    <head>
-        <div th:replace="fragments/header :: header-css"/>
-    </head>
+   <head th:replace="fragments/layout :: head_fragment (pageTitle='Access Denied')"/>
     <body>
         <div th:replace="fragments/header :: header"/>
-        <div class="container">
+        <div class="container below-nav-bar">
             <div class="starter-template" >
                 <h1>403 - Access is denied</h1>
                 <div th:inline="text">Sorry 

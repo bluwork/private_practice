@@ -46,6 +46,6 @@ public class AppUserDaoTest {
         assertThat(badCredentials).isEqualTo(null);
           
         List<AppUser> allUsers = appUserDao.findAll();
-        assertThat(allUsers.get(1).getPassword()).isEqualTo("D0ktor");
+        assertThat(allUsers.get(1).getPassword()).isEqualTo("jova123");
     }
 }

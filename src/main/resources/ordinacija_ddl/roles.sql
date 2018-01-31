@@ -16,4 +16,10 @@ VALUES
 (1, 'NURSE'),
 (2, 'PHYSICIAN'),
 (2, 'NURSE'),
-(3, 'NURSE');
+(3, 'PHYSICIAN'),
+(3, 'NURSE'),
+(4, 'PHYSICIAN'),
+(4, 'NURSE'),
+(5, 'NURSE'),
+(6, 'NURSE'),
+(7, 'NURSE');

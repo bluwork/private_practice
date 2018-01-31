@@ -34,8 +34,7 @@ public class PatientDaoTest {
    
     public void repositoryTest() throws Exception {
 
-        // Test findAll()
-        assertThat(patientDao.findAll().size()).isEqualTo(4);
+
         
         // Test findById
         Patient patientOne = patientDao.findOne(1L);

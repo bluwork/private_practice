@@ -12,6 +12,8 @@ import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.ltslab.nst.ordinacija.dao.PatientDao;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
  *
@@ -51,5 +53,9 @@ public class PatientServiceImpl implements PatientService{
     public List<Patient> searchForPatient(String searchText) {
         return patientSearchRepository.search(searchText);       
     }
-    
+
+    @Override
+    public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage) {
+       return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
+    }
 }
