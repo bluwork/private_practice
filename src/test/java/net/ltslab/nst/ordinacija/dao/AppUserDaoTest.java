@@ -31,7 +31,6 @@ public class AppUserDaoTest {
     private AppUserDao appUserDao;
 
     @Test
-    @Timed(millis = 500)
     public void repositoryTest() throws Exception {
         
             
