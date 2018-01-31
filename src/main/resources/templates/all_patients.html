@@ -8,8 +8,8 @@
         <div class="container below-nav-bar">
             <div th:if="${not #lists.isEmpty(patients)}">
                 <h2>Patient list</h2>
-                <table class="table">
-                    <tr>
+                <table class="table table-hover table-stripped">
+                    <thead>
                         <th>Id</th>
                         <th>First Name</th>
                         <th>Middle Name</th>
@@ -17,8 +17,8 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>
-                    </tr>
-                    <tr th:each="patient : ${patients}">
+                    </thead>
+                    <tbody th:each="patient : ${patients}">
                         <td th:text="${patient.id}"></td>
                         <td th:text="${patient.firstName}"></td>
                         <td th:text="${patient.middleName}"></td>
@@ -27,7 +27,7 @@
                         <td th:text="${patient.contactInfo?.email}"></td>
                         <td th:text="${patient.contactInfo?.address}"></td>
 
-                    </tr>
+                    </tbody>
                     
                 </table>
 

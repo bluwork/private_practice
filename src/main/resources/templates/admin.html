@@ -2,7 +2,10 @@
 <html 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='Admin')"/>      
+    <head th:include="fragments/layout :: head_fragment (pageTitle='Admin')">
+        
+
+    </head>
     <body>
 
         <div th:replace="fragments/header :: header"/>
@@ -10,8 +13,8 @@
         <div class="container below-nav-bar">
 
             <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/patient/search}">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="searchText"/>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="searchText" required="true"/>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
             </form>
             <a th:href="@{/all_patients}">Show all patients</a><br/>
             <a th:href="@{/page_patients}">Show all patients page by page</a>

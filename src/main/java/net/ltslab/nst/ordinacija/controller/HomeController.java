@@ -26,11 +26,6 @@ public class HomeController {
         return "redirect:login";
     }
 
-    @RequestMapping("/about")
-    public String about() {
-        return "about";
-    }
-    
     @RequestMapping("/login")
     public String login() {
         return "login";
