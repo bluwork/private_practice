@@ -1,21 +1,114 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
- <head th:replace="fragments/layout :: head_fragment (pageTitle='New Patient')"/>
-<body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Add new patient')"/>
+    <body>
 
-    <div th:replace="fragments/header :: header"/>
+        <div class="container">
+            <h1>New patient</h1>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form action="#" th:action="@{/new_patient}" th:object="${patient}" method="post">
 
-    <div class="container below-nav-bar">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="First Name" id="first_name" type="text" class="validate" required="true"
+                                   th:field="*{firstName}"/>
+                        </div>
+                        <div class="input-field col s6">
+                            <input placeholder="Last Name" id="last_name" type="text" class="validate" required="true"
+                                   th:field="*{lastName}"/>
+                        </div>
+                    </div>
 
-        <div class="starter-template">
-            <h1>New patient added</h1>
-            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/all_patients}">
-                <button class="btn btn-outline-success my-2 my-sm-0">All Patients</button>
-            </form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Middle Name" id="middle_name" type="text" class="validate"
+                                   th:field="*{middleName}"/>
+                        </div>
+                        <div class="input-field col s2">
+
+                            <select th:field="*{gender}" th:remove="all-but-first">
+                                <option th:each="gender : ${genders}"
+                                        th:value="${gender}" th:text="${gender}"></option>
+                            </select>
+                            <!--<label for="gender">Role:</label>-->
+                        </div>
+                        <div class="input-field col s2">
+
+                            <select th:field="*{bloodType}" th:remove="all-but-first">
+                                <option th:each="bloodType : ${bloodTypes}"
+                                        th:value="${bloodType}" th:text="${bloodType}"></option>
+                            </select>
+
+                        </div>
+                        <div class="input-field col s2">
+                            <input placeholder="Date Of Birth" id="dob" type="date" class="datepicker picker__input" 
+                                   th:field="*{dateOfBirth}" required="true"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                         <div class="input-field col s6">
+                            <input placeholder="Phone Number" id="phone_number" type="text" class="validate" required="true"
+                                   th:field="*{contactInfo.phone}"/>
+                        </div>
+                    </div>
+                       
+                    
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <input type="submit" class="btn btn-lg btn-outline-primary btn-block" value="Save"/>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
         </div>
-    </div>
+        <div th:replace="fragments/footer :: footer"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').material_select();
 
-    <div th:replace="fragments/footer :: footer"/>
+                $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 100, // Creates a dropdown of 15 years to control year,
+                    formatSubmit: 'yyyy-mm-dd',
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    max: true,
+                    closeOnSelect: true // Close upon selecting a date,
+                            // editable: true
+                });
 
-</body>
+
+            });
+
+            function checkDate() {
+                if ($('#dob').val() == '') {
+                    $('#dob').addClass('invalid')
+                    return false;
+                } else {
+                    $('#dob').removeClass('invalid')
+                    return true;
+                }
+            }
+
+            $('form').submit(function () {
+                if (!checkDate()) {
+                    return false;
+                }
+
+            });
+
+            $('#dob').change(function () {
+                checkDate();
+            });
+
+
+        </script>
+    </body>
 </html>
+

@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.domain.enums;
+package net.ltslab.nst.ordinacija.dto;
+
+import java.util.Date;
 
 /**
  *
  * @author bobanlukic
  */
-public enum BloodType {
-    UNDETERMINED,
-    A_POSITIVE,
-    A_NEGATIVE,
-    B_POSITIVE,
-    B_NEGATIVE,
-    AB_POSITIVE,
-    AB_NEGATIVE,
-    O_POSITIVE,
-    O_NEGATIVE
+public class PatientDto {
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private Date dateOfBirth;
+    
+    
 }

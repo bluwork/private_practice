@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import net.ltslab.nst.ordinacija.domain.City;
+import net.ltslab.nst.ordinacija.domain.Patient;
 import org.hibernate.search.annotations.Field;
 
 /**
@@ -21,7 +23,7 @@ import org.hibernate.search.annotations.Field;
 @Entity
 @Table(name = "contact_info")      
 @XmlRootElement
-class ContactInfo implements Serializable {
+public class ContactInfo implements Serializable {
 
     private static final long serialVersionUID = 5434251891946172712L;    
     

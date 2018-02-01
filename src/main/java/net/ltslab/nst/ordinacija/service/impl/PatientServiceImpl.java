@@ -58,4 +58,9 @@ public class PatientServiceImpl implements PatientService{
     public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage) {
        return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
     }
+
+    @Override
+    public void deletePatient(Patient patient) {
+       patientRepository.delete(patient);
+    }
 }

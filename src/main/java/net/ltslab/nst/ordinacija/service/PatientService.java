@@ -22,4 +22,6 @@ public interface PatientService {
     List<Patient> searchForPatient(String searchText);
 
     public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage);
+
+    public void deletePatient(Patient patient);
 }

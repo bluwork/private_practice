@@ -5,14 +5,20 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
+
+
+import net.ltslab.nst.ordinacija.domain.ContactInfo;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.domain.enums.BloodType;
+import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,16 +51,27 @@ public class PatientController {
         return "/page_patients";
     }
 
-    @RequestMapping("/add_new_patient")
+    @RequestMapping("/new_patient")
     public String addNewPatient(Model model) {
         model.addAttribute("patient", new Patient());
-        return "/add_new_patient";
+        model.addAttribute("genders", Gender.values());
+        model.addAttribute("bloodTypes", BloodType.values());
+        model.addAttribute("contactInfo", new ContactInfo());
+        return "/new_patient";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/new_patient")
-    public void addNewPatient(@ModelAttribute Patient patient) {
+    public String addNewPatient(@ModelAttribute Patient patient) {
+        patient.getContactInfo().setPatient(patient);
         patientService.addOrUpdatePatient(patient);
+        return "redirect:/all_patients";
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/delete_patient/{id}")
+    public String deletePatient(@PathVariable(name="id") Long patientId) {
+        patientService.deletePatient(patientId);
+        return "redirect:/all_patients";
+    }
+  
 
     @RequestMapping("/patient/search")
     public String search(@RequestParam String searchText, Model model) {

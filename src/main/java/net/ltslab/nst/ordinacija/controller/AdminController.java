@@ -38,9 +38,10 @@ public class AdminController {
         return "/admin/add_user";
     }
      
-    @RequestMapping(method=RequestMethod.POST, value="/admin/new_user")
-    public void addUser(@ModelAttribute AppUser appUser, Model model) {
+    @RequestMapping(method=RequestMethod.POST, value="/admin/add_user")
+    public String addUser(@ModelAttribute AppUser appUser, Model model) {
         appUserService.addOrUpdateUser(appUser);
         model.addAttribute("new_user_name", appUser.getFirstName());
+        return "redirect:admin/new_user";
     }
 }

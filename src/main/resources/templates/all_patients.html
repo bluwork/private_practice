@@ -1,42 +1,51 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-   <head th:replace="fragments/layout :: head_fragment (pageTitle='All patients')"/>
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='All patients')"/>
     <body>
-        <div th:replace="fragments/header :: header"/>
 
-        <div class="container below-nav-bar">
+
+        <div class="container">
+
+            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/new_patient}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="">Add new Patient</button>
+            </form>
+
             <div th:if="${not #lists.isEmpty(patients)}">
                 <h2>Patient list</h2>
-                <table class="table table-hover table-stripped">
+                <table class="bordered">
                     <thead>
                         <th>Id</th>
                         <th>First Name</th>
                         <th>Middle Name</th>
                         <th>Last Name</th>
+                        <th>Date Of Birth</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Address</th>
                     </thead>
                     <tbody th:each="patient : ${patients}">
-                        <td th:text="${patient.id}"></td>
-                        <td th:text="${patient.firstName}"></td>
-                        <td th:text="${patient.middleName}"></td>
-                        <td th:text="${patient.lastName}"></td>
-                        <td th:text="${patient.contactInfo?.phone}"></td>
-                        <td th:text="${patient.contactInfo?.email}"></td>
-                        <td th:text="${patient.contactInfo?.address}"></td>
+                        <tr>
+                            <td th:text="${patient.id}"></td>
+                            <td th:text="${patient.firstName}"></td>
+                            <td th:text="${patient.middleName}"></td>
+                            <td th:text="${patient.lastName}"></td>
+                            <td th:text="${patient.dateOfBirth}"></td>
+                            <td th:text="${patient.contactInfo?.phone}"></td>
+                            <td th:text="${patient.contactInfo?.email}"></td>
+                            <td th:text="${patient.contactInfo?.address}"></td>
 
+                            <td> <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/delete_patient/{id}(id=${patient.id})}" method="post">
+                                    <button class="btn btn-outline-success my-2 my-sm-0 red">Delete</button>
+                                </form></td>
+                        </tr>
                     </tbody>
-                    
+
                 </table>
 
 
             </div>
 
-            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/add_new_patient}">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="">Add new Patient</button>
-            </form>
         </div>
         <div th:replace="fragments/footer :: footer"/>
     </body>

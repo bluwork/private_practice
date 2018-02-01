@@ -62,33 +62,28 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
     }
 
     private String determineRedirectionUrl(Authentication authentication) {
-        boolean isNurse = false;
-        boolean isPhysician = false;
-        boolean isAdmin = false;
 
-        Collection<? extends GrantedAuthority> authorities
-                = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("NURSE")) {
-                isNurse = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("PHYSICIAN")) {
-                isPhysician = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                isAdmin = true;
-                break;
-            }
-        }
-
-        if (isNurse) {
-            return "/nurse";
-        } else if (isPhysician) {
-            return "/physician";
-        } else if (isAdmin) {
-            return "/admin";
-        } else {
+        boolean hasPhysician = false;
+        
+        for  (GrantedAuthority auth : authentication.getAuthorities()) {
+            
+           if (auth.getAuthority().equals("ADMIN")) {
+              return "/admin";
+           } 
+           
+           if (auth.getAuthority().equals("PHYSICIAN")) {
+               hasPhysician = true;
+               continue;
+           }
+           
+           if (auth.getAuthority().equals("NURSE")) {
+               continue;
+           }
+            
             throw new IllegalStateException();
         }
+        
+        if (hasPhysician) return "/physician";
+        return "/nurse";
     }
 }
