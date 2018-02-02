@@ -3,6 +3,35 @@
       xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/layout :: head_fragment (pageTitle='Add new patient')"/>
     <body>
+        <div th:replace="fragments/header :: header"/>
+
+
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" th:href="@{#modal1}">Modal</a>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content" th:object="${patient}">
+                <h4>New patient dialog</h4>
+                <form id="modal_form" th:action="@{/new_patient}" th:object="${patient}" method="post">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="First Name" id="first_name" type="text" class="validate" required="true"
+                               th:field="*{firstName}"/>
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Last Name" id="last_name" type="text" class="validate" required="true"
+                               th:field="*{lastName}"/>
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-lg btn-outline-primary btn-block" value="Save"/>
+                <!--<button  form="modal_form" type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>-->
+            </div>
+        </div>
 
         <div class="container">
             <h1>New patient</h1>
@@ -13,10 +42,12 @@
                         <div class="input-field col s6">
                             <input placeholder="First Name" id="first_name" type="text" class="validate" required="true"
                                    th:field="*{firstName}"/>
+                            <label for="first_name">First Name</label>
                         </div>
                         <div class="input-field col s6">
                             <input placeholder="Last Name" id="last_name" type="text" class="validate" required="true"
                                    th:field="*{lastName}"/>
+                            <label for="last_name">Last Name</label>
                         </div>
                     </div>
 
@@ -24,6 +55,7 @@
                         <div class="input-field col s6">
                             <input placeholder="Middle Name" id="middle_name" type="text" class="validate"
                                    th:field="*{middleName}"/>
+                            <label for="middle_name">Middle Name</label>
                         </div>
                         <div class="input-field col s2">
 
@@ -31,7 +63,7 @@
                                 <option th:each="gender : ${genders}"
                                         th:value="${gender}" th:text="${gender}"></option>
                             </select>
-                            <!--<label for="gender">Role:</label>-->
+                            <label for="gender">Gender</label>
                         </div>
                         <div class="input-field col s2">
 
@@ -39,38 +71,44 @@
                                 <option th:each="bloodType : ${bloodTypes}"
                                         th:value="${bloodType}" th:text="${bloodType}"></option>
                             </select>
+                            <label for="bloodType">Blood Type</label>
 
                         </div>
                         <div class="input-field col s2">
                             <input placeholder="Date Of Birth" id="dob" type="date" class="datepicker picker__input" 
                                    th:field="*{dateOfBirth}" required="true"/>
+                            <label for="dob">Date of Birth</label>
                         </div>
                     </div>
 
                     <div class="row">
-                         <div class="input-field col s6">
+                        <div class="input-field col s6">
                             <input placeholder="Phone Number" id="phone_number" type="text" class="validate" required="true"
                                    th:field="*{phone}"/>
+                            <label for="phone_number">Phone Number</label>
                         </div>
-                          <div class="input-field col s6">
+                        <div class="input-field col s6">
                             <input placeholder="Email" id="email" type="email" class="validate" required="true"
                                    th:field="*{email}"/>
+                            <label for="email">Email</label>
                         </div>
-                          
-                        
+
+
                     </div>
                     <div class="row">
-                         <div class="input-field col s6">
+                        <div class="input-field col s6">
                             <input placeholder="Address" id="address" type="text" class="validate" required="true"
                                    th:field="*{address}"/>
+                            <label for="address">Address</label>
                         </div>
-                          <div class="input-field col s6">
+                        <div class="input-field col s6">
                             <input placeholder="City" id="city" type="text" class="validate" required="true"
                                    th:field="*{cityName}"/>
+                            <label for="city">City</label>
                         </div>
                     </div>
-                       
-                    
+
+
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <input type="submit" class="btn btn-lg btn-outline-primary btn-block" value="Save"/>
@@ -82,9 +120,13 @@
 
             </div>
         </div>
+
         <div th:replace="fragments/footer :: footer"/>
+
         <script type="text/javascript">
+
             $(document).ready(function () {
+
                 $('select').material_select();
 
                 $('.datepicker').pickadate({
@@ -98,6 +140,9 @@
                     closeOnSelect: true // Close upon selecting a date,
                             // editable: true
                 });
+
+                // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+                $('.modal').modal();
 
 
             });

@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/layout :: head_fragment (pageTitle='Search results')"/>
     <body>
-        <!--<div th:replace="fragments/header :: header"/>-->
+       <div th:replace="fragments/header :: header"/>
 
         <div class="container below-nav-bar">
             <h1>Search results for " <span th:text="${searchedFor}"></span> "</h1>

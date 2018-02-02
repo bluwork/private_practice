@@ -4,12 +4,12 @@
     xmlns:th="http://www.thymeleaf.org">
     <head th:include="fragments/layout :: head_fragment (pageTitle='Admin')">
 
-
     </head>
     <body>
 
-        <div class="container">
+        <div th:replace="fragments/header :: header"/>
 
+        <div class="container">
             <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/patient/search}">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" name="searchText" required="true"/>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
@@ -40,13 +40,6 @@
                     </div>
                 </div>
             </div>
-            <!--
-                        <h1>Admin page (Spring Security protected)</h1>
-                        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
-
-            
-
-
         </div>
         <div th:replace="fragments/footer :: footer"/>
     </body>
