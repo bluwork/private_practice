@@ -5,24 +5,25 @@
         <title></title>
     </head>
     <body>
-
-
-        <div class="container" th:fragment="footer">
-
-            © 2018 OrdinacijaTeam
-            <span sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">Sign Out</a>
-            </span>
-
-            <script src="/webjars/jquery/3.2.1/jquery.js"></script>          
-<!--            <script src="/webjars/tether/1.4.3/dist/js/tether.min.js"></script>
-            <script src="/webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>-->
-
+        <div class="container" th:fragment ="footer">
+            <footer class="page-footer indigo" th:fragment="footer">
+                <div class="footer-copyright">
+                    <div class="container">
+                        © 2018 OrdinacijaTeam
+                        <span sec:authorize="isAuthenticated()">
+                            <a th:href="@{/logout}">Sign Out</a>
+                        </span>
+                        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                    </div>
+                </div>
+            </footer>   
+            <script src="/webjars/jquery/3.2.1/jquery.js"></script>      
             <script src="/webjars/materializecss/0.97.0/js/materialize.js"></script>
             <script type="text/javascript">
                 $(".dropdown-button").dropdown();
             </script>
-            <script type="text/javascript" layout:fragment="script"/>
+            <script type="text/javascript" layout:fragment="script">
+            </script>
         </div>
     </body>
 </html>

@@ -5,14 +5,13 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-
-
-import net.ltslab.nst.ordinacija.domain.ContactInfo;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.service.PatientService;
+import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -53,17 +52,17 @@ public class PatientController {
 
     @RequestMapping("/new_patient")
     public String addNewPatient(Model model) {
-        model.addAttribute("patient", new Patient());
+        model.addAttribute("patient", new PatientDto());
         model.addAttribute("genders", Gender.values());
         model.addAttribute("bloodTypes", BloodType.values());
-        model.addAttribute("contactInfo", new ContactInfo());
         return "/new_patient";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/new_patient")
-    public String addNewPatient(@ModelAttribute Patient patient) {
-        patient.getContactInfo().setPatient(patient);
-        patientService.addOrUpdatePatient(patient);
+    public String addNewPatient(@ModelAttribute PatientDto patientDto) {
+        Patient p = Converter.convertDtoToEntity(patientDto);
+        System.out.println(p.getId());
+        patientService.addOrUpdatePatient(p);
         return "redirect:/all_patients";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/delete_patient/{id}")

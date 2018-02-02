@@ -50,7 +50,23 @@
                     <div class="row">
                          <div class="input-field col s6">
                             <input placeholder="Phone Number" id="phone_number" type="text" class="validate" required="true"
-                                   th:field="*{contactInfo.phone}"/>
+                                   th:field="*{phone}"/>
+                        </div>
+                          <div class="input-field col s6">
+                            <input placeholder="Email" id="email" type="email" class="validate" required="true"
+                                   th:field="*{email}"/>
+                        </div>
+                          
+                        
+                    </div>
+                    <div class="row">
+                         <div class="input-field col s6">
+                            <input placeholder="Address" id="address" type="text" class="validate" required="true"
+                                   th:field="*{address}"/>
+                        </div>
+                          <div class="input-field col s6">
+                            <input placeholder="City" id="city" type="text" class="validate" required="true"
+                                   th:field="*{cityName}"/>
                         </div>
                     </div>
                        
