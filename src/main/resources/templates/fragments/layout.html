@@ -7,15 +7,18 @@ and open the template in the editor.
 <html xmlns ="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head th:fragment="head_fragment (pageTitle)">
+        
         <title th:text="${pageTitle}"></title>
-       
-        <link rel="icon" type="image/png" th:href="@{/img/hospital.png}" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-
+        
+        <link th:href="@{css/main.css}" href="../../static/css/main.css" type="text/css" rel="stylesheet" />
         <link href="/webjars/materializecss/0.100.2/css/materialize.css" type="text/css" rel="stylesheet"
               media="screen,projection"/>
+        
+        <link rel="icon" type="image/png" th:href="@{/img/hospital.png}" />
+
     </head>
     <body>
     </body>

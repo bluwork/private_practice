@@ -6,6 +6,7 @@
 package net.ltslab.nst.ordinacija.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeController {
-    
 
     @RequestMapping("/")
     public String root() {
         return "login";
     }
-    
-     @RequestMapping("/home")
+
+    @RequestMapping("/home")
     public String home() {
         return "redirect:login";
     }
@@ -30,9 +30,21 @@ public class HomeController {
     public String login() {
         return "login";
     }
-    
-    @RequestMapping("/403")
-    public String accessDenied() {
-        return "error/403";
+
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
     }
+
+//    @RequestMapping("/403")
+//    public String accessDenied() {
+//        return "error/403";
+//    }
+//    
+//    @RequestMapping("/500")
+//    public String error500(Model model){
+//        model.addAttribute("error", true);
+//        return "/admin/add_user";
+//    }
 }

@@ -4,7 +4,7 @@ SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE  `app_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT, 
-  `username` VARCHAR(50) NOT NULL UNIQUE,
+  `username` VARCHAR(50) NOT NULL,
   `password` VARCHAR(255) DEFAULT NULL,
   `first_name` VARCHAR(50) DEFAULT NULL,
   `last_name` VARCHAR(50) DEFAULT NULL,

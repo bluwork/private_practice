@@ -5,120 +5,101 @@
     <body>
         <div th:replace="fragments/header :: header"/>
 
-
-        <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" th:href="@{#modal1}">Modal</a>
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content" th:object="${patient}">
-                <h4 th:text="${patient.firstName}"></h4>
-                <form id="modal_form" th:action="@{/new_patient}" th:object="${patient}" method="post">
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input placeholder="First Name" id="first_name" type="text" class="validate" required="true"
-                                   th:field="*{firstName}"/>
-                            <label for="first_name">First Name</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input placeholder="Last Name" id="last_name" type="text" class="validate" required="true"
-                                   th:field="*{lastName}"/>
-                            <label for="last_name">Last Name</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-lg btn-outline-primary btn-block" value="Save" th:value="#{save}"/>
-                <!--<button  form="modal_form" type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Save</button>-->
-            </div>
-        </div>
-
         <div class="container">
-            <h4 th:text="#{new_patient}">New patient</h4>
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form action="#" th:action="@{/new_patient}" th:object="${patient}" method="post">
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="first_name" type="text" class="validate" required="true"
-                                   th:field="*{firstName}"/>
-                            <label for="first_name" th:text="#{first_name}" >First Name</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="last_name" type="text" class="validate" required="true"
-                                   th:field="*{lastName}"/>
-                            <label for="last_name" th:text="#{last_name}">Last Name</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="middle_name" type="text" class="validate"
-                                   th:field="*{middleName}"/>
-                            <label for="middle_name" th:text="#{middle_name}">Middle Name</label>
-                        </div>
-                        <div class="input-field col s2">
-
-                            <select th:field="*{gender}" th:remove="all-but-first">
-                                <option th:each="gender : ${genders}"
-                                        th:value="${gender}" th:text="${gender}"></option>
-                            </select>
-                            <label for="gender" th:text="#{gender}">Gender</label>
-                        </div>
-                        <div class="input-field col s2">
-
-                            <select th:field="*{bloodType}" th:remove="all-but-first">
-                                <option th:each="bloodType : ${bloodTypes}"
-                                        th:value="${bloodType}" th:text="${bloodType}"></option>
-                            </select>
-                            <label for="bloodType" th:text="#{blood_type}">Blood Type</label>
-
-                        </div>
-                        <div class="input-field col s2">
-                            <input id="dob" type="date" class="datepicker picker__input" 
-                                   th:field="*{dateOfBirth}" required="true"/>
-                            <label for="dob" th:text="#{dob}">Date of Birth</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="phone_number" type="text" class="validate" required="true"
-                                   th:field="*{phone}"/>
-                            <label for="phone_number" th:text="#{phone}">Phone Number</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="email" type="email" class="validate" required="true"
-                                   th:field="*{email}"/>
-                            <label for="email" th:text="#{email}">Email</label>
-                        </div>
-
-
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="address" type="text" class="validate" required="true"
-                                   th:field="*{address}"/>
-                            <label for="address"  th:text="#{address}">Address</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="city" type="text" class="validate" required="true"
-                                   th:field="*{cityName}"/>
-                            <label for="city" th:text="#{city}">City</label>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="submit" class="btn btn-lg btn-outline-primary btn-block" value="Save" th:value="#{save}"/>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                    </div>
-                </form>
-
+            <div class="card-panel teal lighten-2 hoverable">
+                <h4 th:text="#{new_patient}">New patient</h4>
             </div>
+            
+
+            <form action="#" th:action="@{/new_patient}" th:object="${patient}" method="post">
+
+                <div class="row">
+                    <div class="input-field col s12 m4 ">
+                        <input id="first_name" type="text" class="validate" required="true"
+                               th:field="*{firstName}"/>
+                        <label for="first_name" th:text="#{first_name}" >First Name</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <input id="middle_name" type="text" class="validate"
+                               th:field="*{middleName}"/>
+                        <label for="middle_name" th:text="#{middle_name}">Middle Name</label>
+                    </div>
+                    <div class="input-field col s12 m4">
+                        <input id="last_name" type="text" class="validate" required="true"
+                               th:field="*{lastName}"/>
+                        <label for="last_name" th:text="#{last_name}">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s12 m4">
+                        <input id="dob" type="date" class="datepicker picker__input" 
+                               th:field="*{dateOfBirth}" required="true"/>
+                        <label for="dob" th:text="#{dob}">Date of Birth</label>
+                    </div>
+
+                    <div class="input-field col s6 m4">
+                        <select th:field="*{gender}">
+                            <option value="MALE" th:text="#{gender_male}">Male</option>
+                            <option value="FEMALE" th:text="#{gender_female}">Female</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="input-field col s6 m4">
+                        <select th:field="*{bloodType}">
+                            <option value="UNDETERMINED" th:text="#{blood_type.undetermined}">Undetermined</option>
+                            <option value="A_POSITIVE" th:text="#{blood_type.a_pos}">A positive</option>
+                            <option value="A_NEGATIVE" th:text="#{blood_type.a_neg}">A negative</option>
+                            <option value="B_POSITIVE" th:text="#{blood_type.b_pos}">B positive</option>
+                            <option value="B_NEGATIVE" th:text="#{blood_type.b_neg}">B negative</option>
+                            <option value="AB_POSITIVE" th:text="#{blood_type.ab_pos}">AB positive</option>
+                            <option value="AB_NEGATIVE" th:text="#{blood_type.ab_neg}">AB negative</option>
+                            <option value="O_POSITIVE" th:text="#{blood_type.o_pos}">O positive</option>
+                            <option value="O_NEGATIVE" th:text="#{blood_type.o_neg}">O negative</option>
+                        </select>
+                        
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="phone_number" type="text" class="validate" required="true"
+                               th:field="*{phone}"/>
+                        <label for="phone_number" th:text="#{phone}">Phone Number</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="email" type="email" class="validate" required="true"
+                               th:field="*{email}"/>
+                        <label for="email" th:text="#{email}">Email</label>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input id="address" type="text" class="validate" required="true"
+                               th:field="*{address}"/>
+                        <label for="address"  th:text="#{address}">Address</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input id="city" type="text" class="validate" required="true"
+                               th:field="*{cityName}"/>
+                        <label for="city" th:text="#{city}">City</label>
+                    </div>
+                </div>
+
+
+                <div class="row center">
+                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Submit
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>
+            </form>
+
+
         </div>
 
         <div th:replace="fragments/footer :: footer"/>

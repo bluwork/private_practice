@@ -8,9 +8,18 @@
 
         <div class="container below-nav-bar">
 
-               
-                <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-                 <h1>You are visiting Physician page</h1>
+           <div class="col s12 m6">
+                    <div class="card blue-grey darken-1 hoverable">
+                        <div class="card-content white-text">
+                            <span class="card-title" th:text="#{patients}">Patients</span>
+                        </div>
+                        <div class="card-action">
+                            <a th:href="@{/all_patients}" th:text="#{show_all}">Show all</a>
+                            <a th:href="@{/new_patient}" th:text="#{add_new}">Add new</a>
+                            <a th:href="@{/page_patients}" th:text="#{paged}">Paged</a>
+                        </div>
+                    </div>
+                </div>
 
         </div>
         

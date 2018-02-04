@@ -45,7 +45,7 @@ public class AppUser implements Serializable {
     
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
     
     @Column(name = "password")

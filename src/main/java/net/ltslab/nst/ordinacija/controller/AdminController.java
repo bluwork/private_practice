@@ -16,6 +16,7 @@ import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,16 +40,24 @@ public class AdminController {
     @RequestMapping("/admin/add_user")
     public String showUserForm(Model model) {
         model.addAttribute("new_user", new AppUserDtoBuilder().build());
-        model.addAttribute("roles", Role.values());
         return "/admin/add_user";
     }
      
     @RequestMapping(method=RequestMethod.POST, value="/admin/add_user")
     public String addUser(@ModelAttribute AppUserDto appUserDto, Model model) {
         AppUser appUser = Converter.convertDtoToEntity(appUserDto);
-        appUserService.addOrUpdateUser(appUser);
-        model.addAttribute("new_user_name", appUserDto.getFirstName());
-        return "redirect:admin/new_user";
+        
+        if (appUserService.findByUsername(appUser.getUsername())== null) {
+            appUserService.addOrUpdateUser(appUser);
+            return "redirect:/admin/all_users";
+        }
+        
+        model.addAttribute("new_user", appUserDto);
+        model.addAttribute("username_exists", true);
+        model.addAttribute("username", appUser.getUsername());
+        
+        return "admin/add_user";
+       
     }
     
     @RequestMapping("/admin/all_users")

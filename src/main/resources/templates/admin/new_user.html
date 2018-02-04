@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html 
+    xmlns:th="http://www.thymeleaf.org">
    <head th:replace="fragments/layout :: head_fragment (pageTitle='New user')"/>
 <body>
 
@@ -8,6 +9,7 @@
     <div class="container">
 
         <div class="starter-template">
+            
             <h1>New user  <span th:text="${new_user_name}"></span> added</h1>
             <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/admin}">
                 <button class="btn btn-outline-success my-2 my-sm-0">Admin</button>

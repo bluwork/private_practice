@@ -13,11 +13,11 @@
                 <div class="row col s12">
                     <h4 th:text="#{manage_patients}">Manage Patients</h4>
                     <form class="col s6" action="#" th:action="@{/new_patient}">
-                    <button class="btn btn-outline-success my-2 my-sm-0" th:text="#{add_new}">Add new Patient</button>
-                </form>
+                        <button class="btn btn-outline-success my-2 my-sm-0" th:text="#{add_new}">Add new Patient</button>
+                    </form>
                 </div>
-                
-                <table class="highlight">
+
+                <table class="highlight ">
                     <thead>
                         <tr>
                             <th th:text="#{first_name}">First Name</th>
@@ -38,6 +38,8 @@
                             <td th:text="${patient.contactInfo?.phone}"></td>
                             <td th:text="${patient.contactInfo?.email}"></td>
                             <td th:text="${patient.contactInfo?.address}"></td>
+                            <td><a id="scale-demo" href="#!" class="btn-floating btn-large scale-transition">
+                                    <i class="material-icons">add</i></a></td>
                         </tr>
                     </tbody>
 

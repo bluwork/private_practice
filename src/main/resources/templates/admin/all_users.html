@@ -9,8 +9,8 @@
 
         <div class="container">
 
-            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/admin/add_user}">
-                <button class="btn btn-outline-success my-2 my-sm-0" th:text="#{add_new}">Add new User</button>
+            <form class="col s12" action="#" th:action="@{/admin/add_user}">
+                <button class="btn waves-effect waves-light" th:text="#{add_new}">Add new User</button>
             </form>
 
             <div th:if="${not #lists.isEmpty(users)}">

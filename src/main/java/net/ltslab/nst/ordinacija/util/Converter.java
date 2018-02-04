@@ -43,6 +43,7 @@ public class Converter {
         appUser.setUsername(appUserDto.getUsername());
         appUser.setPassword(appUserDto.getPassword());
         appUser.setFirstName(appUserDto.getFirstName());
+        appUser.setLastName(appUserDto.getLastName());
         appUser.setRoles(appUserDto.getRoles());
         return appUser;
     }

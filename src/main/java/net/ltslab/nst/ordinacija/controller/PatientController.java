@@ -7,8 +7,6 @@ package net.ltslab.nst.ordinacija.controller;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.domain.enums.BloodType;
-import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.PatientDtoBuilder;
 import net.ltslab.nst.ordinacija.service.PatientService;
@@ -54,15 +52,12 @@ public class PatientController {
     @RequestMapping("/new_patient")
     public String addNewPatient(Model model) {
         model.addAttribute("patient", new PatientDtoBuilder().build());
-        model.addAttribute("genders", Gender.values());
-        model.addAttribute("bloodTypes", BloodType.values());
         return "/new_patient";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/new_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto) {
         Patient p = Converter.convertDtoToEntity(patientDto);
-        System.out.println(p.getId());
         patientService.addOrUpdatePatient(p);
         return "redirect:/all_patients";
     }
