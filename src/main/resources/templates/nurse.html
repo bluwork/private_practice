@@ -7,14 +7,14 @@
 
         <div class="container below-nav-bar">
 
-            
 
+            <h1 th:text="#{greeting}"/>
             <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-            
+
             <h1>You are visiting Nurse page</h1>
 
         </div>
-        
+
         <footer th:replace="fragments/footer :: footer"/>
 
     </body>

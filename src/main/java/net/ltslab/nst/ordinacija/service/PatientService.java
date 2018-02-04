@@ -15,7 +15,7 @@ import org.springframework.data.domain.Page;
  */
 
 public interface PatientService {
-    List<Patient> getAllPatient();
+    List<Patient> allPatients();
     Patient getPatientById(Long id);
     void addOrUpdatePatient(Patient patient);
     void deletePatient(Long id);

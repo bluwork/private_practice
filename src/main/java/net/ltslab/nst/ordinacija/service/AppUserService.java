@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.service;
 
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 
 /**
@@ -17,4 +18,6 @@ public interface AppUserService {
     AppUser findByUsername(String username);
 
     public void addOrUpdateUser(AppUser appUser);
+
+    public List<AppUser> getAllUsers();
 }

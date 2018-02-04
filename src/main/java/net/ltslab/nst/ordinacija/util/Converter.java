@@ -5,8 +5,10 @@
  */
 package net.ltslab.nst.ordinacija.util;
 
+import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.ContactInfo;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 
 /**
@@ -34,6 +36,15 @@ public class Converter {
         patient.setContactInfo(ci);
         
         return patient;
+    }
+    
+    public static AppUser convertDtoToEntity(AppUserDto appUserDto) {
+        AppUser appUser = new AppUser();
+        appUser.setUsername(appUserDto.getUsername());
+        appUser.setPassword(appUserDto.getPassword());
+        appUser.setFirstName(appUserDto.getFirstName());
+        appUser.setRoles(appUserDto.getRoles());
+        return appUser;
     }
     
 }

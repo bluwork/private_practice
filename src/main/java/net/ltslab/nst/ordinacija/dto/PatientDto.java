@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import net.ltslab.nst.ordinacija.domain.enums.Gender;
  *
  * @author bobanlukic
  */
+
 public class PatientDto implements Serializable{
 
     private static final long serialVersionUID = 9121707642309561697L;
@@ -30,9 +32,24 @@ public class PatientDto implements Serializable{
     private String cityName;
     private String allergies;
 
-    public PatientDto() {
+    private PatientDto() {
     }
 
+    public PatientDto(String firstName, String lastName, String middleName, Date dateOfBirth, Gender gender, BloodType bloodType, String phone, String email, String address, String cityName, String allergies) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.bloodType = bloodType;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.cityName = cityName;
+        this.allergies = allergies;
+    }
+
+    
     public String getFirstName() {
         return firstName;
     }
@@ -119,9 +136,6 @@ public class PatientDto implements Serializable{
 
     public void setAllergies(String allergies) {
         this.allergies = allergies;
-    }
-    
-    
-    
+    }   
     
 }

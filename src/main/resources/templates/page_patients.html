@@ -17,15 +17,13 @@ and open the template in the editor.
                     <table class="table table-hover  table-striped">
                         <thead >
                             <tr>
-                                <th>Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Blood Type</th>
+                                <th th:text="#{first_name}">First Name</th>
+                                <th th:text="#{last_name}">Last Name</th>
+                                <th th:text="#{blood_type}">Blood Type</th>
                             </tr> 
                         </thead>
                         <tbody>
                             <tr th:each="patient :${patients.content}">
-                                <td th:text="${patient.id}"></td>
                                 <td th:text="${patient.firstName}"></td>
                                 <td th:text="${patient.lastName}"></td>
                                 <td th:text="${patient.bloodType}"></td>

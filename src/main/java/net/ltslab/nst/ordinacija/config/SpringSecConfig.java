@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SpringSecConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService appUserDetailsService;
@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                  .antMatchers(
-                            "/",
+                            "/login/**",
                             "/error/**",
                             "/js/**",
                             "/css/**",
@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .permitAll().defaultSuccessUrl("/home", false)
+                    .permitAll().defaultSuccessUrl("/", false)
                     .failureUrl("/403")
                     .successHandler(authenticationHandler)
                 .and()

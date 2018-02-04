@@ -10,6 +10,7 @@ import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
+import net.ltslab.nst.ordinacija.dto.PatientDtoBuilder;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class PatientController {
 
     @RequestMapping("/all_patients")
     public String allPatients(Model model) {
-        List<Patient> allPatients = patientService.getAllPatient();
+        List<Patient> allPatients = patientService.allPatients();
         model.addAttribute("patients", allPatients);
         return "/all_patients";
     }
@@ -52,7 +53,7 @@ public class PatientController {
 
     @RequestMapping("/new_patient")
     public String addNewPatient(Model model) {
-        model.addAttribute("patient", new PatientDto());
+        model.addAttribute("patient", new PatientDtoBuilder().build());
         model.addAttribute("genders", Gender.values());
         model.addAttribute("bloodTypes", BloodType.values());
         return "/new_patient";

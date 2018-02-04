@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.service.impl;
 
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public void addOrUpdateUser(AppUser appUser) {
         appUserRepository.saveAndFlush(appUser);
+    }
+
+    @Override
+    public List<AppUser> getAllUsers() {
+        return appUserRepository.findAll();
     }
     
 }

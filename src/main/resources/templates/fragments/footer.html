@@ -11,9 +11,8 @@
                     <div class="container">
                         © 2018 OrdinacijaTeam
                         <span sec:authorize="isAuthenticated()">
-                            <a th:href="@{/logout}">Sign Out</a>
+                            <a th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a>
                         </span>
-                        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
                     </div>
                 </div>
             </footer>   
@@ -21,6 +20,7 @@
             <script src="/webjars/materializecss/0.100.2/js/materialize.js"></script>
             <script type="text/javascript">
                 $(".dropdown-button").dropdown();
+                
             </script>
             <script type="text/javascript" layout:fragment="script">
             </script>

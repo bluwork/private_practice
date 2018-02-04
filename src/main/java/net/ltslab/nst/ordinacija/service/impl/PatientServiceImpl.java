@@ -30,7 +30,7 @@ public class PatientServiceImpl implements PatientService{
     PatientSearchDao patientSearchRepository;
 
     @Override
-    public List<Patient> getAllPatient() {
+    public List<Patient> allPatients() {
         return patientRepository.findAll();
     }
 

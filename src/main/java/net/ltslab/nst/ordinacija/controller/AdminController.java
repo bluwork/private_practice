@@ -5,9 +5,14 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.Role;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.AppUserDtoBuilder;
 import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,16 +37,24 @@ public class AdminController {
     }
     
     @RequestMapping("/admin/add_user")
-    public String addNewPatient(Model model) {
-        model.addAttribute("new_user", new AppUser());
+    public String showUserForm(Model model) {
+        model.addAttribute("new_user", new AppUserDtoBuilder().build());
         model.addAttribute("roles", Role.values());
         return "/admin/add_user";
     }
      
     @RequestMapping(method=RequestMethod.POST, value="/admin/add_user")
-    public String addUser(@ModelAttribute AppUser appUser, Model model) {
+    public String addUser(@ModelAttribute AppUserDto appUserDto, Model model) {
+        AppUser appUser = Converter.convertDtoToEntity(appUserDto);
         appUserService.addOrUpdateUser(appUser);
-        model.addAttribute("new_user_name", appUser.getFirstName());
+        model.addAttribute("new_user_name", appUserDto.getFirstName());
         return "redirect:admin/new_user";
+    }
+    
+    @RequestMapping("/admin/all_users")
+    public String allUsers(Model model) {
+        List<AppUser> allUsers = appUserService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        return "/admin/all_users";
     }
 }

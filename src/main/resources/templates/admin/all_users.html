@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='All Users')">
+    <title/>
+    </head>
+    <body>
+ <div th:replace="fragments/header :: header"/>
+
+        <div class="container">
+
+            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/admin/add_user}">
+                <button class="btn btn-outline-success my-2 my-sm-0" th:text="#{add_new}">Add new User</button>
+            </form>
+
+            <div th:if="${not #lists.isEmpty(users)}">
+                <h2 th:text="#{user_list}">User list</h2>
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                        <th th:text="#{id}">Id</th>
+                        <th th:text="#{username}">Username</th>
+                        <th th:text="#{password}">Password</th>
+                        <th th:text="#{first_name}">First Name</th>
+                        <th th:text="#{last_name}">Last Name</th>
+                        <th th:text="#{roles}">Roles</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="user : ${users}">
+                        <tr>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.password}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:each="role : ${user.roles}">
+                                <p th:text="${role}"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+        </div>
+        <div th:replace="fragments/footer :: footer"/>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.collapsible').collapsible();
+            });
+        </script>
+    </body>
+</html>
