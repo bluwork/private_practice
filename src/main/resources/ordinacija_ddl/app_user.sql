@@ -8,7 +8,7 @@ CREATE TABLE  `app_user` (
   `password` VARCHAR(255) DEFAULT NULL,
   `first_name` VARCHAR(50) DEFAULT NULL,
   `last_name` VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
  
 

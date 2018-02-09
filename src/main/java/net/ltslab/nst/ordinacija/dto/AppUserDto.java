@@ -24,7 +24,7 @@ public class AppUserDto implements Serializable{
     private String lastName;
     private Set<Role> roles;
 
-    private AppUserDto() {
+    public AppUserDto() {
         
     }
 

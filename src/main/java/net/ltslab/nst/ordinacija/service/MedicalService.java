@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.domain.enums;
+package net.ltslab.nst.ordinacija.service;
+
+import net.ltslab.nst.ordinacija.domain.Medical;
 
 /**
  *
  * @author bobanlukic
  */
-public enum Role {
-    ADMIN,
-    DOCTOR,
-    NURSE
+public interface MedicalService {
+    void addOrUpdate(Medical medical);
 }

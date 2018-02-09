@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.domain.enums;
+package net.ltslab.nst.ordinacija.domain;
 
 /**
  *
  * @author bobanlukic
  */
-public enum Role {
-    ADMIN,
-    DOCTOR,
-    NURSE
+public class Therapy {
+    
 }

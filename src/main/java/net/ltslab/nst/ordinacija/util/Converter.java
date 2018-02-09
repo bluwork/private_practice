@@ -19,6 +19,7 @@ public class Converter {
  
     public static Patient convertDtoToEntity(PatientDto patientDto) {
         Patient patient = new Patient();
+        patient.setId(patientDto.getId());
         patient.setFirstName(patientDto.getFirstName());
         patient.setMiddleName(patientDto.getMiddleName());
         patient.setLastName(patientDto.getLastName());

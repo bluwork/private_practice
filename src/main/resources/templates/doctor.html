@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
- <head th:replace="fragments/layout :: head_fragment (pageTitle='Physician')"/>
+ <head th:replace="fragments/layout :: head_fragment (pageTitle='Doctor')"/>
     <body>
         
         <div th:replace="fragments/header :: header"/>
@@ -14,9 +14,10 @@
                             <span class="card-title" th:text="#{patients}">Patients</span>
                         </div>
                         <div class="card-action">
-                            <a th:href="@{/all_patients}" th:text="#{show_all}">Show all</a>
-                            <a th:href="@{/new_patient}" th:text="#{add_new}">Add new</a>
-                            <a th:href="@{/page_patients}" th:text="#{paged}">Paged</a>
+                            <a th:href="@{/nurse/all_patients}" th:text="#{show_all}">Show all</a>
+                            <a th:href="@{/nurse/new_patient}" th:text="#{add_new}">Add new</a>
+                            <a th:href="@{/nurse/page_patients}" th:text="#{paged}">Paged</a>
+                            <a th:href="@{/doctor/medical}" th:text="#{medical}">Medical</a>
                         </div>
                     </div>
                 </div>

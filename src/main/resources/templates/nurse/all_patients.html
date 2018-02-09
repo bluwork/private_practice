@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='All patients')">
+        <title/>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"/>
+
+        <div class="container">
+            <div class="card cyan darken-1 hoverable">
+                <div class="card-content white-text">
+                    <div class="row card-title col s12">
+                        <div class="col s12 m10">
+                            <span th:text="#{manage_patients}">Manage Patients</span>
+                        </div>
+                        <div class="col s12 m2">
+                            <a class="btn waves-effect waves-light   orange darken-3" th:href="@{/nurse/new_patient}"><i class="material-icons">person_add</i></a> 
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <div th:if="${not #lists.isEmpty(patients)}">
+
+                <!--                <table class="highlight ">
+                                    <thead>
+                                        <tr>
+                                            <th th:text="#{first_name}">First Name</th>
+                                            <th th:text="#{middle_name}">Middle Name</th>
+                                            <th th:text="#{last_name}">Last Name</th>
+                                            <th th:text="#{dob}">Date Of Birth</th>
+                                            <th th:text="#{phone}">Phone</th>
+                                            <th th:text="#{email}">Email</th>
+                                            <th th:text="#{address}">Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="patient : ${patients}">
+                                        <tr>
+                                            <td th:text="${patient.firstName}"></td>
+                                            <td th:text="${patient.middleName}"></td>
+                                            <td th:text="${patient.lastName}"></td>
+                                            <td th:text="${#dates.format(patient.dateOfBirth, 'dd-MM-yyyy')}"></td>
+                                            <td th:text="${patient.contactInfo?.phone}"></td>
+                                            <td th:text="${patient.contactInfo?.email}"></td>
+                                            <td th:text="${patient.contactInfo?.address}"></td>
+                                            <td><a id="scale-demo" href="#!" class="btn-floating btn-large scale-transition">
+                                                    <i class="material-icons">add</i></a></td>
+                                        </tr>
+                                    </tbody>
+                
+                                </table>-->
+
+                
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li th:each="patient : ${patients}">
+                            <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
+                            <div class="collapsible-body">
+
+                                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
+                                <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>
+
+
+                            </div>  
+                        </li>
+
+                    </ul>
+
+            </div>
+
+        </div>
+        <div th:replace="fragments/footer :: footer"/>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //$('.collapsible').collapsible();
+            });
+        </script>
+    </body>
+</html>

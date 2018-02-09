@@ -33,7 +33,6 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
 @Entity
 @Table(name = "app_user")
 @XmlRootElement
-
 public class AppUser implements Serializable {
 
     private static final long serialVersionUID = 8107371115139601742L;
@@ -58,6 +57,8 @@ public class AppUser implements Serializable {
     @Size(max = 30)
     @Column(name = "last_name")
     private String lastName;
+    
+    
     
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @Enumerated(EnumType.STRING)

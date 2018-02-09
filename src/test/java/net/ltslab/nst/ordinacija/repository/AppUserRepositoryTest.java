@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.dao;
+package net.ltslab.nst.ordinacija.repository;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Timed;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import net.ltslab.nst.ordinacija.repository.AppUserRepository;
 
 /**
  *
@@ -25,16 +26,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
-public class AppUserDaoTest {
+public class AppUserRepositoryTest {
    
     @Autowired
-    private AppUserDao appUserDao;
+    private AppUserRepository appUserRepository;
 
     @Test
     public void repositoryTest() throws Exception {
         
             
-        AppUser user = appUserDao.findByUsername("admin");
+        AppUser user = appUserRepository.findByUsername("admin");
         
         assertThat(user.getUsername()).isEqualTo("admin");
         assertThat(user.getPassword()).isEqualTo("Adm1n");
@@ -42,10 +43,10 @@ public class AppUserDaoTest {
         assertThat(user.getLastName()).isEqualTo("Lukic");
         
         
-        AppUser badCredentials = appUserDao.findByUsername("abcd");
+        AppUser badCredentials = appUserRepository.findByUsername("abcd");
         assertThat(badCredentials).isEqualTo(null);
           
-        List<AppUser> allUsers = appUserDao.findAll();
+        List<AppUser> allUsers = appUserRepository.findAll();
         assertThat(allUsers.get(1).getPassword()).isEqualTo("jova123");
     }
 }

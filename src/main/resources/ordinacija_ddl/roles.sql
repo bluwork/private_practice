@@ -12,13 +12,13 @@ INSERT INTO  `roles`
 (`app_user`, `roles`)
 VALUES
 (1, 'ADMIN'),
-(1, 'PHYSICIAN'),
+(1, 'DOCTOR'),
 (1, 'NURSE'),
-(2, 'PHYSICIAN'),
+(2, 'DOCTOR'),
 (2, 'NURSE'),
-(3, 'PHYSICIAN'),
+(3, 'DOCTOR'),
 (3, 'NURSE'),
-(4, 'PHYSICIAN'),
+(4, 'DOCTOR'),
 (4, 'NURSE'),
 (5, 'NURSE'),
 (6, 'NURSE'),

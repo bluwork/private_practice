@@ -7,19 +7,17 @@ package net.ltslab.nst.ordinacija.controller;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.domain.enums.Role;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
-import net.ltslab.nst.ordinacija.dto.AppUserDtoBuilder;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -39,7 +37,7 @@ public class AdminController {
     
     @RequestMapping("/admin/add_user")
     public String showUserForm(Model model) {
-        model.addAttribute("new_user", new AppUserDtoBuilder().build());
+        model.addAttribute("new_user", new AppUserDto());
         return "/admin/add_user";
     }
      
@@ -51,10 +49,12 @@ public class AdminController {
             appUserService.addOrUpdateUser(appUser);
             return "redirect:/admin/all_users";
         }
+       
+        appUserDto.setUsername(null);
+        appUserDto.setPassword(null);
         
         model.addAttribute("new_user", appUserDto);
         model.addAttribute("username_exists", true);
-        model.addAttribute("username", appUser.getUsername());
         
         return "admin/add_user";
        
@@ -65,5 +65,18 @@ public class AdminController {
         List<AppUser> allUsers = appUserService.getAllUsers();
         model.addAttribute("users", allUsers);
         return "/admin/all_users";
+    }
+    
+    @RequestMapping("/admin/all_cities")
+    public String page(Model model) {
+        model.addAttribute("attribute", "value");
+        return "all_cities";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_user")
+    public String deletePatient(@RequestParam(name="id") Long userId) {
+        appUserService.deleteAppUser(userId);
+        System.out.println(" " + userId);
+        return "redirect:/admin/all_users";
     }
 }

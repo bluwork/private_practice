@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.dao;
+package net.ltslab.nst.ordinacija.repository;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class PatientSearchDao {
+public class PatientSearchRepository {
     
 // Spring will inject here the entity manager object
   @PersistenceContext

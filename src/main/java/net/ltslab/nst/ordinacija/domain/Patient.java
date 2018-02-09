@@ -15,8 +15,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -33,6 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -48,7 +47,6 @@ public class Patient implements Serializable {
     private static final long serialVersionUID = 3259832604765001001L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     
@@ -85,16 +83,25 @@ public class Patient implements Serializable {
     @Column(name = "allergies")
     private String allergies;
     
-//    @ElementCollection(fetch = FetchType.EAGER, targetClass = Vitals.class)
     @OneToMany( mappedBy = "patient", cascade = CascadeType.ALL)
-//    @OneToMany
     @Column(name = "vitals")
     private List<Vitals> vitals;
+    
+    @OneToMany( mappedBy = "patient", cascade = CascadeType.ALL)
+    @Column(name = "medical")
+    private List<Medical> medicals;
+    
+    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
+    @Column(name = "medical_schedule")
+    @DateBridge(resolution=Resolution.DAY)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date medicalSchedule;
 
     public Patient() {
     }
 
-    public Patient(String firstName, String middleName, String lastName, ContactInfo contactInfo, Date dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
+    public Patient(Long patientId, String firstName, String middleName, String lastName, ContactInfo contactInfo, Date dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
+        this.id = patientId;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -200,6 +207,38 @@ public class Patient implements Serializable {
         }
     }
 
+    public List<Medical> getMedicals() {
+        if (medicals == null) {
+            medicals = new ArrayList<>();
+        }
+        return medicals;
+    }
+
+    public void setMedicals(List<Medical> medicals) {
+        this.medicals = medicals;
+    }
+    
+    public void addMedical(Medical medical){
+        medical.setPatient(this);
+        getMedicals().add(medical);
+    }
+    
+    public void removeMedical(Medical medical) {
+        if (getMedicals().contains(medical)) {
+            getMedicals().remove(medical);
+        }
+    }
+
+    public Date getMedicalSchedule() {
+        return medicalSchedule;
+    }
+
+    public void setMedicalSchedule(Date medicalSchedule) {
+        this.medicalSchedule = medicalSchedule;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -231,14 +270,6 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "Patient{" + "id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender=" + gender + ", bloodType=" + bloodType + '}';
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+    }   
     
 }

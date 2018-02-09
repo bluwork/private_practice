@@ -6,6 +6,7 @@
 package net.ltslab.nst.ordinacija.config;
 
 import net.ltslab.nst.ordinacija.controller.handler.AppSimpleUrlAuthenticationSuccessHandler;
+import net.ltslab.nst.ordinacija.domain.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -43,9 +44,9 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                .antMatchers("/physician/**").hasAnyAuthority("ADMIN", "PHYSICIAN")
-                .antMatchers("/nurse/**").hasAnyAuthority("ADMIN", "PHYSICIAN", "NURSE")
+                .antMatchers("/admin/**").hasAnyAuthority(Role.ADMIN.name())
+                .antMatchers("/doctor/**").hasAnyAuthority(Role.ADMIN.name(), Role.DOCTOR.name())
+                .antMatchers("/nurse/**").hasAnyAuthority(Role.ADMIN.name(), Role.DOCTOR.name(), Role.NURSE.name())
                 .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable()
                 .and()
                 .formLogin()

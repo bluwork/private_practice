@@ -8,64 +8,85 @@ package net.ltslab.nst.ordinacija.domain;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
 
 /**
  *
  * @author bobanlukic
  */
-
 @Entity
-@XmlRootElement
-public class Receipt implements Serializable {
+@Table(name = "result")
+@Inheritance
+@DiscriminatorColumn(name = "type")
+public class Result implements Serializable{
 
-    private static final long serialVersionUID = 7973663816218031719L;
+    private static final long serialVersionUID = 2921019381402530936L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private Patient patient;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "doctor_id")
-    private AppUser doctor;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_id")
     private Medical medical;
     
-    @Column(name = "description")
-    private String description;
+    @OneToOne
+    private Request request;
 
-    public Receipt() {
+    public Result() {
     }
 
-    public Receipt(AppUser doctor, Patient patient, String description) {
-        this.doctor = doctor;
+    public Result(Patient patient, Request request) {
         this.patient = patient;
-        this.description = description;
+        this.request = request;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.patient);
-        hash = 89 * hash + Objects.hashCode(this.doctor);
-        hash = 89 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.patient);
+        hash = 83 * hash + Objects.hashCode(this.request);
         return hash;
     }
 
@@ -80,11 +101,12 @@ public class Receipt implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Receipt other = (Receipt) obj;
-        return Objects.equals(this.id, other.id);
+        final Result other = (Result) obj;
+        if (!Objects.equals(this.patient, other.patient)) {
+            return false;
+        }
+        return Objects.equals(this.request, other.request);
     }
     
-    
-       
     
 }

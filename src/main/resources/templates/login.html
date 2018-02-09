@@ -7,15 +7,19 @@
     <head th:replace="fragments/layout :: head_fragment (pageTitle='Sign In')"/>
 
     <body>
-        <div th:replace="fragments/header :: header"/>
+        <!--<div th:replace="fragments/header :: header"/>-->
 
         <div class="section no-pad-bot" layout:fragment="content">
+            
             <div class="container">
 
-
-
+                <div class="center-align">
+                     <img class="responsive-img" th:src="@{/img/ordinacija_logo.svg}"/>
+                </div>
+               
                 <div sec:authorize="!isFullyAuthenticated()" class="row">
-                    <h2 class="header center orange-text" th:text="#{login}">Login</h2>
+
+
                     <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
                         <span class="card-title" th:text="#{invalid_username}">Invalid user name or password</span>
                     </div>
@@ -40,7 +44,7 @@
                         <div class="row center">
                             <button class="btn indigo waves-effect waves-light" type="submit" name="action"
                                     th:text="#{sign_in}">Sign In
-                                <i class="mdi-content-send right"></i>
+                                <i class="material-icons">send</i>
                             </button>
                         </div>
                     </form>
@@ -50,7 +54,7 @@
                     <h1 th:text="#{welcome_back}">Welcome back <span></span></h1>
 
                     <span sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/admin}" class="btn-primary btn-lg">Admin Page</a></span>
-                    <span sec:authorize="hasAuthority('PHYSICIAN')"> <a th:href="@{/physician}" class="btn-primary btn-lg">Physician Page</a></span> 
+                    <span sec:authorize="hasAuthority('DOCTOR')"> <a th:href="@{/doctor}" class="btn-primary btn-lg">Doctor Page</a></span> 
                     <span sec:authorize="hasAuthority('NURSE')"> <a th:href="@{/nurse}" class="btn-primary btn-lg">Nurse Page</a></span>
 
                 </div>

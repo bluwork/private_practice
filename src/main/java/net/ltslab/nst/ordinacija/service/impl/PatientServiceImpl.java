@@ -7,13 +7,13 @@ package net.ltslab.nst.ordinacija.service.impl;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.dao.PatientSearchDao;
+import net.ltslab.nst.ordinacija.repository.PatientSearchRepository;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import net.ltslab.nst.ordinacija.dao.PatientDao;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import net.ltslab.nst.ordinacija.repository.PatientRepository;
 
 /**
  *
@@ -24,10 +24,10 @@ import org.springframework.data.domain.PageRequest;
 public class PatientServiceImpl implements PatientService{
 
     @Autowired 
-    PatientDao patientRepository;
+    PatientRepository patientRepository;
     
     @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
-    PatientSearchDao patientSearchRepository;
+    PatientSearchRepository patientSearchRepository;
 
     @Override
     public List<Patient> allPatients() {

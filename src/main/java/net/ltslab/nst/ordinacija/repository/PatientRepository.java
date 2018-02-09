@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package net.ltslab.nst.ordinacija.dao;
+package net.ltslab.nst.ordinacija.repository;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface PatientDao extends JpaRepository<Patient, Long> {
+public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     public List<Patient> findByBloodType(BloodType bloodType);
 

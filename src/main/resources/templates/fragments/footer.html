@@ -6,21 +6,19 @@
     </head>
     <body>
         <div class="container" th:fragment ="footer">
-            <footer class="page-footer indigo" th:fragment="footer">
+            <footer class="page-footer cyan darken-1">
                 <div class="footer-copyright">
-                    <div class="container">
-                        © 2018 OrdinacijaTeam
+                        © 2018 OrdinacijaTeam     
                         <span sec:authorize="isAuthenticated()">
-                            <a th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a>
+                            <a class="white-text" th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a>
                         </span>
-                    </div>
                 </div>
             </footer>   
             <script src="/webjars/jquery/3.2.1/jquery.js"></script>      
             <script src="/webjars/materializecss/0.100.2/js/materialize.js"></script>
             <script type="text/javascript">
                 $(".dropdown-button").dropdown();
-                
+                 $(".button-collapse").sideNav();
             </script>
             <script type="text/javascript" layout:fragment="script">
             </script>

@@ -20,4 +20,6 @@ public interface AppUserService {
     public void addOrUpdateUser(AppUser appUser);
 
     public List<AppUser> getAllUsers();
+
+    public void deleteAppUser(Long userId);
 }

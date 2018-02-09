@@ -14,7 +14,7 @@ and open the template in the editor.
         <div class="container below-nav-bar">
             <div class="card">
                 <div class="card-block">
-                    <table class="table table-hover  table-striped">
+                    <table class="highlight">
                         <thead >
                             <tr>
                                 <th th:text="#{first_name}">First Name</th>
@@ -32,12 +32,13 @@ and open the template in the editor.
                     </table>
                     <hr/>
                     <ul class="pagination">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="waves-effect" th:each=" i : ${#numbers.sequence(1, patients.totalPages)}">
-                            <a th:href="@{/page_patients/(pageNumber=${i-1})}" th:text="${i}" class="waves-effect"
-                               th:classappend="${currentPage}==${i-1}?'active':''" ></a>
+                        <!--<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>-->
+                        <li th:each=" i : ${#numbers.sequence(1, patients.totalPages)}"
+                             class="waves-effect"
+                               th:classappend="${currentPage}==${i-1}?'active teal lighten-2':''" >
+                            <a th:href="@{/nurse/page_patients/(pageNumber=${i-1})}" th:text="${i}"></a>
                         </li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                        <!--<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>-->
                     </ul>
 
                 </div>

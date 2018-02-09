@@ -71,7 +71,7 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
               return "/admin";
            } 
            
-           if (auth.getAuthority().equals("PHYSICIAN")) {
+           if (auth.getAuthority().equals("DOCTOR")) {
                hasPhysician = true;
                continue;
            }
@@ -83,7 +83,7 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
             throw new IllegalStateException();
         }
         
-        if (hasPhysician) return "/physician";
+        if (hasPhysician) return "/doctor";
         return "/nurse";
     }
 }

@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.dao;
+package net.ltslab.nst.ordinacija.repository;
 
-import java.util.List;
-import net.ltslab.nst.ordinacija.domain.City;
+import net.ltslab.nst.ordinacija.domain.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface CityDao extends JpaRepository<City, Long> {
+public interface AppUserRepository extends JpaRepository<AppUser, Long> { 
     
-    List<City> findByZipCode(Long zipCode);
-    
-    List<City> findByName(String name);
+    public AppUser findByUsername(String username);   
     
 }

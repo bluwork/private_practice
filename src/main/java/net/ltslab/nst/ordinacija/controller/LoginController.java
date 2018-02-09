@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author bobanlukic
  */
 @Controller
-public class HomeController {
+public class LoginController {
 
     @RequestMapping("/")
     public String root() {

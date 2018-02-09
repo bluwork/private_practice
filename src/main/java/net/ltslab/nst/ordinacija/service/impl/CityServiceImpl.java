@@ -10,7 +10,7 @@ import net.ltslab.nst.ordinacija.domain.City;
 import net.ltslab.nst.ordinacija.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import net.ltslab.nst.ordinacija.dao.CityDao;
+import net.ltslab.nst.ordinacija.repository.CityRepository;
 
 /**
  *
@@ -20,7 +20,7 @@ import net.ltslab.nst.ordinacija.dao.CityDao;
 public class CityServiceImpl implements CityService {
     
     @Autowired 
-    CityDao cityRepository;
+    CityRepository cityRepository;
 
     @Override
     public List<City> getAllCities() {
