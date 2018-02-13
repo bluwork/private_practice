@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 

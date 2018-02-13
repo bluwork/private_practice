@@ -4,6 +4,7 @@ package net.ltslab.nst.ordinacija.domain;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -44,7 +45,7 @@ public class ContactInfo implements Serializable {
     @Column(name = "email")
     private String email;
     
-    @ManyToOne(fetch = EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
        
     public Long getId() {

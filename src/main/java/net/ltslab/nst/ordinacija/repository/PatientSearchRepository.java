@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.jpa.Search;
@@ -48,11 +49,11 @@ public class PatientSearchRepository {
         fullTextEntityManager.getSearchFactory()
         .buildQueryBuilder().forEntity(Patient.class).get();
     
-    // a very basic query by keywords
-    org.apache.lucene.search.Query query =
+    // a very basic query by keywords - Lucene query, now jpa query
+    Query query =
         queryBuilder
           .keyword()
-          .onFields("firstName", "lastName", "middleName", "contactInfo.email", "contactInfo.phone")
+          .onFields("firstName", "lastName", "contactInfo.email", "contactInfo.phone")
           .matching(text)
           .createQuery();
 

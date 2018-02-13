@@ -7,7 +7,6 @@ package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,9 +65,7 @@ public class Patient implements Serializable {
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
     
-    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
     @Column(name = "dob")
-    @DateBridge(resolution=Resolution.DAY)
     private LocalDate dateOfBirth;
     
     @Column(name = "gender")
@@ -90,9 +87,8 @@ public class Patient implements Serializable {
     @Column(name = "medical")
     private List<Medical> medicals;
     
-    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
+   
     @Column(name = "med_schedule_date")
-    @DateBridge(resolution=Resolution.DAY) 
     private LocalDate medScheduleDate;
     
     @Column(name = "med_schedule_time")

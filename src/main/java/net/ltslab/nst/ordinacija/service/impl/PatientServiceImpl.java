@@ -52,11 +52,6 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public List<Patient> searchForPatient(String searchText) {
-        return patientSearchRepository.search(searchText);       
-    }
-
-    @Override
     public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage) {
        return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
     }
@@ -70,4 +65,12 @@ public class PatientServiceImpl implements PatientService{
     public List<Patient> scheduledToday(LocalDate today) {
         return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(today);
     }
+    
+    @Override
+    public List<Patient> searchForPatient(String searchText) {
+        return patientSearchRepository.search(searchText);       
+    }
+
+
 }
+
