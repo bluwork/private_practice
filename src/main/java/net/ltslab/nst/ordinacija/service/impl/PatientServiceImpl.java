@@ -5,6 +5,8 @@
  */
 package net.ltslab.nst.ordinacija.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.repository.PatientSearchRepository;
@@ -62,5 +64,10 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public void deletePatient(Patient patient) {
        patientRepository.delete(patient);
+    }
+
+    @Override
+    public List<Patient> scheduledToday(LocalDate today) {
+        return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(today);
     }
 }

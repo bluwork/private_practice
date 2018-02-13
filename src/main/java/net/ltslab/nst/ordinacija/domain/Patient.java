@@ -6,8 +6,10 @@
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -19,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
@@ -31,7 +32,6 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -69,8 +69,7 @@ public class Patient implements Serializable {
     @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
     @Column(name = "dob")
     @DateBridge(resolution=Resolution.DAY)
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
@@ -92,15 +91,17 @@ public class Patient implements Serializable {
     private List<Medical> medicals;
     
     @Field(index=Index.YES,analyze=Analyze.YES,store=Store.YES)
-    @Column(name = "medical_schedule")
-    @DateBridge(resolution=Resolution.DAY)
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date medicalSchedule;
+    @Column(name = "med_schedule_date")
+    @DateBridge(resolution=Resolution.DAY) 
+    private LocalDate medScheduleDate;
+    
+    @Column(name = "med_schedule_time")
+    private LocalTime medScheduleTime;
 
     public Patient() {
     }
 
-    public Patient(Long patientId, String firstName, String middleName, String lastName, ContactInfo contactInfo, Date dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
+    public Patient(Long patientId, String firstName, String middleName, String lastName, ContactInfo contactInfo, LocalDate dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
         this.id = patientId;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -153,11 +154,11 @@ public class Patient implements Serializable {
         this.contactInfo = contactInfo;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -229,16 +230,24 @@ public class Patient implements Serializable {
         }
     }
 
-    public Date getMedicalSchedule() {
-        return medicalSchedule;
+    public LocalDate getMedScheduleDate() {
+        return medScheduleDate;
     }
 
-    public void setMedicalSchedule(Date medicalSchedule) {
-        this.medicalSchedule = medicalSchedule;
+    public void setMedScheduleDate(LocalDate medScheduleDate) {
+        this.medScheduleDate = medScheduleDate;
     }
-    
-    
 
+    public LocalTime getMedScheduleTime() {
+        return medScheduleTime;
+    }
+
+    public void setMedScheduleTime(LocalTime medScheduleTime) {
+        this.medScheduleTime = medScheduleTime;
+    }
+
+  
+    
     @Override
     public int hashCode() {
         int hash = 5;

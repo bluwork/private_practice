@@ -1,24 +1,19 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <head>
         <title></title>
     </head>
     <body>
-        <div class="container" th:fragment ="footer">
-            <footer class="page-footer purple darken-4">
-                <div class="footer-copyright">
-                        © 2018 OrdinacijaTeam     
-                        <span sec:authorize="isAuthenticated()">
-                            <a class="white-text" th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a>
-                        </span>
+        <div class="container" th:fragment="footer">
+            
+                <div class="center">
+                        © 2018 Ordinacija OMT
                 </div>
-            </footer>   
-            <script src="/webjars/jquery/3.2.1/jquery.js"></script>      
+           
+            <script src="/webjars/jquery/3.2.1/jquery.js"></script>
             <script src="/webjars/materializecss/0.100.2/js/materialize.js"></script>
             <script type="text/javascript">
                 $(".dropdown-button").dropdown();
-                 $(".button-collapse").sideNav();
+                $(".button-collapse").sideNav();
             </script>
             <script type="text/javascript" layout:fragment="script">
             </script>

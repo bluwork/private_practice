@@ -6,7 +6,6 @@
 package net.ltslab.nst.ordinacija.controller.handler;
 
 import java.io.IOException;
-import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

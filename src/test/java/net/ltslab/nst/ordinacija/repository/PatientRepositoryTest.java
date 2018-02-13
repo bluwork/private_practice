@@ -5,6 +5,10 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -53,5 +57,8 @@ public class PatientRepositoryTest {
             assertThat(p.getId()).isNotEqualTo(22345678L);
         });
       
+       
+        List<Patient> scheduled = patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate.of(2018, 5, 31));
+        assertThat(scheduled.get(0).getFirstName()).isEqualTo("Antonije");
     }
 }

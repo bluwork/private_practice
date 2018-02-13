@@ -3,17 +3,21 @@ DROP TABLE IF EXISTS `vitals`;
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE `vitals` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `measuring_date` date NOT NULL,
-  `diastolic_bp` int(11) DEFAULT NULL,
-  `systolic_bp` int(11) DEFAULT NULL,
-  `body_temp` float DEFAULT NULL,
-  `heart_rate` int(11) DEFAULT NULL,
-  `height` int(11) DEFAULT NULL,
-  `mass` int(11) DEFAULT NULL,
-  `patient_id` bigint(20) DEFAULT NULL,
+
+  `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `measuring_date`  DATE NOT NULL,
+  `diastolic_bp`    INT(11) DEFAULT NULL,
+  `systolic_bp`     INT(11) DEFAULT NULL,
+  `body_temp`       FLOAT DEFAULT NULL,
+  `heart_rate`      INT(11) DEFAULT NULL,
+  `height`          INT(11) DEFAULT NULL,
+  `mass`            INT(11) DEFAULT NULL,
+  `patient_id`      BIGINT(20) DEFAULT NULL,
+
   PRIMARY KEY (`id`),
+
   CONSTRAINT `vitals_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 INSERT INTO `vitals`

@@ -29,7 +29,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "result")
 @Inheritance
-@DiscriminatorColumn(name = "type")
+@DiscriminatorColumn(name = "result_type")
 public class Result implements Serializable{
 
     private static final long serialVersionUID = 2921019381402530936L;

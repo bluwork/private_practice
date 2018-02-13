@@ -35,7 +35,7 @@ public class AppUserRepositoryTest {
     public void repositoryTest() throws Exception {
         
             
-        AppUser user = appUserRepository.findByUsername("admin");
+        AppUser user = appUserRepository.findByUsernameAndActiveTrue("admin");
         
         assertThat(user.getUsername()).isEqualTo("admin");
         assertThat(user.getPassword()).isEqualTo("Adm1n");
@@ -48,5 +48,9 @@ public class AppUserRepositoryTest {
           
         List<AppUser> allUsers = appUserRepository.findAll();
         assertThat(allUsers.get(1).getPassword()).isEqualTo("jova123");
+        
+        List<AppUser> activeUsers = appUserRepository.findByActiveTrue();
+        assertThat(activeUsers.size() >= 7).isEqualTo(true);
+        
     }
 }

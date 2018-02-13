@@ -10,7 +10,7 @@ package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -25,9 +25,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import org.springframework.format.annotation.DateTimeFormat;
-
 /**
  *
  * @author bobanlukic
@@ -53,11 +50,8 @@ public class Medical implements Serializable{
     private AppUser doctor;
     
 
-    @Column(name = "medical_date")
-    @Temporal(javax.persistence.TemporalType.DATE)
-//    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss") 
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
-    private Date medicalDate;
+    @Column(name = "medical_date") 
+    private LocalDateTime medicalDate;
    
     @Lob
     @Column(name = "description")
@@ -82,9 +76,10 @@ public class Medical implements Serializable{
     private List<Receipt> receipts;
 
     public Medical() {
+        
     }
 
-    public Medical(Patient patient, AppUser doctor, Date medicalDate, String description, String diagnosis, String therapy, List<Request> requests, List<Result> previousResults) {
+    public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate, String description, String diagnosis, String therapy, List<Request> requests, List<Result> previousResults) {
         this.patient = patient;
         this.doctor = doctor;
         this.medicalDate = medicalDate;
@@ -95,7 +90,7 @@ public class Medical implements Serializable{
         this.previousResults = previousResults;
     }
 
-    public Medical(Patient patient, AppUser doctor, Date medicalDate) {
+    public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate) {
         this.patient = patient;
         this.doctor = doctor;
         this.medicalDate = medicalDate;
@@ -125,11 +120,11 @@ public class Medical implements Serializable{
         this.doctor = doctor;
     }
 
-    public Date getMedicalDate() {
+    public LocalDateTime getMedicalDate() {
         return medicalDate;
     }
 
-    public void setMedicalDate(Date medicalDate) {
+    public void setMedicalDate(LocalDateTime medicalDate) {
         this.medicalDate = medicalDate;
     }
 

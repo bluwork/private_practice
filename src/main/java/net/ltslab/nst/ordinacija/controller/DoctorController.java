@@ -5,8 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Medical;
@@ -50,14 +49,10 @@ public class DoctorController {
         String doctorName = request.getUserPrincipal().getName();
         AppUser doctor = appUserService.findByUsername(doctorName);
        
-        model.addAttribute("medical", new Medical(patient, doctor, new Date()));
+        model.addAttribute("medical", new Medical(patient, doctor, LocalDateTime.now()));
         return "/doctor/medical";
     }
     
-    @RequestMapping(method = RequestMethod.POST, value = "/doctor/new_medical")
-    public String addMedical(@ModelAttribute Medical medical) {
-        medicalService.addOrUpdate(medical);
-        return "/doctor";
-    }
+    
         
 }

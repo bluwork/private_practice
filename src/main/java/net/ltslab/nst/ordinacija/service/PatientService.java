@@ -5,6 +5,8 @@
  */
 package net.ltslab.nst.ordinacija.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import org.springframework.data.domain.Page;
@@ -15,13 +17,14 @@ import org.springframework.data.domain.Page;
  */
 
 public interface PatientService {
+    
     List<Patient> allPatients();
     Patient getPatientById(Long id);
     void addOrUpdatePatient(Patient patient);
     void deletePatient(Long id);
     List<Patient> searchForPatient(String searchText);
+    Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage);
+    void deletePatient(Patient patient);
 
-    public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage);
-
-    public void deletePatient(Patient patient);
+    public List<Patient> scheduledToday(LocalDate today);
 }

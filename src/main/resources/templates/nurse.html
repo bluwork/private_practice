@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='Nurse page')"/>
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Nurse page')" />
     <body>
-
-        <div th:replace="fragments/header :: header"/>
-
+        <div th:replace="fragments/header :: header" />
         <div class="container">
-
+            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/nurse/search}">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" th:placeholder="#{search}" name="searchText" required="true" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" th:text="#{search}">Search</button>
+            </form>
             <div class="col s12 m6">
                 <div class="card white darken-1 white-text text-darken-2 hoverable">
                     <div class="card-content cyan darken-1">
@@ -16,15 +17,11 @@
                         <a class="cyan-text darken-1" th:href="@{/nurse/all_patients}" th:text="#{show_all}">Show all</a>
                         <a class="cyan-text darken-1" th:href="@{/nurse/new_patient}" th:text="#{add_new}">Add new</a>
                         <a class="cyan-text darken-1" th:href="@{/nurse/page_patients}" th:text="#{paged}">Paged</a>
+                        <a class="cyan-text darken-1" th:href="@{/nurse/scheduled_today}" th:text="#{scheduled_today}">Paged</a>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
-
-        <footer th:replace="fragments/footer :: footer"/>
-
+        <footer th:replace="fragments/footer :: footer" />
     </body>
 </html>

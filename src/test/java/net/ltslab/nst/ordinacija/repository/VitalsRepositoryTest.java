@@ -56,9 +56,9 @@ public class VitalsRepositoryTest {
         
         Vitals oneVitals = new Vitals (new Date(System.currentTimeMillis()), 80, 120, 36.5f, 70, 192, 91);
         
-        patientOne.addVitals(oneVitals);
+        oneVitals.setPatient(patientOne);
+        vitalsRepository.saveAndFlush(oneVitals);
         
-        patientRepository.saveAndFlush(patientOne);
         
         
         patientVitals = vitalsRepository.findByPatientId(12345678L);

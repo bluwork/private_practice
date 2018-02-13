@@ -5,9 +5,16 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.Medical;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.domain.enums.Role;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
+import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.service.MedicalService;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +38,12 @@ public class NurseController {
     @Autowired
     PatientService patientService;
     
+    @Autowired
+    AppUserService appUserService;
+    
+    @Autowired
+    MedicalService medicalService;
+    
     @RequestMapping("/nurse")
     public String nurse() {
         return "nurse";
@@ -38,7 +51,19 @@ public class NurseController {
     @RequestMapping("/nurse/all_patients")
     public String allPatients(Model model) {
         List<Patient> allPatients = patientService.allPatients();
+        List<AppUser> availableUsers = appUserService.getAllActiveUsers();
+        
+        List<AppUser> availableDoctors = new ArrayList<>();
+        
+        for (AppUser user: availableUsers) {
+            if (user.getRoles().contains(Role.DOCTOR)) {
+                availableDoctors.add(user);
+            }
+        }
+        
+        
         model.addAttribute("patients", allPatients);
+        model.addAttribute("doctors", availableDoctors);
         return "/nurse/all_patients";
     }
     
@@ -65,10 +90,8 @@ public class NurseController {
             patientService.addOrUpdatePatient(p);
             return "redirect:/nurse/all_patients";
         }
-        
         model.addAttribute("patient", patientDto);
-        model.addAttribute("patient_id_exists", true);
-        
+        model.addAttribute("patient_id_exists", true);       
         return "/nurse/new_patient";
         
     }
@@ -90,4 +113,20 @@ public class NurseController {
         model.addAttribute("searchedFor", searchText);
         return "nurse/search";
     }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/nurse/schedule_medical")
+    public String scheduleMedical(@ModelAttribute Medical medical) {
+        medicalService.addOrUpdate(medical);
+        return "/nurse/all_patients";
+    }
+    
+    @RequestMapping("/nurse/scheduled_today")
+    public String scheduledPatients(Model model) {
+        
+        List<Patient> allPatients = patientService.scheduledToday(LocalDate.now());
+                
+        model.addAttribute("patients", allPatients);
+        return "/nurse/scheduled_today";
+    }
+    
 }

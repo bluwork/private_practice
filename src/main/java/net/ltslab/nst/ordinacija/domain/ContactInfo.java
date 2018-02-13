@@ -4,16 +4,14 @@ package net.ltslab.nst.ordinacija.domain;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import static javax.persistence.FetchType.EAGER;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import net.ltslab.nst.ordinacija.domain.City;
-import net.ltslab.nst.ordinacija.domain.Patient;
 import org.hibernate.search.annotations.Field;
 
 /**
@@ -28,7 +26,7 @@ public class ContactInfo implements Serializable {
     private static final long serialVersionUID = 5434251891946172712L;    
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -46,7 +44,7 @@ public class ContactInfo implements Serializable {
     @Column(name = "email")
     private String email;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = EAGER)
     private City city;
        
     public Long getId() {

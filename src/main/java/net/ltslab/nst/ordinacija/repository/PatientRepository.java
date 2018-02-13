@@ -6,6 +6,8 @@
 
 package net.ltslab.nst.ordinacija.repository;
 
+
+import java.time.LocalDate;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
@@ -24,6 +26,9 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     public List<Patient> findByFirstName(String firstName);
 
     public List<Patient> findByFirstNameAndBloodType(String firstName, BloodType bloodType);
+
+   
+    public List<Patient> findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate localDate);
 
       
 }

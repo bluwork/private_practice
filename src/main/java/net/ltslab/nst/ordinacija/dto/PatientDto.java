@@ -7,6 +7,7 @@
 package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
@@ -24,7 +25,7 @@ public class PatientDto implements Serializable{
     private String firstName;
     private String lastName;
     private String middleName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private Gender gender;
     private BloodType bloodType;
     private String phone;
@@ -36,7 +37,7 @@ public class PatientDto implements Serializable{
     public PatientDto() {
     }
 
-    public PatientDto(Long id, String firstName, String lastName, String middleName, Date dateOfBirth, Gender gender, BloodType bloodType, String phone, String email, String address, String cityName, String allergies) {
+    public PatientDto(Long id, String firstName, String lastName, String middleName, LocalDate dateOfBirth, Gender gender, BloodType bloodType, String phone, String email, String address, String cityName, String allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -74,11 +75,11 @@ public class PatientDto implements Serializable{
         this.middleName = middleName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

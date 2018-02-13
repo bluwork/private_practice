@@ -69,14 +69,24 @@ public class AdminController {
     
     @RequestMapping("/admin/all_cities")
     public String page(Model model) {
-        model.addAttribute("attribute", "value");
         return "all_cities";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_user")
-    public String deletePatient(@RequestParam(name="id") Long userId) {
+    public String deleteUser(@RequestParam(name = "id") Long userId) {
+        //Long userId = Long.valueOf(strUserId).longValue();
         appUserService.deleteAppUser(userId);
-        System.out.println(" " + userId);
+        //System.out.println(" " + strUserId);
+        return "redirect:/admin/all_users";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
+    public String suspendUser(@RequestParam(name = "id") Long userId) {
+        appUserService.suspendUser(userId);
+        return "redirect:/admin/all_users";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/reactivate_user")
+    public String reactivateUser(@RequestParam(name = "id") Long userId) {
+        appUserService.reactivateUser(userId);
         return "redirect:/admin/all_users";
     }
 }

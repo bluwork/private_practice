@@ -3,15 +3,19 @@ DROP TABLE IF EXISTS `contact_info`;
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE `contact_info` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `city_zip_code` bigint(20) DEFAULT NULL,
-  `patient_id` bigint(20) DEFAULT NULL,
+
+  `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `address`         VARCHAR(255) DEFAULT NULL,
+  `email`           VARCHAR(255) DEFAULT NULL,
+  `phone`           VARCHAR(255) DEFAULT NULL,
+  `city_zip_code`   BIGINT(20) DEFAULT NULL,
+  `patient_id`      BIGINT(20) DEFAULT NULL,
+
   PRIMARY KEY (`id`),
+
   CONSTRAINT `contact_info_ibfk_1` FOREIGN KEY (`city_zip_code`) REFERENCES `city` (`zip_code`),
   CONSTRAINT `contact_info_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 INSERT INTO `contact_info`

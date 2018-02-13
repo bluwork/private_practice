@@ -1,24 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/layout :: head_fragment (pageTitle='All Users')">
         <title/>
     </head>
     <body>
-        <div th:replace="fragments/header :: header"/>
+        <div th:replace="fragments/header :: header" />
 
+        <form id="delform" th:action="@{/admin/delete_user}" method="post" class="hidden"/>
+        <form id="suspendform" th:action="@{/admin/suspend_user}" method="post" class="hidden"/>
+        <form id="activateform" th:action="@{/admin/reactivate_user}" method="post" class="hidden"/>
+        
         <!-- Modal Structure -->
         <div id="delete" class="modal">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
+                <h4 th:text="#{deleting_user}">Deleting user</h4>
+                <p th:text="#{delete_confirmation_text}">Are you sure</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <button class="btn waves-effect waves-light red"  type="submit" form="delform"><i class="material-icons">delete_forever</i></button> 
+                <button class="btn waves-effect waves-light blue"  type="submit" form="suspendform"><i class="material-icons">eject</i></button>  
             </div>
         </div>
         <div class="container">
-
             <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
                     <div class="row card-title col s12">
@@ -27,63 +30,58 @@
                             <span class="center-align" th:text="#{user_list}">Users</span>
                         </div>
                         <div class="col s12 m2">
-                            <a class="btn waves-effect waves-light"  th:href="@{/admin/add_user}" ><i class="material-icons">person_add</i></a> 
+                            <a class="btn waves-effect waves-light" th:href="@{/admin/add_user}"><i class="material-icons">person_add</i></a>
                         </div>
-                        
-                        
                     </div>
                 </div>
             </div>
-
-
             <div th:if="${not #lists.isEmpty(users)}">
-                <div class="col s12" th:each="user : ${users}">
-                    <!--                    <div class="row">
-                                            <div class="col s12">
-                                                <div class="card indigo darken-1">
-                                                    <div class="card-content white-text">
-                                                        <span class="card-title">
-                                                            <span th:inline="text">[[${user.firstName + ' ' + user.lastName}]]</span>
-                    
-                                                        </span>
-                                                        <p>I am good at containing small bits of information.
-                                                            I am convenient because I require little markup to use effectively.</p>
-                                                    </div>
-                                                    <div class="card-action">
-                                                        <a href="#" th:text="#{change}">This is a link</a>
-                                                        <a href="#" th:text="#{delete}">This is a link</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                </div>
-
-                <ul class="collapsible popout" data-collapsible="accordion" >
-                    <li  th:each="user : ${users}">
-                        <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${user.firstName + ' ' + user.lastName}]]</div>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li th:each="user : ${users}">
+                        <div class="collapsible-header" th:classappend="${user.active}?'light-blue accent-3 white-text':'grey lighten-1'" >
+                            <span th:inline="text"><i class="material-icons">account_box</i>[[${user.firstName + ' ' + user.lastName}]]</span>       
+                        </div>
                         <div class="collapsible-body">
-
-                            <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
-
-
-                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>
-
-
-                        </div>  
+                            <button th:if="${not user.active}" class="waves-effect waves-light btn" type="submit" form="activateform" th:onClick="|setSelectedUserId('${user.id}')|"><i class="material-icons">edit</i></button>
+                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger" th:onClick="|setSelectedUserId('${user.id}')|"
+                                    th:classappend="${#lists.size(users) == 1}?'disabled':''"><i class="material-icons">delete</i></button>
+                        </div>
                     </li>
-
                 </ul>
-
             </div>
-
         </div>
-        <div th:replace="fragments/footer :: footer"/>
-
-        <script type="text/javascript">
+        <div th:replace="fragments/footer :: footer" />
+        <script th:inline="javascript">
+            var selectedUserId;
             $(document).ready(function () {
+
                 $('.collapsible').collapsible();
                 $('.modal').modal();
+
             });
+
+            function setSelectedUserId(userId) {
+                $('#delete').modal('open');
+                selectedUserId = userId;
+                //Materialize.toast('Selected User id ' + selectedUserId, 1000) // 4000 is the duration of the toast
+
+
+            }
+
+            $('#delform').on('submit', function () {
+                var deleteAction = $('#delform').attr('action');
+                $('#delform').attr('action', deleteAction + "?id=" + selectedUserId)
+            });
+
+            $('#suspendform').on('submit', function () {
+                var suspend = $('#suspendform').attr('action');
+                $('#suspendform').attr('action', suspend + "?id=" + selectedUserId)
+            });
+            $('#activateform').on('submit', function () {
+                var activateUser = $('#activateform').attr('action');
+                $('#activateform').attr('action', activateUser + "?id=" + selectedUserId)
+            });
+
         </script>
     </body>
 </html>

@@ -15,6 +15,6 @@ import net.ltslab.nst.ordinacija.domain.Vitals;
 public interface VitalsService {
     	List<Vitals> getAllVitals(Long patientId);
 	Vitals getVitals(Long id);
-	void addOrUpdateCourse(Vitals vitals);
-	void deleteCourse(Long id);
+	void addOrUpdateVitals(Vitals vitals);
+	void deleteVitals(Long id);
 }

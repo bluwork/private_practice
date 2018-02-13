@@ -31,12 +31,12 @@ public class VitalsServiceImpl implements VitalsService {
     }
 
     @Override
-    public void addOrUpdateCourse(Vitals vitals) {
+    public void addOrUpdateVitals(Vitals vitals) {
         vitalsRepository.save(vitals);
     }
 
     @Override
-    public void deleteCourse(Long id) {
+    public void deleteVitals(Long id) {
         vitalsRepository.delete(id);
     }
     

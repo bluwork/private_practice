@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.enums.Role;
 
 /**
  *
@@ -16,10 +17,20 @@ import net.ltslab.nst.ordinacija.domain.AppUser;
 public interface AppUserService {
     
     AppUser findByUsername(String username);
+    
+    AppUser findActiveByUsername(String username);
 
-    public void addOrUpdateUser(AppUser appUser);
+    void addOrUpdateUser(AppUser appUser);
 
-    public List<AppUser> getAllUsers();
+    List<AppUser> getAllUsers();
+    
+    List<AppUser> getAllActiveUsers();
+    
+    List<AppUser> getAllSuspendedUsers();
+      
+    void suspendUser(Long appUserId);
+    
+    void reactivateUser(Long appUserId);
 
-    public void deleteAppUser(Long userId);
+    void deleteAppUser(Long userId);
 }

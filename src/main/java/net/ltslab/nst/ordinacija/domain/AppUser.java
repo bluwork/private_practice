@@ -58,6 +58,9 @@ public class AppUser implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     
+    @Column(name = "active")
+    private boolean active = true;
+    
     
     
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
@@ -120,6 +123,16 @@ public class AppUser implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
 
     public Set<Role> getRoles() {
         if (roles == null) {
