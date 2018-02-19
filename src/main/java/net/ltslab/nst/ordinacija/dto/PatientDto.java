@@ -8,8 +8,10 @@ package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -24,6 +26,8 @@ public class PatientDto implements Serializable{
     private String firstName;
     private String lastName;
     private String middleName;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private Gender gender;
     private BloodType bloodType;
@@ -32,6 +36,12 @@ public class PatientDto implements Serializable{
     private String address;
     private String cityName;
     private String allergies;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate medScheduleDate;
+    
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime medScheduleTime;
 
     public PatientDto() {
     }
@@ -144,6 +154,22 @@ public class PatientDto implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getMedScheduleDate() {
+        return medScheduleDate;
+    }
+
+    public void setMedScheduleDate(LocalDate medScheduleDate) {
+        this.medScheduleDate = medScheduleDate;
+    }
+
+    public LocalTime getMedScheduleTime() {
+        return medScheduleTime;
+    }
+
+    public void setMedScheduleTime(LocalTime medScheduleTime) {
+        this.medScheduleTime = medScheduleTime;
     }
     
     

@@ -31,6 +31,7 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -65,6 +66,7 @@ public class Patient implements Serializable {
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
     
+    
     @Column(name = "dob")
     private LocalDate dateOfBirth;
     
@@ -87,7 +89,7 @@ public class Patient implements Serializable {
     @Column(name = "medical")
     private List<Medical> medicals;
     
-   
+    
     @Column(name = "med_schedule_date")
     private LocalDate medScheduleDate;
     
