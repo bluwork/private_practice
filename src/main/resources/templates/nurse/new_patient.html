@@ -80,7 +80,7 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input id="phone_number" type="text" class="validate" required="true"
+                        <input id="phone_number" type="text" class="validate" pattern="^\d{3}-\d{3}-\d{4}$" required="true"
                                th:field="*{phone}"/>
                         <label for="phone_number" th:text="#{phone}">Phone Number</label>
                     </div>

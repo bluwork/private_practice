@@ -5,6 +5,7 @@ SET FOREIGN_KEY_CHECKS=1;
 CREATE TABLE `vitals` (
 
   `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `patient_id`      BIGINT(20) DEFAULT NULL,
   `measuring_date`  DATE NOT NULL,
   `diastolic_bp`    INT(11) DEFAULT NULL,
   `systolic_bp`     INT(11) DEFAULT NULL,
@@ -12,7 +13,6 @@ CREATE TABLE `vitals` (
   `heart_rate`      INT(11) DEFAULT NULL,
   `height`          INT(11) DEFAULT NULL,
   `mass`            INT(11) DEFAULT NULL,
-  `patient_id`      BIGINT(20) DEFAULT NULL,
 
   PRIMARY KEY (`id`),
 
