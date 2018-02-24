@@ -53,8 +53,8 @@
                         <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
                         <div class="collapsible-body">
 
-                            <!--                                <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
-                                                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>-->
+                                                            <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
+                                                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>
                             <button data-target="schedule" class="waves-effect waves-light btn modal-trigger" th:onClick="|openScheduleModal('${patient.id}')|"><i class="material-icons">schedule</i></button>
 
                         </div>  

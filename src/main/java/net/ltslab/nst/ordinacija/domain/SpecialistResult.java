@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.domain;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -19,5 +20,17 @@ import javax.persistence.Entity;
 public class SpecialistResult extends Result {
     
     private static final long serialVersionUID = 1244504993834281947L;
+    
+    @Column(name = "spec_res")
+    private String specResult;
+
+    public String getSpecResult() {
+        return specResult;
+    }
+
+    public void setSpecResult(String specResult) {
+        this.specResult = specResult;
+    }
+    
     
 }

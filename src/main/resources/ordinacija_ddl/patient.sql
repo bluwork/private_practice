@@ -12,8 +12,8 @@ CREATE TABLE `patient` (
   `gender`            VARCHAR(6) DEFAULT NULL,
   `blood_type`        VARCHAR(15) DEFAULT NULL,
   `allergies`         VARCHAR(255) DEFAULT NULL,
-  `med_schedule_date`  DATE DEFAULT NULL,
-  `med_schedule_time`  TIME DEFAULT NULL,
+  `med_schedule_date` DATE DEFAULT NULL,
+  `med_schedule_time` TIME DEFAULT NULL,
 
   PRIMARY KEY (`id`)
 

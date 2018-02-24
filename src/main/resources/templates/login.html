@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/layout :: head_fragment (pageTitle='Sign In')" />
-<body>
-  <div class="section no-pad-bot" layout:fragment="content">
-    <div class="container">
-      <div class="center-align">
-        <img class="responsive-img" th:src="@{/img/ordinacija_logo.svg}" />
-      </div>
-      <div sec:authorize="!isFullyAuthenticated()" class="row">
-        <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
-          <span class="card-title" th:text="#{invalid_username}">Invalid user name or password</span>
-        </div>
-        <div id="infoMessage" class="card-panel blue lighten-2" th:if="${param.logout}">
-          <span class="card-title" th:text="#{logged_out}">You have been logged out</span>
-        </div>
-        <form class="col s12" action="/login" method="post">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="username" name="username" type="text" class="validate" required="true" />
-              <label for="username" th:text="#{username}">Username</label>
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Sign In')" />
+    <body>
+        <div class="section no-pad-bot" layout:fragment="content">
+            <div class="container">
+                <div class="center-align">
+                    <img class="responsive-img" th:src="@{/img/ordinacija_logo.svg}" />
+                </div>
+                <div sec:authorize="!isFullyAuthenticated()" class="row">
+                    <div id="errorMessage" class="card-panel red lighten-2" th:if="${param.error}">
+                        <span class="card-title" th:text="#{invalid_username}">Invalid user name or password</span>
+                    </div>
+                    <div id="infoMessage" class="card-panel blue lighten-2" th:if="${param.logout}">
+                        <span class="card-title" th:text="#{logged_out}">You have been logged out</span>
+                    </div>
+                    <form class="col s12" action="/login" method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="username" name="username" type="text" class="validate" required="true" />
+                                <label for="username" th:text="#{username}">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" name="password" type="password" class="validate" required="true" />
+                                <label for="password" th:text="#{password}">Password</label>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <button class="btn indigo waves-effect waves-light" type="submit" name="action" th:text="#{sign_in}">Sign In<i class="material-icons">send</i></button>
+                        </div>
+                    </form>
+                </div>
+                <div sec:authorize="isFullyAuthenticated()" class="col s12">
+                    <div class="card blue-grey darken-1 hoverable">
+                        <div class="card-content white-text">
+                            <span class="card-title" th:text="#{welcome_back}">Welcome back</span>
+                        </div>
+                        <div class="card-action">
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" th:text="#{admin}">Show all</a>
+                            <a sec:authorize="hasAuthority('DOCTOR')" th:href="@{/doctor}" th:text="#{doctor}">Add new</a>
+                            <a sec:authorize="hasAuthority('NURSE')" th:href="@{/nurse}" th:text="#{nurse}">Paged</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="password" name="password" type="password" class="validate" required="true" />
-              <label for="password" th:text="#{password}">Password</label>
-            </div>
-          </div>
-          <div class="row center">
-            <button class="btn indigo waves-effect waves-light" type="submit" name="action" th:text="#{sign_in}">Sign In<i class="material-icons">send</i></button>
-          </div>
-        </form>
-      </div>
-      <div sec:authorize="isFullyAuthenticated()" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        <h1 th:text="#{welcome_back}">Welcome back <span></span></h1>
-        <span sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{/admin}" class="btn-primary btn-lg">Admin Page</a></span>
-        <span sec:authorize="hasAuthority('DOCTOR')"> <a th:href="@{/doctor}" class="btn-primary btn-lg">Doctor Page</a></span>
-        <span sec:authorize="hasAuthority('NURSE')"> <a th:href="@{/nurse}" class="btn-primary btn-lg">Nurse Page</a></span>
-      </div>
-    </div>
-  </div>
-  <div th:replace="fragments/footer :: footer" />
-</body>
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+    </body>
 </html>

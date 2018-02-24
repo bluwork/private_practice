@@ -45,15 +45,15 @@ databaseChangeLog:
                 relativeToChangeLogFile: true
                 splitStatements:         true
                 stripComments:           true
-                
+            - sqlFile:
+                path:                    ordinacija_ddl/request.sql
+                relativeToChangeLogFile: true
+                splitStatements:         true
+                stripComments:           true
             - sqlFile:
                 path:                    ordinacija_ddl/result.sql
                 relativeToChangeLogFile: true
                 splitStatements:         true
                 stripComments:           true
-                - sqlFile:
-                path:                    ordinacija_ddl/request.sql
-                relativeToChangeLogFile: true
-                splitStatements:         true
-                stripComments:           true
+            
 

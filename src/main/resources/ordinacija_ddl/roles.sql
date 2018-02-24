@@ -4,7 +4,7 @@ SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE `roles` (
 
-  `app_user`       INT(11) NOT NULL,
+  `app_user`       BIGINT(20) NOT NULL,
   `roles`          VARCHAR(255) DEFAULT NULL,
 
   CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`app_user`) REFERENCES `app_user` (`id`)
