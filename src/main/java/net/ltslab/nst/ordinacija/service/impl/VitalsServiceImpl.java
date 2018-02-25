@@ -10,11 +10,13 @@ import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.service.VitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import net.ltslab.nst.ordinacija.repository.VitalsRepository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author bobanlukic
  */
+@Service
 public class VitalsServiceImpl implements VitalsService {
     
     @Autowired

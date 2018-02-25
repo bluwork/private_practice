@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author bobanlukic
  */
 
-public class PatientDto implements Serializable{
+public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 9121707642309561697L;
     

@@ -8,7 +8,7 @@
                 <span class="card-title" th:text="#{username_exists}">Invalid user name or password</span>
             </div>
             <form class="col s12" th:action="@{/admin/add_user}" th:object="${new_user}" method="post">
-                <div class="row">
+                <div class="row col s12">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="username" type="text" class="validate" required="true" th:field="*{username}" />

@@ -6,6 +6,7 @@
 package net.ltslab.nst.ordinacija.repository;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
@@ -54,7 +55,7 @@ public class VitalsRepositoryTest {
         
         Patient patientOne = patientRepository.getOne(12345678L);
         
-        Vitals oneVitals = new Vitals (new Date(System.currentTimeMillis()), 80, 120, 36.5f, 70, 192, 91);
+        Vitals oneVitals = new Vitals (LocalDate.now(), 80, 120, 36.5f, 70, 192, 91);
         
         oneVitals.setPatient(patientOne);
         vitalsRepository.saveAndFlush(oneVitals);

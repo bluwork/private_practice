@@ -9,6 +9,7 @@
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -45,8 +47,8 @@ public class Vitals implements Serializable {
     private Patient patient;
     
     @Column(name = "measuring_date")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date measuringDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate measuringDate;
     
     @Column(name = "diastolic_bp")
     private Integer diastolicBP;
@@ -70,7 +72,7 @@ public class Vitals implements Serializable {
         
     }
 
-    public Vitals(Date measuringDate, Integer diastolicBP, Integer systolicBP, Float bodyTemp, Integer heartRate, Integer height, Integer mass) {
+    public Vitals(LocalDate measuringDate, Integer diastolicBP, Integer systolicBP, Float bodyTemp, Integer heartRate, Integer height, Integer mass) {
         
         this.measuringDate = measuringDate;
         this.diastolicBP = diastolicBP;
@@ -97,11 +99,12 @@ public class Vitals implements Serializable {
         this.patient = patient;
     }
 
-    public Date getMeasuringDate() {
+    
+    public LocalDate getMeasuringDate() {
         return measuringDate;
     }
 
-    public void setMeasuringDate(Date measuringDate) {
+    public void setMeasuringDate(LocalDate measuringDate) {
         this.measuringDate = measuringDate;
     }
 

@@ -52,7 +52,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage) {
+    public Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage) {
        return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
     }
 
@@ -62,8 +62,8 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override
-    public List<Patient> scheduledToday(LocalDate today) {
-        return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(today);
+    public List<Patient> scheduledForDate(LocalDate date) {
+        return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(date);
     }
     
     @Override

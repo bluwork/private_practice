@@ -22,10 +22,11 @@ public interface PatientService {
     void addOrUpdatePatient(Patient patient);
     void deletePatient(Long id);
    
-    Page<Patient> getAllPatientsPaged(int pageNumber, int itemsByPage);
+    Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage);
+    
     void deletePatient(Patient patient);
 
-    public List<Patient> scheduledToday(LocalDate today);
+    public List<Patient> scheduledForDate(LocalDate date);
     
      List<Patient> searchForPatient(String searchText);
 }

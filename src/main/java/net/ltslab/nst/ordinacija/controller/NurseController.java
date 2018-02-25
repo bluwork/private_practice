@@ -6,19 +6,12 @@
 package net.ltslab.nst.ordinacija.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Medical;
-import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.domain.enums.Role;
+import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
-import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.facade.NurseFacade;
 import net.ltslab.nst.ordinacija.service.MedicalService;
-import net.ltslab.nst.ordinacija.service.PatientService;
-import net.ltslab.nst.ordinacija.util.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,45 +28,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class NurseController {
     
-    @Autowired
-    PatientService patientService;
-    
-    @Autowired
-    AppUserService appUserService;
     
     @Autowired
     MedicalService medicalService;
+    
+    @Autowired 
+    NurseFacade nurseFacade;
     
     @RequestMapping("/nurse")
     public String nurse() {
         return "nurse";
     }
-    @RequestMapping("/nurse/all_patients")
+    
+    @RequestMapping("/nurse/show_patients")
     public String allPatients(Model model) {
-        List<Patient> allPatients = patientService.allPatients();
-        List<AppUser> availableUsers = appUserService.getAllActiveUsers();
         
-        List<AppUser> availableDoctors = new ArrayList<>();
+        model.addAttribute("patients", nurseFacade.getAllPatients());
+        model.addAttribute("doctors", nurseFacade.getAllActiveDoctors());
         
-        for (AppUser user: availableUsers) {
-            if (user.getRoles().contains(Role.DOCTOR)) {
-                availableDoctors.add(user);
-            }
-        }
-        
-        
-        model.addAttribute("patients", allPatients);
-        model.addAttribute("doctors", availableDoctors);
-        return "/nurse/all_patients";
+        return "/nurse/show_patients";
     }
     
     @RequestMapping("/nurse/page_patients")
     public String showPagePatients(Model model, 
             @RequestParam(defaultValue="0") int pageNumber, 
             @RequestParam(defaultValue="5") int patientsByPage) {
-        Page<Patient> allPatients = patientService.getAllPatientsPaged(pageNumber, patientsByPage);
-        model.addAttribute("patients", allPatients);
+        
+        model.addAttribute("patients", nurseFacade.getAllPatients(pageNumber, patientsByPage));
         model.addAttribute("currentPage", pageNumber);
+        
         return "/nurse/page_patients";
     }
 
@@ -85,11 +68,11 @@ public class NurseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/new_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto, Model model) {
-        Patient p = Converter.convertDtoToEntity(patientDto);
-        if (patientService.getPatientById(p.getId()) == null){
-            patientService.addOrUpdatePatient(p);
-            return "redirect:/nurse/all_patients";
+        
+        if (nurseFacade.addPatient(patientDto)){
+            return "redirect:/nurse/show_patients";
         }
+
         model.addAttribute("patient", patientDto);
         model.addAttribute("patient_id_exists", true);       
         return "/nurse/new_patient";
@@ -97,36 +80,44 @@ public class NurseController {
     }
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_patient/{id}")
     public String deletePatient(@PathVariable(name="id") Long patientId) {
-        patientService.deletePatient(patientId);
-        return "redirect:/nurse/all_patients";
+        nurseFacade.deletePatient(patientId);
+        return "redirect:/nurse/show_patients";
     }
   
 
     @RequestMapping("/nurse/search")
     public String search(@RequestParam String searchText, Model model) {
-        List searchResults = null;
-        try {
-            searchResults = patientService.searchForPatient(searchText);
-        } catch (Exception ex) {
-        }
-        model.addAttribute("patients", searchResults);
+        
+        model.addAttribute("patients", nurseFacade.searchFor(searchText));
         model.addAttribute("searchedFor", searchText);
-        return "nurse/search";
+        
+        return "nurse/show_patients";
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/schedule_medical")
     public String scheduleMedical(@ModelAttribute Medical medical) {
         medicalService.addOrUpdate(medical);
-        return "/nurse/all_patients";
+        return "redirect:/nurse/scheduled_today";
+    }
+    
+    @RequestMapping("/nurse/add_vitals/{id}")
+    public String addVitals(@PathVariable(name = "id") Long patientId,  Model model) {
+        
+        
+        model.addAttribute("vitals", nurseFacade.addVitalsFor(patientId));
+        return "/nurse/add_vitals";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_vitals")
+    public String postVitals(@ModelAttribute Vitals vitals) {
+        
+        nurseFacade.addVitals(vitals);
+        
+        return "redirect:/nurse/show_patients";
     }
     
     @RequestMapping("/nurse/scheduled_today")
     public String scheduledPatients(Model model) {
-        
-        List<Patient> allPatients = patientService.scheduledToday(LocalDate.now());
-                
-        model.addAttribute("patients", allPatients);
+        model.addAttribute("patients", nurseFacade.getScheduledPatients(LocalDate.now()));
         return "/nurse/scheduled_today";
     }
-    
 }
