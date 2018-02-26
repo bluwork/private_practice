@@ -14,19 +14,21 @@ import org.springframework.data.domain.Page;
  *
  * @author bobanlukic
  */
-
 public interface PatientService {
-    
+
     List<Patient> allPatients();
+
     Patient getPatientById(Long id);
+
     void addOrUpdatePatient(Patient patient);
+
     void deletePatient(Long id);
-   
+
     Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage);
-    
+
     void deletePatient(Patient patient);
 
     public List<Patient> scheduledForDate(LocalDate date);
-    
-     List<Patient> searchForPatient(String searchText);
+
+    List<Patient> searchForPatient(String searchText);
 }

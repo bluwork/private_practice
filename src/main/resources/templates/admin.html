@@ -1,37 +1,37 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="fragments/layout :: head_fragment (pageTitle='Admin')">
-</head>
-<body>
-  <div th:replace="fragments/header :: header" />
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card white-text text-darken-2 hoverable">
-          <div class="card-content  brown lighten-2">
-            <span class="card-title" th:text="#{users}">Users</span>
-          </div>
-          <div class="card-action">
-            <a class="brown-text lighten-2" th:href="@{/admin/all_users}" th:text="#{show}">Show</a>
-            <a class="brown-text lighten-2" th:href="@{/admin/add_user}" th:text="#{add_new}">Add new</a>
-          </div>
+    <head th:include="fragments/layout :: head_fragment (pageTitle='Admin')">
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header" />
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card white-text text-darken-2 hoverable">
+                        <div class="card-content  brown lighten-2">
+                            <span class="card-title" th:text="#{users}">Users</span>
+                        </div>
+                        <div class="card-action">
+                            <a class="brown-text lighten-2" th:href="@{/admin/all_users}" th:text="#{show}">Show</a>
+                            <a class="brown-text lighten-2" th:href="@{/admin/add_user}" th:text="#{add_new}">Add new</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card white darken-1 white-text text-darken-2 hoverable">
+                        <div class="card-content cyan darken-1">
+                            <span class="card-title" th:text="#{patients}">Patients</span>
+                        </div>
+                        <div class="card-action">
+                            <a class="cyan-text darken-1" th:href="@{/nurse/show_patients}" th:text="#{show_all}">Show all</a>
+                            <a class="cyan-text darken-1" th:href="@{/nurse/new_patient}" th:text="#{add_new}">Add new</a>
+                            <a class="cyan-text darken-1" th:href="@{/nurse/page_patients}" th:text="#{paged}">Paged</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col s12 m6">
-        <div class="card white darken-1 white-text text-darken-2 hoverable">
-          <div class="card-content cyan darken-1">
-            <span class="card-title" th:text="#{patients}">Patients</span>
-          </div>
-          <div class="card-action">
-            <a class="cyan-text darken-1" th:href="@{/nurse/show_patients}" th:text="#{show_all}">Show all</a>
-            <a class="cyan-text darken-1" th:href="@{/nurse/new_patient}" th:text="#{add_new}">Add new</a>
-            <a class="cyan-text darken-1" th:href="@{/nurse/page_patients}" th:text="#{paged}">Paged</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div th:replace="fragments/footer :: footer" />
-</body>
+        <div th:replace="fragments/footer :: footer" />
+    </body>
 </html>

@@ -25,58 +25,57 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 /**
  *
  * @author bobanlukic
  */
-
 @Entity
 @Table(name = "medical")
-public class Medical implements Serializable{
+public class Medical implements Serializable {
 
     private static final long serialVersionUID = 2286905328752799229L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private Patient patient;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id")
     private AppUser doctor;
-    
 
-    @Column(name = "medical_date") 
+    @Column(name = "medical_date")
     private LocalDateTime medicalDate;
-   
+
     @Lob
     @Column(name = "description")
     private String description;
-    
+
     @Column(name = "diagnosis")
     private String diagnosis;
-    
+
     @Column(name = "therapy")
     private String therapy;
-    
-    @OneToMany( mappedBy = "medical", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
     @Column(name = "requests")
     private List<Request> requests;
-    
-    @OneToMany( mappedBy = "medical", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
     @Column(name = "results")
     private List<Result> previousResults;
-    
-    @OneToMany( mappedBy = "medical", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
     @Column(name = "receipts")
     private List<Receipt> receipts;
 
     public Medical() {
-        
+
     }
 
     public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate, String description, String diagnosis, String therapy, List<Request> requests, List<Result> previousResults) {
@@ -144,7 +143,6 @@ public class Medical implements Serializable{
         this.receipts = receipts;
     }
 
-    
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -212,7 +210,5 @@ public class Medical implements Serializable{
         }
         return Objects.equals(this.medicalDate, other.medicalDate);
     }
-    
-    
-    
+
 }

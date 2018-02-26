@@ -18,7 +18,7 @@ import net.ltslab.nst.ordinacija.repository.AppUserRepository;
  * @author bobanlukic
  */
 @Service
-public class AppUserServiceImpl implements AppUserService{
+public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     AppUserRepository appUserRepository;
@@ -45,7 +45,7 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public List<AppUser> getAllActiveUsers() {
-       return appUserRepository.findByActiveTrue();
+        return appUserRepository.findByActiveTrue();
     }
 
     @Override
@@ -55,21 +55,21 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public void suspendUser(Long appUserId) {
-       AppUser suspendedUser = appUserRepository.findOne(appUserId);
-       suspendedUser.setActive(false);
-       appUserRepository.saveAndFlush(suspendedUser);
+        AppUser suspendedUser = appUserRepository.findOne(appUserId);
+        suspendedUser.setActive(false);
+        appUserRepository.saveAndFlush(suspendedUser);
     }
 
     @Override
     public void reactivateUser(Long appUserId) {
-       AppUser activatedUser = appUserRepository.findOne(appUserId);
-       activatedUser.setActive(true);
-       appUserRepository.saveAndFlush(activatedUser);
+        AppUser activatedUser = appUserRepository.findOne(appUserId);
+        activatedUser.setActive(true);
+        appUserRepository.saveAndFlush(activatedUser);
     }
 
     @Override
     public AppUser findActiveByUsername(String username) {
         return appUserRepository.findByUsernameAndActiveTrue(username);
     }
-    
+
 }

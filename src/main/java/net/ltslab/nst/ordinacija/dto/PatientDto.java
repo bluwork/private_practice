@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
@@ -17,16 +16,15 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author bobanlukic
  */
-
 public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 9121707642309561697L;
-    
+
     private Long id;
     private String firstName;
     private String lastName;
     private String middleName;
-    
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private Gender gender;
@@ -34,32 +32,18 @@ public class PatientDto implements Serializable {
     private String phone;
     private String email;
     private String address;
-    private String cityName;
     private String allergies;
-    
+    private String city;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate medScheduleDate;
-    
+
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime medScheduleTime;
 
     public PatientDto() {
     }
 
-    public PatientDto(Long id, String firstName, String lastName, String middleName, LocalDate dateOfBirth, Gender gender, BloodType bloodType, String phone, String email, String address, String cityName, String allergies) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.bloodType = bloodType;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.cityName = cityName;
-        this.allergies = allergies;
-    }
-    
     public String getFirstName() {
         return firstName;
     }
@@ -132,21 +116,13 @@ public class PatientDto implements Serializable {
         this.address = address;
     }
 
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
     public String getAllergies() {
         return allergies;
     }
 
     public void setAllergies(String allergies) {
         this.allergies = allergies;
-    }   
+    }
 
     public Long getId() {
         return id;
@@ -171,7 +147,15 @@ public class PatientDto implements Serializable {
     public void setMedScheduleTime(LocalTime medScheduleTime) {
         this.medScheduleTime = medScheduleTime;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
     
     
-    
+
 }

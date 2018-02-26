@@ -5,7 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -31,40 +30,32 @@ import net.ltslab.nst.ordinacija.repository.VitalsRepository;
 @DataJpaTest
 @ActiveProfiles("test")
 public class VitalsRepositoryTest {
-    
+
     @Autowired
     private VitalsRepository vitalsRepository;
-    
-    @Autowired 
+
+    @Autowired
     private PatientRepository patientRepository;
-    
+
     @Test
-   
+
     public void repositoryTest() throws Exception {
 
-        
-        
-        
         List<Vitals> patientVitals = vitalsRepository.findByPatientId(12345678L);
-       
-        
+
         assertThat(patientVitals.get(0).getBodyTemp()).isEqualTo(36.8f);
         assertThat(patientVitals.get(0).getHeight()).isEqualTo(192);
         assertThat(patientVitals.get(0).getMass()).isEqualTo(84);
-        
-        
+
         Patient patientOne = patientRepository.getOne(12345678L);
-        
-        Vitals oneVitals = new Vitals (LocalDate.now(), 80, 120, 36.5f, 70, 192, 91);
-        
+
+        Vitals oneVitals = new Vitals(LocalDate.now(), 80, 120, 36.5f, 70, 192, 91);
+
         oneVitals.setPatient(patientOne);
         vitalsRepository.saveAndFlush(oneVitals);
-        
-        
-        
+
         patientVitals = vitalsRepository.findByPatientId(12345678L);
-        
-        
+
         assertThat(patientVitals.get(2).getBodyTemp()).isEqualTo(36.5f);
         assertThat(patientVitals.get(2).getHeight()).isEqualTo(192);
         assertThat(patientVitals.get(2).getMass()).isEqualTo(91);
@@ -77,7 +68,5 @@ public class VitalsRepositoryTest {
 //        
 //        
 //       
-      
-      
     }
 }

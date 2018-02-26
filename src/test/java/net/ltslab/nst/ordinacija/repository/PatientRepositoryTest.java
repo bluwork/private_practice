@@ -5,7 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,34 +29,30 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles("test")
 public class PatientRepositoryTest {
 
-
     @Autowired
     private PatientRepository patientRepository;
 
     @Test
-   
+
     public void repositoryTest() throws Exception {
 
-
-        
         // Test findById
         Patient patientOne = patientRepository.findOne(12345678L);
-        
+
         assertThat(patientOne.getFirstName()).isEqualTo("Milovan");
         assertThat(patientOne.getGender()).isEqualTo(Gender.MALE);
-      
+
         // Test save - update
         patientOne.setGender(Gender.FEMALE);
         patientRepository.save(patientOne);
         assertThat(patientRepository.findOne(12345678L).getGender()).isEqualTo(Gender.FEMALE);
-        
+
         // Test delete
         patientRepository.delete(22345678L);
         patientRepository.findAll().forEach((p) -> {
             assertThat(p.getId()).isNotEqualTo(22345678L);
         });
-      
-       
+
         List<Patient> scheduled = patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate.of(2018, 5, 31));
         assertThat(scheduled.get(0).getFirstName()).isEqualTo("Antonije");
     }

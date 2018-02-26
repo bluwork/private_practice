@@ -6,10 +6,9 @@
 package net.ltslab.nst.ordinacija.service.impl;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.repository.PatientSearchRepository;
+import net.ltslab.nst.ordinacija.repository.impl.PatientSearchRepositoryImpl;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +20,14 @@ import net.ltslab.nst.ordinacija.repository.PatientRepository;
  *
  * @author bobanlukic
  */
-
 @Service
-public class PatientServiceImpl implements PatientService{
+public class PatientServiceImpl implements PatientService {
 
-    @Autowired 
+    @Autowired
     PatientRepository patientRepository;
-    
+
     @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
-    PatientSearchRepository patientSearchRepository;
+    PatientSearchRepositoryImpl patientSearchRepository;
 
     @Override
     public List<Patient> allPatients() {
@@ -53,24 +51,22 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage) {
-       return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
+        return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
     }
 
     @Override
     public void deletePatient(Patient patient) {
-       patientRepository.delete(patient);
+        patientRepository.delete(patient);
     }
 
     @Override
     public List<Patient> scheduledForDate(LocalDate date) {
         return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(date);
     }
-    
+
     @Override
     public List<Patient> searchForPatient(String searchText) {
-        return patientSearchRepository.search(searchText);       
+        return patientSearchRepository.search(searchText);
     }
 
-
 }
-

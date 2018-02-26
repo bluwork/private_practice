@@ -31,22 +31,21 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser appUser = appUserService.findActiveByUsername(username);
-        
+
         if (appUser == null) {
             throw new UsernameNotFoundException("Invalid or not active username: " + username);
         }
-        
+
         return buildUser(appUser);
     }
-    
 
     private UserDetails buildUser(AppUser appUser) {
-        
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         appUser.getRoles().forEach((role) -> {
             authorities.add(new SimpleGrantedAuthority(role.name()));
-        });   
-        
+        });
+
         return new User(appUser.getUsername(), appUser.getPassword(), true, true, true, true, authorities);
     }
 }

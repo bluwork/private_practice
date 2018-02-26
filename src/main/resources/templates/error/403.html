@@ -1,20 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/layout :: head_fragment (pageTitle='Access Denied')" />
-<body>
-  <div th:replace="fragments/header :: header" />
-  <div class="container below-nav-bar">
-    <div class="starter-template">
-      <h1 th:text="#{access_denied}">Access is denied</h1>
-      <div th:inline="text">Sorry
-        <span sec:authorized="name"></span> , but you don't have permission to access this page.</div>
-      <svg> <circle cx="60" cy="60" r="40" fill="red">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Access Denied')" />
+    <body>
+        <div th:replace="fragments/header :: header" />
+        <div class="container below-nav-bar">
+            <div class="starter-template">
+                <h1 th:text="#{access_denied}">Access is denied</h1>
+                <div th:inline="text">Sorry
+                    <span sec:authorized="name"></span> , but you don't have permission to access this page.</div>
+                <svg> <circle cx="60" cy="60" r="40" fill="red">
                         <animate dur="700ms" attributeName="r" values="40; 60; 40"
                                  repeatCount="5" />
                     </circle> </svg>
-    </div>
-    <a th:href="@{/login}" th:text="#{sign_in}">Login</a>
-  </div>
-  <div th:replace="fragments/footer :: footer" />
-</body>
+            </div>
+            <a th:href="@{/login}" th:text="#{sign_in}">Login</a>
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+    </body>
 </html>

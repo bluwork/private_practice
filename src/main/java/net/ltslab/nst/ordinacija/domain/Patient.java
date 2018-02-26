@@ -24,20 +24,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author bobanlukic
  */
-
 @Entity
 @Table(name = "patient")
 @XmlRootElement
@@ -45,54 +41,52 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 3259832604765001001L;
-    
+
     @Id
     @Column(name = "id")
     private Long id;
-    
-    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
+
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "first_name")
     private String firstName;
-    
-    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
+
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "middle_name")
     private String middleName;
-    
-    @Field(index=Index.YES,analyze=Analyze.YES,store=Store.NO)
+
+    @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "last_name")
     private String lastName;
-    
+
     @IndexedEmbedded
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
-    
-    
+
     @Column(name = "dob")
     private LocalDate dateOfBirth;
-    
+
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    
+
     @Column(name = "blood_type")
     @Enumerated(EnumType.STRING)
     private BloodType bloodType;
-    
+
     @Column(name = "allergies")
     private String allergies;
-    
-    @OneToMany( mappedBy = "patient", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @Column(name = "vitals")
     private List<Vitals> vitals;
-    
-    @OneToMany( mappedBy = "patient", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     @Column(name = "medical")
     private List<Medical> medicals;
-    
-    
+
     @Column(name = "med_schedule_date")
     private LocalDate medScheduleDate;
-    
+
     @Column(name = "med_schedule_time")
     private LocalTime medScheduleTime;
 
@@ -194,12 +188,12 @@ public class Patient implements Serializable {
     public void setVitals(List<Vitals> vitals) {
         this.vitals = vitals;
     }
-    
-    public void addVitals(Vitals vitals){
+
+    public void addVitals(Vitals vitals) {
         vitals.setPatient(this);
         getVitals().add(vitals);
     }
-    
+
     public void removeVitals(Vitals vitals) {
         if (getVitals().contains(vitals)) {
             getVitals().remove(vitals);
@@ -216,12 +210,12 @@ public class Patient implements Serializable {
     public void setMedicals(List<Medical> medicals) {
         this.medicals = medicals;
     }
-    
-    public void addMedical(Medical medical){
+
+    public void addMedical(Medical medical) {
         medical.setPatient(this);
         getMedicals().add(medical);
     }
-    
+
     public void removeMedical(Medical medical) {
         if (getMedicals().contains(medical)) {
             getMedicals().remove(medical);
@@ -244,8 +238,6 @@ public class Patient implements Serializable {
         this.medScheduleTime = medScheduleTime;
     }
 
-  
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -277,6 +269,6 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "Patient{" + "id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", gender=" + gender + ", bloodType=" + bloodType + '}';
-    }   
-    
+    }
+
 }

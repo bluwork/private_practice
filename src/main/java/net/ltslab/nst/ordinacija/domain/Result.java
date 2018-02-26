@@ -28,23 +28,23 @@ import javax.persistence.Table;
 @Table(name = "result")
 @Inheritance
 @DiscriminatorColumn(name = "result_type")
-public class Result implements Serializable{
+public class Result implements Serializable {
 
     private static final long serialVersionUID = 2921019381402530936L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private Patient patient;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_id")
     private Medical medical;
-    
+
     @OneToOne
     private Request request;
 
@@ -55,7 +55,7 @@ public class Result implements Serializable{
         this.patient = patient;
         this.request = request;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -105,6 +105,5 @@ public class Result implements Serializable{
         }
         return Objects.equals(this.request, other.request);
     }
-    
-    
+
 }

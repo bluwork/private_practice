@@ -22,20 +22,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "request")
-public class Request implements Serializable{
+public class Request implements Serializable {
 
     private static final long serialVersionUID = 8758339477000989576L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_id")
     private Medical medical;
-    
+
     @ManyToOne
     private AppUser doctor;
-  
+
 }

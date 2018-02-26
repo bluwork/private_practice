@@ -16,18 +16,14 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface AppUserRepository extends JpaRepository<AppUser, Long> { 
-    
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+
     public AppUser findByUsername(String username);
-    
+
     public List<AppUser> findByActiveTrue();
-    
+
     public List<AppUser> findByActiveFalse();
-    
 
     public AppUser findByUsernameAndActiveTrue(String username);
-    
-    
-
     
 }

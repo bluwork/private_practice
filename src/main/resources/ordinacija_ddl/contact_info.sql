@@ -8,31 +8,30 @@ CREATE TABLE `contact_info` (
   `address`         VARCHAR(255) DEFAULT NULL,
   `email`           VARCHAR(255) DEFAULT NULL,
   `phone`           VARCHAR(255) DEFAULT NULL,
-  `city_zip_code`   BIGINT(20) DEFAULT NULL,
+  `city`   VARCHAR(50) DEFAULT NULL,
   `patient_id`      BIGINT(20) DEFAULT NULL,
 
   PRIMARY KEY (`id`),
 
-  CONSTRAINT `contact_info_ibfk_1` FOREIGN KEY (`city_zip_code`) REFERENCES `city` (`zip_code`),
-  CONSTRAINT `contact_info_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
+  CONSTRAINT `contact_info_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 INSERT INTO `contact_info`
-	(`id`, `address`, `email`, `phone`, `city_zip_code`, `patient_id`)
+	(`id`, `address`, `email`, `phone`, `city`, `patient_id`)
 VALUES
-	(1, 'Ul Vojislava Ilica 107', 'milovan.petrovic@proba.net', '+381 88 1234567', 11000, 12345678),
-	(2, 'Ul Aleksandra Belica 18', 'dragan.milovanovic@proba.net', '+381 83 623456', 18000, 22345678),
-        (3, 'Bulevar Mihajla Pupina', 'dalibor.lazic@proba.net', '+381 81 2234577', 21000, 32345678),
-        (4, 'Ul Vrsacka 24', 'jelisaveta22@proba.net', '+381 84 1234567', 11000, 42345678),  
-        (5, 'Ul Balkanska 45', 'boba.j@proba.net', '+381 88 7234567', 18000, 52345678),  
-        (6, 'Ul Vojvodjanskih brigada 48', 'dragana.vel@proba.net', '+381 88 8234567', 21000, 62345678),  
-        (7, 'Ul Vojvode Misica 11', 'grandanta@proba.net', '+381 88 9234567', 11000, 72345678),  
-        (8, 'Ul Branka Bjegovica 81', 'bora.daba@proba.net', '+381 88 0234567', 18000,82345678),  
-        (9, 'Ul Maksima Gorkog 22', 'zare2323@proba.net', '+381 83 1234567', 21000, 92345678),  
-        (10, 'Ul Vojvode Stepe 14', 'stole011@proba.net', '+381 84 1234567', 11000, 102345678),  
-        (11, 'Ul Belotinacka 15', 'ema.rad123@proba.net', '+381 86 1234567', 18000, 112345678),  
-	(12, 'Ul Uspenska 68', 'nata123@proba.net', '+381 85 1234567', 21000, 122345678);
+	(1, 'Ul Vojislava Ilica 107', 'milovan.petrovic@proba.net', '+381 88 1234567', 'Beograd', 12345678),
+	(2, 'Ul Aleksandra Belica 18', 'dragan.milovanovic@proba.net', '+381 83 623456', 'Nis', 22345678),
+        (3, 'Bulevar Mihajla Pupina', 'dalibor.lazic@proba.net', '+381 81 2234577', 'Novi Sad', 32345678),
+        (4, 'Ul Vrsacka 24', 'jelisaveta22@proba.net', '+381 84 1234567', 'Beograd', 42345678),  
+        (5, 'Ul Balkanska 45', 'boba.j@proba.net', '+381 88 7234567', 'Nis', 52345678),  
+        (6, 'Ul Vojvodjanskih brigada 48', 'dragana.vel@proba.net', '+381 88 8234567', 'Novi Sad', 62345678),  
+        (7, 'Ul Vojvode Misica 11', 'grandanta@proba.net', '+381 88 9234567', 'Beograd', 72345678),  
+        (8, 'Ul Branka Bjegovica 81', 'bora.daba@proba.net', '+381 88 0234567', 'Nis',82345678),  
+        (9, 'Ul Maksima Gorkog 22', 'zare2323@proba.net', '+381 83 1234567', 'Novi Sad', 92345678),  
+        (10, 'Ul Vojvode Stepe 14', 'stole011@proba.net', '+381 84 1234567', 'Beograd', 102345678),  
+        (11, 'Ul Belotinacka 15', 'ema.rad123@proba.net', '+381 86 1234567', 'Nis', 112345678),  
+	(12, 'Ul Uspenska 68', 'nata123@proba.net', '+381 85 1234567', 'Novi Sad', 122345678);
 
 
 

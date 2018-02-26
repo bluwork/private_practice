@@ -21,31 +21,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author bobanlukic
  */
-
 @Entity
 @XmlRootElement
 public class Receipt implements Serializable {
 
     private static final long serialVersionUID = 7973663816218031719L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id")
     private Patient patient;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id")
     private AppUser doctor;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_id")
     private Medical medical;
-    
+
     @Column(name = "description")
     private String description;
 
@@ -82,8 +80,5 @@ public class Receipt implements Serializable {
         final Receipt other = (Receipt) obj;
         return Objects.equals(this.id, other.id);
     }
-    
-    
-       
-    
+
 }

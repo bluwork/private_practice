@@ -63,26 +63,28 @@ public class AppSimpleUrlAuthenticationSuccessHandler implements
     private String determineRedirectionUrl(Authentication authentication) {
 
         boolean hasPhysician = false;
-        
-        for  (GrantedAuthority auth : authentication.getAuthorities()) {
-            
-           if (auth.getAuthority().equals("ADMIN")) {
-              return "/admin";
-           } 
-           
-           if (auth.getAuthority().equals("DOCTOR")) {
-               hasPhysician = true;
-               continue;
-           }
-           
-           if (auth.getAuthority().equals("NURSE")) {
-               continue;
-           }
-            
+
+        for (GrantedAuthority auth : authentication.getAuthorities()) {
+
+            if (auth.getAuthority().equals("ADMIN")) {
+                return "/admin";
+            }
+
+            if (auth.getAuthority().equals("DOCTOR")) {
+                hasPhysician = true;
+                continue;
+            }
+
+            if (auth.getAuthority().equals("NURSE")) {
+                continue;
+            }
+
             throw new IllegalStateException();
         }
-        
-        if (hasPhysician) return "/doctor";
+
+        if (hasPhysician) {
+            return "/doctor";
+        }
         return "/nurse";
     }
 }

@@ -1,4 +1,3 @@
-
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
@@ -20,34 +19,34 @@ import org.hibernate.search.annotations.Field;
  * @author bobanlukic
  */
 @Entity
-@Table(name = "contact_info")      
+@Table(name = "contact_info")
 @XmlRootElement
 public class ContactInfo implements Serializable {
 
-    private static final long serialVersionUID = 5434251891946172712L;    
-    
+    private static final long serialVersionUID = 5434251891946172712L;
+
     @Id
-    @GeneratedValue(strategy=IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @OneToOne
     private Patient patient;
-    
+
     @Field
     @Column(name = "phone")
     private String phone;
-    
+
     @Column(name = "address")
     private String address;
-    
+
     @Field
     @Column(name = "email")
     private String email;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    private City city;
-       
+
+    @Column(name = "city")
+    private String city;
+
     public Long getId() {
         return id;
     }
@@ -88,25 +87,24 @@ public class ContactInfo implements Serializable {
         this.email = email;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
     public ContactInfo() {
     }
 
-    public ContactInfo(Patient patient, String phone, String address, String email, City city) {
+    public ContactInfo(Patient patient, String phone, String address, String email, String city) {
         this.patient = patient;
         this.phone = phone;
         this.address = address;
         this.email = email;
         this.city = city;
     }
-       
 
     @Override
     public boolean equals(Object obj) {
@@ -117,6 +115,5 @@ public class ContactInfo implements Serializable {
     public int hashCode() {
         return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

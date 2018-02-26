@@ -15,10 +15,10 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("lab")
-public class LaboratoryResult extends Result{
+public class LaboratoryResult extends Result {
 
     private static final long serialVersionUID = 1351817378561574933L;
-    
+
     @Column(name = "lab_res")
     private String labResult;
 
@@ -29,6 +29,5 @@ public class LaboratoryResult extends Result{
     public void setLabResult(String labResult) {
         this.labResult = labResult;
     }
-    
-    
+
 }

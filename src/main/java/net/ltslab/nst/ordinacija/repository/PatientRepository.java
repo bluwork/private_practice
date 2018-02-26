@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package net.ltslab.nst.ordinacija.repository;
-
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,8 +25,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     public List<Patient> findByFirstNameAndBloodType(String firstName, BloodType bloodType);
 
-   
     public List<Patient> findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate localDate);
 
-      
 }

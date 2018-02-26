@@ -18,33 +18,23 @@ public class LoginController {
 
     @RequestMapping("/")
     public String root() {
-        return "login";
+        return "/login";
     }
 
     @RequestMapping("/home")
     public String home() {
-        return "redirect:login";
+        return "redirect:/login";
     }
 
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        return "/login";
     }
 
     @RequestMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "login";
+        return "/login";
     }
 
-//    @RequestMapping("/403")
-//    public String accessDenied() {
-//        return "error/403";
-//    }
-//    
-//    @RequestMapping("/500")
-//    public String error500(Model model){
-//        model.addAttribute("error", true);
-//        return "/admin/add_user";
-//    }
 }

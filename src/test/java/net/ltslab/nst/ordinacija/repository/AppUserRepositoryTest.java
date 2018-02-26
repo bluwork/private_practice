@@ -27,30 +27,28 @@ import net.ltslab.nst.ordinacija.repository.AppUserRepository;
 @DataJpaTest
 @ActiveProfiles("test")
 public class AppUserRepositoryTest {
-   
+
     @Autowired
     private AppUserRepository appUserRepository;
 
     @Test
     public void repositoryTest() throws Exception {
-        
-            
+
         AppUser user = appUserRepository.findByUsernameAndActiveTrue("admin");
-        
+
         assertThat(user.getUsername()).isEqualTo("admin");
         assertThat(user.getPassword()).isEqualTo("Adm1n");
         assertThat(user.getFirstName()).isEqualTo("Boban");
         assertThat(user.getLastName()).isEqualTo("Lukic");
-        
-        
+
         AppUser badCredentials = appUserRepository.findByUsername("abcd");
         assertThat(badCredentials).isEqualTo(null);
-          
+
         List<AppUser> allUsers = appUserRepository.findAll();
         assertThat(allUsers.get(1).getPassword()).isEqualTo("jova123");
-        
+
         List<AppUser> activeUsers = appUserRepository.findByActiveTrue();
         assertThat(activeUsers.size() >= 7).isEqualTo(true);
-        
+
     }
 }

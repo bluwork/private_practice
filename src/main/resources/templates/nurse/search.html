@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="fragments/layout :: head_fragment (pageTitle='Search results')"/>
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Search results')"/>
     <body>
-       <div th:replace="fragments/header :: header"/>
+        <div th:replace="fragments/header :: header"/>
 
         <div class="container below-nav-bar">
             <h1><large th:text="#{search_results_for}">Search results for "</large> <span th:text="${searchedFor}"></span> "</h1>
@@ -22,9 +22,9 @@
                         <td th:text="${patient.lastName}"></td>
                         <td th:if="${patient.contactInfo != null}" th:text="${patient.contactInfo.phone}"></td>
                         <td th:if="${patient.contactInfo != null}" th:text="${patient.contactInfo.email}"></td>
-                        
-                                         
-                        
+
+
+
                     </tr>
                 </table>
 

@@ -7,29 +7,27 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.enums.Role;
 
 /**
  *
  * @author bobanlukic
  */
-
 public interface AppUserService {
-    
+
     AppUser findByUsername(String username);
-    
+
     AppUser findActiveByUsername(String username);
 
+    List<AppUser> getAllUsers();
+
+    List<AppUser> getAllActiveUsers();
+
+    List<AppUser> getAllSuspendedUsers();
+    
     void addOrUpdateUser(AppUser appUser);
 
-    List<AppUser> getAllUsers();
-    
-    List<AppUser> getAllActiveUsers();
-    
-    List<AppUser> getAllSuspendedUsers();
-      
     void suspendUser(Long appUserId);
-    
+
     void reactivateUser(Long appUserId);
 
     void deleteAppUser(Long userId);

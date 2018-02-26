@@ -25,7 +25,7 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService appUserDetailsService;
-    
+
     @Autowired
     private AppSimpleUrlAuthenticationSuccessHandler authenticationHandler;
 
@@ -37,28 +37,28 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                 .antMatchers(
-                            "/login/**",
-                            "/error/**",
-                            "/js/**",
-                            "/css/**",
-                            "/img/**",
-                            "/webjars/**").permitAll()
+                .antMatchers(
+                        "/login/**",
+                        "/error/**",
+                        "/js/**",
+                        "/css/**",
+                        "/img/**",
+                        "/webjars/**").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority(Role.ADMIN.name())
                 .antMatchers("/doctor/**").hasAnyAuthority(Role.ADMIN.name(), Role.DOCTOR.name())
                 .antMatchers("/nurse/**").hasAnyAuthority(Role.ADMIN.name(), Role.DOCTOR.name(), Role.NURSE.name())
                 .anyRequest().authenticated().and().csrf().disable().headers().frameOptions().disable()
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .permitAll().defaultSuccessUrl("/", false)
-                    .successHandler(authenticationHandler)
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .permitAll().defaultSuccessUrl("/", false)
+                .successHandler(authenticationHandler)
                 .and()
                 .logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
                 .permitAll();
     }
 }

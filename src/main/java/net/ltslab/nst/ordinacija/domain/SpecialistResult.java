@@ -13,14 +13,12 @@ import javax.persistence.Entity;
  *
  * @author bobanlukic
  */
-
-
 @Entity
 @DiscriminatorValue("spec")
 public class SpecialistResult extends Result {
-    
+
     private static final long serialVersionUID = 1244504993834281947L;
-    
+
     @Column(name = "spec_res")
     private String specResult;
 
@@ -31,6 +29,5 @@ public class SpecialistResult extends Result {
     public void setSpecResult(String specResult) {
         this.specResult = specResult;
     }
-    
-    
+
 }

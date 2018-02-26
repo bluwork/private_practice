@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class VitalsServiceImpl implements VitalsService {
-    
+
     @Autowired
     VitalsRepository vitalsRepository;
 
@@ -41,5 +41,5 @@ public class VitalsServiceImpl implements VitalsService {
     public void deleteVitals(Long id) {
         vitalsRepository.delete(id);
     }
-    
+
 }

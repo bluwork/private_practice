@@ -12,5 +12,6 @@ import net.ltslab.nst.ordinacija.domain.Medical;
  * @author bobanlukic
  */
 public interface MedicalService {
+
     void addOrUpdate(Medical medical);
 }

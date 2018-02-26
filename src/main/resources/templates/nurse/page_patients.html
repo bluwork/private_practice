@@ -9,7 +9,7 @@ and open the template in the editor.
     <head th:replace="fragments/layout :: head_fragment (pageTitle='Patients')"/>
     <body>
 
-       <div th:replace="fragments/header :: header"/>
+        <div th:replace="fragments/header :: header"/>
 
         <div class="container below-nav-bar">
             <div class="card">
@@ -34,8 +34,8 @@ and open the template in the editor.
                     <ul class="pagination">
                         <!--<li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>-->
                         <li th:each=" i : ${#numbers.sequence(1, patients.totalPages)}"
-                             class="waves-effect"
-                               th:classappend="${currentPage}==${i-1}?'active teal lighten-2':''" >
+                            class="waves-effect"
+                            th:classappend="${currentPage}==${i-1}?'active teal lighten-2':''" >
                             <a th:href="@{/nurse/page_patients/(pageNumber=${i-1})}" th:text="${i}"></a>
                         </li>
                         <!--<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>-->

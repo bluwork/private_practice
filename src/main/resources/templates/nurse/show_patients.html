@@ -7,23 +7,23 @@
     <body>
         <div th:replace="fragments/header :: header"/>
 
-        
+
         <!-- Modal Structure -->
         <div id="schedule" class="modal">
             <div class="modal-content">
                 <form id="schedule_form" th:object="${medical}" th:action="@{/nurse/schedule_medical}" method="post">
                     <input  type="datetime-local" class="form-control" />
-                <input type="date"/>
-                <input type="text" class="timepicker"/>
-                <div class="input-field col s12">
-                    <select>
-                        <option value="" disabled="true" selected="true">Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                    </select>
-                    <label>Materialize Select</label>
-                </div>
+                    <input type="date"/>
+                    <input type="text" class="timepicker"/>
+                    <div class="input-field col s12">
+                        <select>
+                            <option value="" disabled="true" selected="true">Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -55,7 +55,7 @@
 
                             <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
                             <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>
-                            <button data-target="schedule" class="waves-effect waves-light btn modal-trigger deep-purple darken-2" th:onClick="|openScheduleModal('${patient.id}')|"><i class="material-icons">schedule</i></button>
+                            <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/schedule_medical/' + ${patient.id}}"><i class="material-icons">schedule</i></a>
 
                         </div>  
                     </li>

@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
  * @author bobanlukic
  */
 @Service
-public class MedicalServiceImpl implements MedicalService{
+public class MedicalServiceImpl implements MedicalService {
 
     @Autowired
     MedicalRepository medicalRepository;
-    
+
     @Override
     public void addOrUpdate(Medical medical) {
         medicalRepository.save(medical);
     }
-    
+
 }

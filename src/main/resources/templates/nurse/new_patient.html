@@ -6,7 +6,7 @@
         <div th:replace="fragments/header :: header"/>
 
         <div class="container">
-            
+
             <div class="card orange darken hoverable">
                 <div class="card-content white-text">
                     <div class="card-title">
@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-             <div id="errorMessage" class="card-panel red lighten-2" th:if="${patient_id_exists}">
+            <div id="errorMessage" class="card-panel red lighten-2" th:if="${patient_id_exists}">
                 <span class="card-title" th:text="#{patient_id_exists}">Patient id exists</span>
             </div>
             <form action="#" th:action="@{/nurse/new_patient}" th:object="${patient}" method="post">
@@ -50,7 +50,7 @@
                     <div class="input-field col s12 m4">
                         <input id="dob" type="date"
                                th:field="*{dateOfBirth}" required="true"/>
-                       
+
                     </div>
 
                     <div class="input-field col s6 m4">
@@ -58,7 +58,7 @@
                             <option value="MALE" th:text="#{gender_male}">Male</option>
                             <option value="FEMALE" th:text="#{gender_female}">Female</option>
                         </select>
-                        
+
                     </div>
 
                     <div class="input-field col s6 m4">
@@ -73,19 +73,19 @@
                             <option value="O_POSITIVE" th:text="#{blood_type.o_pos}">O positive</option>
                             <option value="O_NEGATIVE" th:text="#{blood_type.o_neg}">O negative</option>
                         </select>
-                        
+
                     </div>
 
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input id="phone_number" type="text" class="validate" pattern="^\d{3}-\d{3}-\d{4}$" required="true"
+                        <input id="phone_number" type="text" class="validate" pattern="^\d{3}-\d{3}-\d{4}$"
                                th:field="*{phone}"/>
                         <label for="phone_number" th:text="#{phone}">Phone Number</label>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input id="email" type="email" class="validate" required="true"
+                        <input id="email" type="email" class="validate"
                                th:field="*{email}"/>
                         <label for="email"  th:text="#{email}">Email</label>
                     </div>
@@ -100,8 +100,8 @@
                     </div>
                     <div class="input-field col s12 m6">
                         <input id="city" type="text" class="validate" required="true"
-                               th:field="*{cityName}"/>
-                        <label for="city" th:text="#{city}">City</label>
+                               th:field="*{city}"/>
+                        <label for="city"  th:text="#{city}">Address</label>
                     </div>
                 </div>
 

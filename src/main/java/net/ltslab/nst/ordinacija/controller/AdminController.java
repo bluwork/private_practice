@@ -5,11 +5,8 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-import java.util.List;
-import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
-import net.ltslab.nst.ordinacija.service.AppUserService;
-import net.ltslab.nst.ordinacija.util.Converter;
+import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminController {
 
     @Autowired
-    AppUserService appUserService;
+    OrdinacijaFacade ordinacijaFacade;
 
     @RequestMapping("/admin")
     public String admin() {
@@ -41,10 +38,9 @@ public class AdminController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/add_user")
     public String addUser(@ModelAttribute AppUserDto appUserDto, Model model) {
-        AppUser appUser = Converter.convertDtoToEntity(appUserDto);
 
-        if (appUserService.findByUsername(appUser.getUsername()) == null) {
-            appUserService.addOrUpdateUser(appUser);
+        if (ordinacijaFacade.addAppUser(appUserDto)) {
+
             return "redirect:/admin/all_users";
         }
 
@@ -60,8 +56,8 @@ public class AdminController {
 
     @RequestMapping("/admin/all_users")
     public String allUsers(Model model) {
-        List<AppUser> allUsers = appUserService.getAllUsers();
-        model.addAttribute("users", allUsers);
+
+        model.addAttribute("users", ordinacijaFacade.getAllUsers());
         return "/admin/all_users";
     }
 
@@ -71,22 +67,23 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_user")
-    public String deleteUser(@RequestParam(name = "id") Long userId) {
-        //Long userId = Long.valueOf(strUserId).longValue();
-        appUserService.deleteAppUser(userId);
-        //System.out.println(" " + strUserId);
+    public String deleteUser(@RequestParam(name = "id") Long appUserId) {
+
+        ordinacijaFacade.deleteAppUser(appUserId);
         return "redirect:/admin/all_users";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
-    public String suspendUser(@RequestParam(name = "id") Long userId) {
-        appUserService.suspendUser(userId);
+    public String suspendUser(@RequestParam(name = "id") Long appUserId) {
+
+        ordinacijaFacade.suspendUser(appUserId);
         return "redirect:/admin/all_users";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/reactivate_user")
-    public String reactivateUser(@RequestParam(name = "id") Long userId) {
-        appUserService.reactivateUser(userId);
+    public String reactivateUser(@RequestParam(name = "id") Long appUserId) {
+
+        ordinacijaFacade.reactivateUser(appUserId);
         return "redirect:/admin/all_users";
     }
 }

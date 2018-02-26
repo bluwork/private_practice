@@ -36,40 +36,38 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
 public class AppUser implements Serializable {
 
     private static final long serialVersionUID = 8107371115139601742L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "username")
     private String username;
-    
+
     @Column(name = "password")
     private String password;
-    
+
     @Size(max = 30)
     @Column(name = "first_name")
     private String firstName;
-    
+
     @Size(max = 30)
     @Column(name = "last_name")
     private String lastName;
-    
+
     @Column(name = "active")
     private boolean active = true;
-    
-    
-    
+
     @ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(
-        name="roles",
-        joinColumns=@JoinColumn(name="app_user")
-  )
-   @Column(name="roles")
+            name = "roles",
+            joinColumns = @JoinColumn(name = "app_user")
+    )
+    @Column(name = "roles")
     private Set<Role> roles;
 
     public AppUser(String username, String password, String firstName, String lastName, Set<Role> roles) {
@@ -77,11 +75,11 @@ public class AppUser implements Serializable {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;    
+        this.roles = roles;
     }
 
     public AppUser() {
-        
+
     }
 
     public Long getId() {
@@ -131,8 +129,6 @@ public class AppUser implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
-    
 
     public Set<Role> getRoles() {
         if (roles == null) {
@@ -144,11 +140,11 @@ public class AppUser implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-    
+
     public void addRole(Role role) {
         getRoles().add(role);
     }
-    
+
     public void removeRole(Role role) {
         if (getRoles().contains(role)) {
             getRoles().remove(role);
@@ -188,5 +184,5 @@ public class AppUser implements Serializable {
     public String toString() {
         return "AppUser{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + '}';
     }
-   
+
 }

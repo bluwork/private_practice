@@ -5,7 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-
 import net.ltslab.nst.ordinacija.domain.Medical;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,8 +13,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author bobanlukic
  */
-
 @Repository
-public interface MedicalRepository extends JpaRepository<Medical, Long>{
-    
+public interface MedicalRepository extends JpaRepository<Medical, Long> {
+
 }

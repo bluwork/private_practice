@@ -5,54 +5,48 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Medical;
-import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.service.AppUserService;
-import net.ltslab.nst.ordinacija.service.MedicalService;
-import net.ltslab.nst.ordinacija.service.PatientService;
+import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 /**
  *
  * @author bobanlukic
  */
-
 @Controller
 public class DoctorController {
-    
+
     @Autowired
-    PatientService patientService;
-    
-    @Autowired
-    MedicalService medicalService;
-    
-    @Autowired
-    AppUserService appUserService;
-            
+    OrdinacijaFacade ordinacijaFacade;
+
     @RequestMapping("/doctor")
-    public String doctorPage(/*Model model*/) {
-        //model.addAttribute("attribute", "value");
+    public String doctorPage(HttpServletRequest request, Model model) {
+
+        model.addAttribute("doctor", ordinacijaFacade.getDoctor(request));
+
         return "/doctor";
     }
-    
-    @RequestMapping("/doctor/medical")
-    public String medical(HttpServletRequest request, Model model) {
-        
-        Patient patient = patientService.getPatientById(22345678L);
-        String doctorName = request.getUserPrincipal().getName();
-        AppUser doctor = appUserService.findByUsername(doctorName);
-       
-        model.addAttribute("medical", new Medical(patient, doctor, LocalDateTime.now()));
+
+    @RequestMapping("/doctor/medical/{id}")
+    public String medical(HttpServletRequest request, @PathVariable(name = "id") Long patientId, Model model) {
+
+        model.addAttribute("medical", ordinacijaFacade.getMedicalFor(request, patientId));
         return "/doctor/medical";
+
     }
-    
-    
-        
+
+    @RequestMapping(method = RequestMethod.POST, value = "/doctor/new_medical")
+    public String postMedical(@ModelAttribute Medical medical) {
+
+        ordinacijaFacade.save(medical);
+        return "redirect:/doctor";
+    }
+
 }

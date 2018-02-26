@@ -7,9 +7,12 @@ package net.ltslab.nst.ordinacija.facade;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.Medical;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.Vitals;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import org.springframework.data.domain.Page;
 
@@ -17,21 +20,42 @@ import org.springframework.data.domain.Page;
  *
  * @author bobanlukic
  */
+public interface OrdinacijaFacade {
 
-public interface NurseFacade {
+    AppUser getDoctor(HttpServletRequest request);
+
+    Patient getPatient(Long patientId);
+
+    Medical getMedicalFor(HttpServletRequest request, Long patientId);
+
+    Vitals getVitalsFor(Long patientId);
+
     List<Patient> getAllPatients();
+
+    List<AppUser> getAllUsers();
+
     List<AppUser> getAllActiveDoctors();
+
     List<Patient> getScheduledPatients(LocalDate date);
-
-    boolean addPatient(PatientDto patientDto);
-
-    Page<Patient> getAllPatients(int pageNumber, int patientsByPage);
-
-    void deletePatient(Long patientId);
 
     List<Patient> searchFor(String searchText);
 
-    Vitals addVitalsFor(Long patientId);
+    Page<Patient> getAllPatients(int pageNumber, int patientsByPage);
 
-    void addVitals(Vitals vitals);
+    boolean addAppUser(AppUserDto appUserDto);
+
+    void deleteAppUser(Long userId);
+
+    void suspendUser(Long userId);
+
+    void reactivateUser(Long userId);
+
+    boolean addPatient(PatientDto patientDto);
+
+    void deletePatient(Long patientId);
+
+    void saveVitals(Vitals vitals);
+
+    void save(Medical medical);
+
 }

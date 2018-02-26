@@ -22,11 +22,9 @@ public class LocalizationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-            registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(localeChangeInterceptor());
     }
 
-    
-    
     @Bean
     public SessionLocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();

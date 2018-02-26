@@ -14,10 +14,10 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
  *
  * @author bobanlukic
  */
-public class AppUserDto implements Serializable{
+public class AppUserDto implements Serializable {
 
     private static final long serialVersionUID = -277530629373278448L;
-        
+
     private String username;
     private String password;
     private String firstName;
@@ -25,7 +25,7 @@ public class AppUserDto implements Serializable{
     private Set<Role> roles;
 
     public AppUserDto() {
-        
+
     }
 
     public AppUserDto(String username, String password, String firstName, String lastName, Set<Role> roles) {
@@ -78,15 +78,15 @@ public class AppUserDto implements Serializable{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-    
+
     public void addRole(Role role) {
         getRoles().add(role);
     }
-    
+
     public void removeRole(Role role) {
         if (getRoles().contains(role)) {
             getRoles().remove(role);
         }
-    } 
-    
+    }
+
 }

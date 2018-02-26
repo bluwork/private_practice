@@ -6,7 +6,7 @@
         <div th:replace="fragments/header :: header"/>
 
         <div class="container">
-            
+
             <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
                     <div class="card-title">
@@ -15,8 +15,8 @@
                 </div>
             </div>
 
-           <form id="vitals_form" th:object="${vitals}" th:action="@{/nurse/add_vitals}" method="post">
-               <div class="row col s12">
+            <form id="vitals_form" th:object="${vitals}" th:action="@{/nurse/add_vitals}" method="post">
+                <div class="row col s12">
                     <div class="input-field col s12 m4">
                         <input id="dbp" type="number" class="validate" required="true"
                                th:field="*{diastolicBP}"/>
@@ -32,9 +32,9 @@
                                th:field="*{bodyTemp}"/>
                         <label for="temp" th:text="#{body_temp}">Body Temp</label>
                     </div>
-                   
-               </div>
-               <div class="row col s12">
+
+                </div>
+                <div class="row col s12">
                     <div class="input-field col s12 m4">
                         <input id="heart" type="number" class="validate" required="true"
                                th:field="*{heartRate}"/>
@@ -45,23 +45,23 @@
                                th:field="*{height}"/>
                         <label for="height" th:text="#{height}">Height</label>
                     </div>
-                     <div class="input-field col s12 m4">
+                    <div class="input-field col s12 m4">
                         <input id="mass" type="number" class="validate" required="true"
                                th:field="*{mass}"/>
                         <label for="mass" th:text="#{mass}">Height</label>
                     </div>
-               </div>
-                   
-                    
-                  
-                    <input type="hidden" th:field="*{patient}"/>
-                    <input type="hidden" th:field="*{measuringDate}"/>
-                    <div class="row center">
+                </div>
+
+
+
+                <input type="hidden" th:field="*{patient}"/>
+                <input type="hidden" th:field="*{measuringDate}"/>
+                <div class="row center">
                     <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Submit
                         <i class="material-icons right">save</i>
                     </button>
                 </div>
-                </form>
+            </form>
         </div>
 
         <div th:replace="fragments/footer :: footer"/>
