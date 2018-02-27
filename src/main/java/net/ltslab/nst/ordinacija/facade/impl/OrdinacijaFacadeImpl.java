@@ -46,7 +46,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Override
     public List<Patient> getAllPatients() {
+        
         return patientService.allPatients();
+        
     }
 
     @Override
@@ -71,7 +73,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Override
     public void deletePatient(Long patientId) {
+        
         patientService.deletePatient(patientId);
+        
     }
 
     @Override
@@ -90,8 +94,8 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public Patient getPatient(Long patientId) {
-        return patientService.getPatientById(patientId);
+    public PatientDto getPatient(Long patientId) {
+        return (DtoConverter.convertEntityToDto(patientService.getPatientById(patientId)));
     }
 
     @Override

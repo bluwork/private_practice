@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -36,7 +37,7 @@ public class NurseController {
 
     @RequestMapping("/nurse/show_patients")
     public String allPatients(Model model) {
-
+        
         model.addAttribute("patients", ordinacijaFacade.getAllPatients());
 
         return "/nurse/show_patients";
@@ -60,6 +61,7 @@ public class NurseController {
 
         return "/nurse/add_patient";
     }
+    
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/new_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto, Model model) {
@@ -76,9 +78,12 @@ public class NurseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_patient/{id}")
-    public String deletePatient(@PathVariable(name = "id") Long patientId) {
+    public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
 
         ordinacijaFacade.deletePatient(patientId);
+        
+        ra.addFlashAttribute("deleted", ""  + patientId);
+        
         return "redirect:/nurse/show_patients";
     }
 

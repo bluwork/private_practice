@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
+import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.Medical;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
@@ -30,6 +31,7 @@ public class DoctorController {
     public String doctorPage(HttpServletRequest request, Model model) {
 
         model.addAttribute("doctor", ordinacijaFacade.getDoctor(request));
+         model.addAttribute("patients", ordinacijaFacade.getScheduledPatients(LocalDate.now()));
 
         return "/doctor";
     }
