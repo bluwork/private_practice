@@ -99,7 +99,7 @@ public class NurseController {
     @RequestMapping("/nurse/schedule_medical/{id}")
     public String scheduleMedical(@PathVariable(name = "id") Long patientId, Model model) {
 
-        model.addAttribute("patient", ordinacijaFacade.getPatient(patientId));
+        model.addAttribute("patient", ordinacijaFacade.getPatientDto(patientId));
         model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
 
         return "/nurse/schedule_medical";

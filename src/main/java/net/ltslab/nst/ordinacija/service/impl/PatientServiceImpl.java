@@ -81,4 +81,9 @@ public class PatientServiceImpl implements PatientService {
         return false;
     }
 
+    @Override
+    public PatientDto getPatientDto(Long patientId) {
+        return DtoConverter.convertEntityToDto(getPatientById(patientId));
+    }
+
 }

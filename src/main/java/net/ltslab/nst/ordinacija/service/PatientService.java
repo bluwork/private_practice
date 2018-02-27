@@ -34,4 +34,6 @@ public interface PatientService {
     List<Patient> searchForPatient(String searchText);
 
     public boolean addPatient(PatientDto patientDto);
+
+    public PatientDto getPatientDto(Long patientId);
 }

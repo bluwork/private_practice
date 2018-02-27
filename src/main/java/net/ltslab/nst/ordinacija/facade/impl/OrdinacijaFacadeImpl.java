@@ -94,8 +94,8 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public PatientDto getPatient(Long patientId) {
-        return (DtoConverter.convertEntityToDto(patientService.getPatientById(patientId)));
+    public PatientDto getPatientDto(Long patientId) {
+        return patientService.getPatientDto(patientId);
     }
 
     @Override
