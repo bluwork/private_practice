@@ -8,6 +8,7 @@ package net.ltslab.nst.ordinacija.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.repository.impl.PatientSearchRepositoryImpl;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import net.ltslab.nst.ordinacija.repository.PatientRepository;
+import net.ltslab.nst.ordinacija.util.DtoConverter;
 
 /**
  *
@@ -67,6 +69,16 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> searchForPatient(String searchText) {
         return patientSearchRepository.search(searchText);
+    }
+
+    @Override
+    public boolean addPatient(PatientDto patientDto) {
+        Patient p = DtoConverter.convertDtoToEntity(patientDto);
+        if (getPatientById(p.getId()) == null) {
+            addOrUpdatePatient(p);
+            return true;
+        }
+        return false;
     }
 
 }

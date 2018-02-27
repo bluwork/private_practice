@@ -5,13 +5,17 @@
  */
 package net.ltslab.nst.ordinacija.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.enums.Role;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.ltslab.nst.ordinacija.repository.AppUserRepository;
+import net.ltslab.nst.ordinacija.util.DtoConverter;
 
 /**
  *
@@ -70,6 +74,34 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser findActiveByUsername(String username) {
         return appUserRepository.findByUsernameAndActiveTrue(username);
+    }
+
+    @Override
+    public List<AppUser> getAllActiveDoctors() {
+        
+        List<AppUser> availableDoctors = new ArrayList<>();
+
+        for (AppUser user : getAllActiveUsers()) {
+            if (user.getRoles().contains(Role.DOCTOR)) {
+                availableDoctors.add(user);
+            }
+        }
+        return availableDoctors;
+    }
+
+    @Override
+    public boolean addAppUser(AppUserDto appUserDto) {
+        AppUser appUser = DtoConverter.convertDtoToEntity(appUserDto);
+        if (findByUsername(appUser.getUsername()) == null) {
+            addOrUpdateUser(appUser);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public AppUser getDoctor(HttpServletRequest request) {
+        return findByUsername(request.getUserPrincipal().getName());
     }
 
 }

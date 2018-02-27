@@ -110,7 +110,7 @@ public class NurseController {
     @RequestMapping("/nurse/add_vitals/{id}")
     public String addVitals(@PathVariable(name = "id") Long patientId, Model model) {
 
-        model.addAttribute("vitals", ordinacijaFacade.getVitalsFor(patientId));
+        model.addAttribute("vitals", ordinacijaFacade.getVitals(patientId));
         return "/nurse/add_vitals";
 
     }

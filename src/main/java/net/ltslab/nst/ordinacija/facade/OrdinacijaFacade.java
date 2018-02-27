@@ -26,9 +26,9 @@ public interface OrdinacijaFacade {
 
     Patient getPatient(Long patientId);
 
-    Medical getMedicalFor(HttpServletRequest request, Long patientId);
+    Medical getMedical(HttpServletRequest request, Long patientId);
 
-    Vitals getVitalsFor(Long patientId);
+    Vitals getVitals(Long patientId);
 
     List<Patient> getAllPatients();
 

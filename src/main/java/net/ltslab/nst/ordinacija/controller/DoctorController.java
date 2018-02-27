@@ -37,7 +37,7 @@ public class DoctorController {
     @RequestMapping("/doctor/medical/{id}")
     public String medical(HttpServletRequest request, @PathVariable(name = "id") Long patientId, Model model) {
 
-        model.addAttribute("medical", ordinacijaFacade.getMedicalFor(request, patientId));
+        model.addAttribute("medical", ordinacijaFacade.getMedical(request, patientId));
         return "/doctor/medical";
 
     }

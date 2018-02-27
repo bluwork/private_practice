@@ -6,7 +6,9 @@
 package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
 
 /**
  *
@@ -21,6 +23,8 @@ public interface AppUserService {
     List<AppUser> getAllUsers();
 
     List<AppUser> getAllActiveUsers();
+    
+    List<AppUser> getAllActiveDoctors();
 
     List<AppUser> getAllSuspendedUsers();
     
@@ -31,4 +35,8 @@ public interface AppUserService {
     void reactivateUser(Long appUserId);
 
     void deleteAppUser(Long userId);
+
+    public boolean addAppUser(AppUserDto appUserDto);
+
+    public AppUser getDoctor(HttpServletRequest request);
 }
