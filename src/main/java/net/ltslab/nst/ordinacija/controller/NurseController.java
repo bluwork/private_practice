@@ -53,12 +53,12 @@ public class NurseController {
         return "/nurse/page_patients";
     }
 
-    @RequestMapping("/nurse/new_patient")
+    @RequestMapping("/nurse/add_patient")
     public String addNewPatient(Model model) {
 
         model.addAttribute("patient", new PatientDto());
 
-        return "/nurse/new_patient";
+        return "/nurse/add_patient";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/new_patient")

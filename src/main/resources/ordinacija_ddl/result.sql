@@ -18,7 +18,6 @@ CREATE TABLE `result` (
   CONSTRAINT `result_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`),
   CONSTRAINT `result_ibfk_2` FOREIGN KEY (`medical_id`) REFERENCES `medical` (`id`),
   CONSTRAINT `result_ibfk_3` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`)
---   CONSTRAINT `result_ibfk_3` FOREIGN KEY (`request_id`) REFERENCES `request` (`id`)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

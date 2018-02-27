@@ -9,24 +9,17 @@
         <div class="container" th:fragment="header">
             <nav>
                 <div class="nav-wrapper   indigo darken-4">
-                    <!--<a href="#!" class="brand-logo">Ordinacija</a>-->
+                    <a href="#!" class="brand-logo" th:if="${loggedUser}!= null" th:text="${loggedUser.firstName} + ' '  + ${loggedUser.lastName}">Ordinacija</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right">
                         <li><a href="?lang=en_US">EN</a></li>
                         <li><a href="?lang=sr">SR</a></li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#"><i class="material-icons">info_outline</i></a></li>
-                        <li><a href="#"><i class="material-icons">notifications</i></a></li>
                         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#"><i class="material-icons">info_outline</i></a></li>
-                        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a></li>
+                       <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{sign_out}">Sign Out</a></li>
                     </ul>
                 </div>
             </nav>
