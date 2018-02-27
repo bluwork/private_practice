@@ -6,6 +6,7 @@
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,5 +38,37 @@ public class Request implements Serializable {
 
     @ManyToOne
     private AppUser doctor;
+
+    public Request() {
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.medical);
+        hash = 97 * hash + Objects.hashCode(this.doctor);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Request other = (Request) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.doctor, other.doctor)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -24,7 +24,7 @@ public interface OrdinacijaFacade {
 
     AppUser getDoctor(HttpServletRequest request);
 
-    Patient getPatient(Long patientId);
+    PatientDto getPatient(Long patientId);
 
     Medical getMedicalFor(HttpServletRequest request, Long patientId);
 

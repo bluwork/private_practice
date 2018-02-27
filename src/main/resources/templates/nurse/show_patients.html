@@ -7,32 +7,8 @@
     <body>
         <div th:replace="fragments/header :: header"/>
 
-
-        <!-- Modal Structure -->
-        <div id="schedule" class="modal">
-            <div class="modal-content">
-                <form id="schedule_form" th:object="${medical}" th:action="@{/nurse/schedule_medical}" method="post">
-                    <input  type="datetime-local" class="form-control" />
-                    <input type="date"/>
-                    <input type="text" class="timepicker"/>
-                    <div class="input-field col s12">
-                        <select>
-                            <option value="" disabled="true" selected="true">Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                        <label>Materialize Select</label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" form="schedule_form" class="modal-action modal-close waves-effect waves-green btn-flat">Submit</input>
-            </div>
-        </div>
-
         <div class="container">
-            <div class="card blue-grey darken-1 hoverable">
+           <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
                     <div class="row card-title col s12">
                         <div class="col s12 m10">
@@ -41,10 +17,11 @@
                         <div class="col s12 m2">
                             <a class="btn waves-effect waves-light   orange darken-3" th:href="@{/nurse/add_patient}"><i class="material-icons">person_add</i></a> 
                         </div>
-
-
                     </div>
                 </div>
+            </div>
+            <div id="deletionInfo" class="card-panel blue lighten-2" th:if="${deleted} != null">
+                        <span class="card-title" th:inline="text">[['Patient with id: ' + ${deleted} + ' successfully deleted from system.']]</span>
             </div>
             <div th:if="${not #lists.isEmpty(patients)}">
 
@@ -52,10 +29,10 @@
                     <li th:each="patient : ${patients}">
                         <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
                         <div class="collapsible-body">
-
-                            <button class="waves-effect waves-light btn" type="submit"><i class="material-icons">edit</i></button>
-                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger"><i class="material-icons">delete</i></button>
-                            <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/schedule_medical/' + ${patient.id}}"><i class="material-icons">schedule</i></a>
+                            <form th:action="@{'/nurse/delete_patient/' + ${patient.id}}" method="post" style="display: inline;">
+                                <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{delete_forever}"  type="submit"><i class="material-icons">delete_forever</i></button> 
+                            </form>
+                           <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/schedule_medical/' + ${patient.id}}"><i class="material-icons">schedule</i></a>
 
                         </div>  
                     </li>

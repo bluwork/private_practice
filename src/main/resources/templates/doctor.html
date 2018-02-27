@@ -11,11 +11,22 @@
                     </div>
                     <div class="card-action">
                         <a th:href="@{/nurse/show_patients}" th:text="#{show_all}">Show all</a>
-                        <a th:href="@{/nurse/new_patient}" th:text="#{add_new}">Add new</a>
+                        <a th:href="@{/nurse/add_patient}" th:text="#{add_new}">Add new</a>
                         <a th:href="@{/nurse/page_patients}" th:text="#{paged}">Paged</a>
-                        <a th:href="@{/doctor/medical}" th:text="#{medical}">Medical</a>
+                    
                     </div>
                 </div>
+                <div th:if="${not #lists.isEmpty(patients)}">
+
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li th:each="patient : ${patients}">
+                        <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
+                        <div class="collapsible-body">
+                            <a class="waves-effect waves-light btn" th:href="@{'/doctor/medical/' + ${patient.id}}"><i class="material-icons">favorite</i></a>
+                        </div>  
+                    </li>
+                </ul>
+            </div>
             </div>
         </div>
         <div th:replace="fragments/footer :: footer" />
