@@ -55,11 +55,8 @@ public class MedicalServiceImpl implements MedicalService {
     public MedicalDto getMedicalDto(HttpServletRequest request, Long patientId) {
 
         Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId));
-        System.out.println(patient);
         String doctorName = request.getUserPrincipal().getName();
-       
         AppUser doctor = appUserMappper.appUserDtoToAppUser(appUserService.findByUsername(doctorName));
-        System.out.println(doctor);
         
         return medicalMapper.medicalToMedicalDto(new Medical(patient, doctor, LocalDateTime.now()));
     }
