@@ -6,19 +6,17 @@
 package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
-import net.ltslab.nst.ordinacija.dto.VitalsDto;
+import net.ltslab.nst.ordinacija.dto.CityDto;
 
 /**
  *
  * @author bobanlukic
  */
-public interface VitalsService {
+public interface CityService {
 
-    List<VitalsDto> getAllVitals(Long patientId);
+    List<CityDto> allCities();
 
-    VitalsDto getVitalsDto(Long id);
+    CityDto getCityByZipCode(Long zipCode);
 
-    void addOrUpdateVitals(VitalsDto vitals);
-
-    void deleteVitals(Long id);
+    boolean addCity(CityDto cityDto);
 }

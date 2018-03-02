@@ -15,7 +15,7 @@ import net.ltslab.nst.ordinacija.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.ltslab.nst.ordinacija.repository.AppUserRepository;
-import net.ltslab.nst.ordinacija.util.DtoConverter;
+import net.ltslab.nst.ordinacija.util.AppUserMapper;
 
 /**
  *
@@ -27,19 +27,26 @@ public class AppUserServiceImpl implements AppUserService {
     @Autowired
     AppUserRepository appUserRepository;
 
+    @Autowired
+    AppUserMapper appUserMapper;
+
     @Override
-    public AppUser findByUsername(String username) {
-        return appUserRepository.findByUsername(username);
+    public AppUserDto findByUsername(String username) {
+        return appUserMapper.appUserToAppUserDto(appUserRepository.findByUsername(username));
     }
 
     @Override
-    public void addOrUpdateUser(AppUser appUser) {
-        appUserRepository.saveAndFlush(appUser);
+    public void addOrUpdateUser(AppUserDto appUserDto) {
+        appUserRepository.saveAndFlush(appUserMapper.appUserDtoToAppUser(appUserDto));
     }
 
     @Override
-    public List<AppUser> getAllUsers() {
-        return appUserRepository.findAll();
+    public List<AppUserDto> getAllUsers() {
+        List<AppUserDto> userDtos = new ArrayList<>();
+        for (AppUser au : appUserRepository.findAll()) {
+            userDtos.add(appUserMapper.appUserToAppUserDto(au));
+        }
+        return userDtos;
     }
 
     @Override
@@ -48,13 +55,23 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public List<AppUser> getAllActiveUsers() {
-        return appUserRepository.findByActiveTrue();
+    public List<AppUserDto> getAllActiveUsers() {
+        List<AppUserDto> activeUsersDtos = new ArrayList<>();
+
+        for (AppUser active : appUserRepository.findByActiveTrue()) {
+            activeUsersDtos.add(appUserMapper.appUserToAppUserDto(active));
+        }
+        return activeUsersDtos;
     }
 
     @Override
-    public List<AppUser> getAllSuspendedUsers() {
-        return appUserRepository.findByActiveFalse();
+    public List<AppUserDto> getAllSuspendedUsers() {
+        List<AppUserDto> suspendedUsersDtos = new ArrayList<>();
+
+        for (AppUser suspended : appUserRepository.findByActiveFalse()) {
+            suspendedUsersDtos.add(appUserMapper.appUserToAppUserDto(suspended));
+        }
+        return suspendedUsersDtos;
     }
 
     @Override
@@ -72,18 +89,18 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUser findActiveByUsername(String username) {
-        return appUserRepository.findByUsernameAndActiveTrue(username);
+    public AppUserDto findActiveByUsername(String username) {
+        return appUserMapper.appUserToAppUserDto(appUserRepository.findByUsernameAndActiveTrue(username));
     }
 
     @Override
-    public List<AppUser> getAllActiveDoctors() {
-        
-        List<AppUser> availableDoctors = new ArrayList<>();
+    public List<AppUserDto> getAllActiveDoctors() {
 
-        for (AppUser user : getAllActiveUsers()) {
+        List<AppUserDto> availableDoctors = new ArrayList<>();
+
+        for (AppUser user : appUserRepository.findByActiveTrue()) {
             if (user.getRoles().contains(Role.DOCTOR)) {
-                availableDoctors.add(user);
+                availableDoctors.add(appUserMapper.appUserToAppUserDto(user));
             }
         }
         return availableDoctors;
@@ -91,16 +108,16 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public boolean addAppUser(AppUserDto appUserDto) {
-        AppUser appUser = DtoConverter.convertDtoToEntity(appUserDto);
+        AppUser appUser = appUserMapper.appUserDtoToAppUser(appUserDto);
         if (findByUsername(appUser.getUsername()) == null) {
-            addOrUpdateUser(appUser);
+            appUserRepository.saveAndFlush(appUser);
             return true;
         }
         return false;
     }
 
     @Override
-    public AppUser getDoctor(HttpServletRequest request) {
+    public AppUserDto getDoctor(HttpServletRequest request) {
         return findByUsername(request.getUserPrincipal().getName());
     }
 

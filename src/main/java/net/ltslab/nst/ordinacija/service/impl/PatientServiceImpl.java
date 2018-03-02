@@ -13,10 +13,8 @@ import net.ltslab.nst.ordinacija.repository.impl.PatientSearchRepositoryImpl;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import net.ltslab.nst.ordinacija.repository.PatientRepository;
-import net.ltslab.nst.ordinacija.util.DtoConverter;
+import net.ltslab.nst.ordinacija.util.PatientMapper;
 
 /**
  *
@@ -28,22 +26,25 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     PatientRepository patientRepository;
 
+    @Autowired
+    PatientMapper patientMapper;
+
     @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
     PatientSearchRepositoryImpl patientSearchRepository;
 
     @Override
-    public List<Patient> allPatients() {
-        return patientRepository.findAll();
+    public List<PatientDto> allPatients() {
+        return patientMapper.patientsToPatientDtos(patientRepository.findAll());
     }
 
     @Override
-    public Patient getPatientById(Long id) {
-        return patientRepository.findOne(id);
+    public PatientDto getPatientById(Long id) {
+        return patientMapper.patientToPatientDto(patientRepository.findOne(id));
     }
 
     @Override
-    public void addOrUpdatePatient(Patient patient) {
-        patientRepository.save(patient);
+    public void addOrUpdatePatient(PatientDto patientDto) {
+        patientRepository.save(patientMapper.patientDtoToPatient(patientDto));
     }
 
     @Override
@@ -52,30 +53,25 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage) {
-        return patientRepository.findAll(new PageRequest(pageNumber, itemsByPage));
+    public void deletePatient(PatientDto patientDto) {
+        patientRepository.delete(patientMapper.patientDtoToPatient(patientDto));
     }
 
     @Override
-    public void deletePatient(Patient patient) {
-        patientRepository.delete(patient);
+    public List<PatientDto> scheduledForDate(LocalDate date) {
+        return patientMapper.patientsToPatientDtos(patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(date));
     }
 
     @Override
-    public List<Patient> scheduledForDate(LocalDate date) {
-        return patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(date);
-    }
-
-    @Override
-    public List<Patient> searchForPatient(String searchText) {
-        return patientSearchRepository.search(searchText);
+    public List<PatientDto> searchForPatients(String searchText) {
+        return patientMapper.patientsToPatientDtos(patientSearchRepository.search(searchText));
     }
 
     @Override
     public boolean addPatient(PatientDto patientDto) {
-        Patient p = DtoConverter.convertDtoToEntity(patientDto);
+        Patient p = patientMapper.patientDtoToPatient(patientDto);
         if (getPatientById(p.getId()) == null) {
-            addOrUpdatePatient(p);
+            patientRepository.saveAndFlush(p);
             return true;
         }
         return false;
@@ -83,7 +79,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto getPatientDto(Long patientId) {
-        return DtoConverter.convertEntityToDto(getPatientById(patientId));
+        return patientMapper.patientToPatientDto(patientRepository.findOne(patientId));
     }
 
 }

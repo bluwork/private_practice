@@ -12,7 +12,7 @@ import net.ltslab.nst.ordinacija.domain.Patient;
  *
  * @author bobanlukic
  */
-
 public interface PatientSearchRepository {
+
     List<Patient> search(String text);
 }

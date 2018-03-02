@@ -17,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,7 +28,6 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -58,8 +58,8 @@ public class Patient implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @IndexedEmbedded
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_info")
+    @OneToOne(cascade = CascadeType.ALL)
     private ContactInfo contactInfo;
 
     @Column(name = "dob")
@@ -89,6 +89,9 @@ public class Patient implements Serializable {
 
     @Column(name = "med_schedule_time")
     private LocalTime medScheduleTime;
+
+    @Column(name = "soft_del")
+    private boolean softDeleted;
 
     public Patient() {
     }
@@ -236,6 +239,14 @@ public class Patient implements Serializable {
 
     public void setMedScheduleTime(LocalTime medScheduleTime) {
         this.medScheduleTime = medScheduleTime;
+    }
+
+    public boolean isSoftDeleted() {
+        return softDeleted;
+    }
+
+    public void setSoftDeleted(boolean softDeleted) {
+        this.softDeleted = softDeleted;
     }
 
     @Override

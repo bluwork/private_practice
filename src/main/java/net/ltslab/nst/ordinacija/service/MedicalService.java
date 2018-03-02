@@ -6,7 +6,7 @@
 package net.ltslab.nst.ordinacija.service;
 
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.Medical;
+import net.ltslab.nst.ordinacija.dto.MedicalDto;
 
 /**
  *
@@ -14,7 +14,7 @@ import net.ltslab.nst.ordinacija.domain.Medical;
  */
 public interface MedicalService {
 
-    void addOrUpdate(Medical medical);
+    void addOrUpdate(MedicalDto medicalDto);
 
-    public Medical getMedical(HttpServletRequest request, Long patientId);
+    public MedicalDto getMedicalDto(HttpServletRequest request, Long patientId);
 }

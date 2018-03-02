@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import net.ltslab.nst.ordinacija.domain.Medical;
 import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
+import net.ltslab.nst.ordinacija.dto.VitalsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,43 +38,26 @@ public class NurseController {
 
     @RequestMapping("/nurse/show_patients")
     public String allPatients(Model model) {
-        
         model.addAttribute("patients", ordinacijaFacade.getAllPatients());
-
         return "/nurse/show_patients";
-    }
-
-    @RequestMapping("/nurse/page_patients")
-    public String showPagePatients(Model model,
-            @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "5") int patientsByPage) {
-
-        model.addAttribute("patients", ordinacijaFacade.getAllPatients(pageNumber, patientsByPage));
-        model.addAttribute("currentPage", pageNumber);
-
-        return "/nurse/page_patients";
     }
 
     @RequestMapping("/nurse/add_patient")
     public String addNewPatient(Model model) {
-
         model.addAttribute("patient", new PatientDto());
-
+        model.addAttribute("cities", ordinacijaFacade.getAllCities());
         return "/nurse/add_patient";
     }
-    
 
-    @RequestMapping(method = RequestMethod.POST, value = "/nurse/new_patient")
+    @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto, Model model) {
 
         if (ordinacijaFacade.addPatient(patientDto)) {
             return "redirect:/nurse/show_patients";
         }
-
         model.addAttribute("patient", patientDto);
         model.addAttribute("patient_id_exists", true);
-
-        return "/nurse/new_patient";
+        return "/nurse/add_patient";
 
     }
 
@@ -81,9 +65,7 @@ public class NurseController {
     public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
 
         ordinacijaFacade.deletePatient(patientId);
-        
-        ra.addFlashAttribute("deleted", ""  + patientId);
-        
+        ra.addFlashAttribute("deleted", "" + patientId);
         return "redirect:/nurse/show_patients";
     }
 
@@ -92,7 +74,6 @@ public class NurseController {
 
         model.addAttribute("patients", ordinacijaFacade.searchFor(searchText));
         model.addAttribute("searchedFor", searchText);
-
         return "nurse/show_patients";
     }
 
@@ -101,30 +82,24 @@ public class NurseController {
 
         model.addAttribute("patient", ordinacijaFacade.getPatientDto(patientId));
         model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
-
         return "/nurse/schedule_medical";
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/schedule_medical")
     public String scheduleMedical(@ModelAttribute Medical medical) {
-
         return "redirect:/nurse";
     }
 
     @RequestMapping("/nurse/add_vitals/{id}")
     public String addVitals(@PathVariable(name = "id") Long patientId, Model model) {
-
         model.addAttribute("vitals", ordinacijaFacade.getVitals(patientId));
         return "/nurse/add_vitals";
-
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_vitals")
-    public String postVitals(@ModelAttribute Vitals vitals) {
-
+    public String postVitals(@ModelAttribute VitalsDto vitals) {
         ordinacijaFacade.saveVitals(vitals);
-
         return "redirect:/nurse/show_patients";
     }
 

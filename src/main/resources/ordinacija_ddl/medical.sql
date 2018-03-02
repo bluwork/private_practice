@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS `medical`;
+
 CREATE TABLE `medical` (
 
   `id`            BIGINT(20) NOT NULL AUTO_INCREMENT,

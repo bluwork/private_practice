@@ -66,13 +66,6 @@ public class AdminController {
         return "all_cities";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_user")
-    public String deleteUser(@RequestParam(name = "id") Long appUserId) {
-
-        ordinacijaFacade.deleteAppUser(appUserId);
-        return "redirect:/admin/all_users";
-    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
     public String suspendUser(@RequestParam(name = "id") Long appUserId) {
 

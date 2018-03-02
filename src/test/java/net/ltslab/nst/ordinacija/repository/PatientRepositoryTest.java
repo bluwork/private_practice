@@ -6,7 +6,6 @@
 package net.ltslab.nst.ordinacija.repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
@@ -33,7 +32,6 @@ public class PatientRepositoryTest {
     private PatientRepository patientRepository;
 
     @Test
-
     public void repositoryTest() throws Exception {
 
         // Test findById

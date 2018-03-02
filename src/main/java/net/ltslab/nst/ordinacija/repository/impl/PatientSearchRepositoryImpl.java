@@ -36,7 +36,7 @@ public class PatientSearchRepositoryImpl implements PatientSearchRepository {
      *
      * @param text The query text.
      */
-    public List search(String text) {
+    public List<Patient> search(String text) {
 
         // get the full text entity manager
         FullTextEntityManager fullTextEntityManager
@@ -52,7 +52,7 @@ public class PatientSearchRepositoryImpl implements PatientSearchRepository {
         Query query
                 = queryBuilder
                         .keyword()
-                        .onFields("firstName", "lastName", "contactInfo.email", "contactInfo.phone")
+                        .onFields("firstName", "lastName")
                         .matching(text)
                         .createQuery();
 

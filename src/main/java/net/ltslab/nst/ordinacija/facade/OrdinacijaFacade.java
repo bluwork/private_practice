@@ -8,13 +8,11 @@ package net.ltslab.nst.ordinacija.facade;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.Medical;
-import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.CityDto;
+import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
-import org.springframework.data.domain.Page;
+import net.ltslab.nst.ordinacija.dto.VitalsDto;
 
 /**
  *
@@ -22,29 +20,27 @@ import org.springframework.data.domain.Page;
  */
 public interface OrdinacijaFacade {
 
-    AppUser getDoctor(HttpServletRequest request);
+    AppUserDto getDoctor(HttpServletRequest request);
 
     PatientDto getPatientDto(Long patientId);
 
-    Medical getMedical(HttpServletRequest request, Long patientId);
+    MedicalDto getMedicalDto(HttpServletRequest request, Long patientId);
 
-    Vitals getVitals(Long patientId);
+    VitalsDto getVitals(Long patientId);
 
-    List<Patient> getAllPatients();
+    List<PatientDto> getAllPatients();
 
-    List<AppUser> getAllUsers();
+    List<AppUserDto> getAllUsers();
 
-    List<AppUser> getAllActiveDoctors();
+    List<AppUserDto> getAllActiveDoctors();
 
-    List<Patient> getScheduledPatients(LocalDate date);
+    List<PatientDto> getScheduledPatients(LocalDate date);
 
-    List<Patient> searchFor(String searchText);
+    List<PatientDto> searchFor(String searchText);
 
-    Page<Patient> getAllPatients(int pageNumber, int patientsByPage);
+    List<CityDto> getAllCities();
 
     boolean addAppUser(AppUserDto appUserDto);
-
-    void deleteAppUser(Long userId);
 
     void suspendUser(Long userId);
 
@@ -54,8 +50,10 @@ public interface OrdinacijaFacade {
 
     void deletePatient(Long patientId);
 
-    void saveVitals(Vitals vitals);
+    void saveVitals(VitalsDto vitals);
 
-    void save(Medical medical);
+    void save(MedicalDto medical);
+
+    boolean addCity(CityDto cityDto);
 
 }

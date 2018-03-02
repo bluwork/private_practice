@@ -7,9 +7,7 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
-import org.springframework.data.domain.Page;
 
 /**
  *
@@ -17,23 +15,22 @@ import org.springframework.data.domain.Page;
  */
 public interface PatientService {
 
-    List<Patient> allPatients();
+    List<PatientDto> allPatients();
 
-    Patient getPatientById(Long id);
+    PatientDto getPatientById(Long id);
 
-    void addOrUpdatePatient(Patient patient);
+    void addOrUpdatePatient(PatientDto patient);
 
     void deletePatient(Long id);
 
-    Page<Patient> getPatientsByPage(int pageNumber, int itemsByPage);
+    void deletePatient(PatientDto patientDto);
 
-    void deletePatient(Patient patient);
+    public List<PatientDto> scheduledForDate(LocalDate date);
 
-    public List<Patient> scheduledForDate(LocalDate date);
-
-    List<Patient> searchForPatient(String searchText);
+    List<PatientDto> searchForPatients(String searchText);
 
     public boolean addPatient(PatientDto patientDto);
 
     public PatientDto getPatientDto(Long patientId);
+
 }

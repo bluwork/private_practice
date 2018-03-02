@@ -7,7 +7,7 @@ package net.ltslab.nst.ordinacija.controller;
 
 import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.Medical;
+import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class DoctorController {
     public String doctorPage(HttpServletRequest request, Model model) {
 
         model.addAttribute("doctor", ordinacijaFacade.getDoctor(request));
-         model.addAttribute("patients", ordinacijaFacade.getScheduledPatients(LocalDate.now()));
+        model.addAttribute("patients", ordinacijaFacade.getScheduledPatients(LocalDate.now()));
 
         return "/doctor";
     }
@@ -39,13 +39,13 @@ public class DoctorController {
     @RequestMapping("/doctor/medical/{id}")
     public String medical(HttpServletRequest request, @PathVariable(name = "id") Long patientId, Model model) {
 
-        model.addAttribute("medical", ordinacijaFacade.getMedical(request, patientId));
+        model.addAttribute("medical", ordinacijaFacade.getMedicalDto(request, patientId));
         return "/doctor/medical";
 
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/doctor/new_medical")
-    public String postMedical(@ModelAttribute Medical medical) {
+    public String postMedical(@ModelAttribute MedicalDto medical) {
 
         ordinacijaFacade.save(medical);
         return "redirect:/doctor";

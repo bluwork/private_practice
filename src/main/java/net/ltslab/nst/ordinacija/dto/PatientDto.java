@@ -8,6 +8,9 @@ package net.ltslab.nst.ordinacija.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import net.ltslab.nst.ordinacija.domain.Medical;
+import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,17 +32,19 @@ public class PatientDto implements Serializable {
     private LocalDate dateOfBirth;
     private Gender gender;
     private BloodType bloodType;
-    private String phone;
-    private String email;
-    private String address;
     private String allergies;
-    private String city;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate medScheduleDate;
 
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime medScheduleTime;
+
+    private ContactInfoDto contactInfo;
+    
+    private List<Vitals> vitals;
+
+    private List<Medical> medicals;
 
     public PatientDto() {
     }
@@ -92,30 +97,6 @@ public class PatientDto implements Serializable {
         this.bloodType = bloodType;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getAllergies() {
         return allergies;
     }
@@ -148,14 +129,28 @@ public class PatientDto implements Serializable {
         this.medScheduleTime = medScheduleTime;
     }
 
-    public String getCity() {
-        return city;
+    public ContactInfoDto getContactInfo() {
+        return contactInfo;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setContactInfo(ContactInfoDto contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
+    public List<Vitals> getVitals() {
+        return vitals;
+    }
+
+    public void setVitals(List<Vitals> vitals) {
+        this.vitals = vitals;
+    }
+
+    public List<Medical> getMedicals() {
+        return medicals;
+    }
+
+    public void setMedicals(List<Medical> medicals) {
+        this.medicals = medicals;
     }
     
-    
-
 }

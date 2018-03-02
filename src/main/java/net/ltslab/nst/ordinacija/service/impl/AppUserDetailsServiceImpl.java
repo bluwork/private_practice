@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.util.AppUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,9 +29,12 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AppUserService appUserService;
 
+    @Autowired
+    private AppUserMapper appUserMapper;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserService.findActiveByUsername(username);
+        AppUser appUser = appUserMapper.appUserDtoToAppUser(appUserService.findActiveByUsername(username));
 
         if (appUser == null) {
             throw new UsernameNotFoundException("Invalid or not active username: " + username);

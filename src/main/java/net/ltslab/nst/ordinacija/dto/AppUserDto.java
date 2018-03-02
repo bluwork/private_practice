@@ -18,22 +18,16 @@ public class AppUserDto implements Serializable {
 
     private static final long serialVersionUID = -277530629373278448L;
 
+    private Long id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private Set<Role> roles;
+    private boolean active;
 
     public AppUserDto() {
 
-    }
-
-    public AppUserDto(String username, String password, String firstName, String lastName, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.roles = roles;
     }
 
     public String getUsername() {
@@ -87,6 +81,22 @@ public class AppUserDto implements Serializable {
         if (getRoles().contains(role)) {
             getRoles().remove(role);
         }
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

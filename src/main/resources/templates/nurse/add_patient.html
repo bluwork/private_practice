@@ -18,7 +18,7 @@
             <div id="errorMessage" class="card-panel red lighten-2" th:if="${patient_id_exists}">
                 <span class="card-title" th:text="#{patient_id_exists}">Patient id exists</span>
             </div>
-            <form action="#" th:action="@{/nurse/new_patient}" th:object="${patient}" method="post">
+            <form action="#" th:action="@{/nurse/add_patient}" th:object="${patient}" method="post">
 
                 <div class="row">
                     <div class="input-field col s12 m4 l2">
@@ -81,12 +81,12 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="phone_number" type="text" class="validate" pattern="^\d{3}-\d{3}-\d{4}$"
-                               th:field="*{phone}"/>
+                               th:field="*{contactInfo.phone}"/>
                         <label for="phone_number" th:text="#{phone}">Phone Number</label>
                     </div>
                     <div class="input-field col s12 m6">
                         <input id="email" type="email" class="validate"
-                               th:field="*{email}"/>
+                               th:field="*{contactInfo.email}"/>
                         <label for="email"  th:text="#{email}">Email</label>
                     </div>
 
@@ -95,17 +95,15 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="address" type="text" class="validate" required="true"
-                               th:field="*{address}"/>
+                               th:field="*{contactInfo.address}"/>
                         <label for="address"  th:text="#{address}">Address</label>
                     </div>
                     <div class="input-field col s12 m6">
-                        <input id="city" type="text" class="validate" required="true"
-                               th:field="*{city}"/>
-                        <label for="city"  th:text="#{city}">Address</label>
+                        <select th:field="*{contactInfo.city.zipCode}">
+                            <option th:each="city : ${cities}" th:text="${city.name}" th:value="${city.zipCode}"></option>
+                        </select>
                     </div>
                 </div>
-
-
                 <div class="row center">
                     <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Submit
                         <i class="material-icons right">save</i>
@@ -163,14 +161,7 @@
                 checkDate();
             });
 
-            form.validate({
-                rules: {
-                    phone_number: {required: true,
-                        matches: "^(\\d|\\s)+$",
-                        minlength: 10,
-                        maxlength: 20}
-                }
-            });
+      
 
         </script>
     </body>
