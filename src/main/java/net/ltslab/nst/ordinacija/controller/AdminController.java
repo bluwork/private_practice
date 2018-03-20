@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,19 +41,31 @@ public class AdminController {
     public String addUser(@ModelAttribute AppUserDto appUserDto, Model model) {
 
         if (ordinacijaFacade.addAppUser(appUserDto)) {
-
             return "redirect:/admin/all_users";
         }
-
         appUserDto.setUsername(null);
         appUserDto.setPassword(null);
-
         model.addAttribute("new_user", appUserDto);
         model.addAttribute("username_exists", true);
 
         return "admin/add_user";
 
     }
+    
+    @RequestMapping("/admin/update_user/{id}")
+    public String showUpdateUser(@PathVariable (name = "id") Long id, Model model) {
+        model.addAttribute("user", ordinacijaFacade.getAppUserDto(id));
+        return "/admin/update_user";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/update_user")
+    public String updateUser(@ModelAttribute AppUserDto appUserDto, Model model) {
+        
+        ordinacijaFacade.updateUser(appUserDto);
+        return "redirect:/admin/all_users";
+
+    }
+
 
     @RequestMapping("/admin/all_users")
     public String allUsers(Model model) {

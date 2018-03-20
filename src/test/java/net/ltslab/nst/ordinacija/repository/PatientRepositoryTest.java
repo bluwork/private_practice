@@ -35,7 +35,7 @@ public class PatientRepositoryTest {
     public void repositoryTest() throws Exception {
 
         // Test findById
-        Patient patientOne = patientRepository.findOne(12345678L);
+        Patient patientOne = patientRepository.getOne(12345678L);
 
         assertThat(patientOne.getFirstName()).isEqualTo("Milovan");
         assertThat(patientOne.getGender()).isEqualTo(Gender.MALE);
@@ -43,7 +43,7 @@ public class PatientRepositoryTest {
         // Test save - update
         patientOne.setGender(Gender.FEMALE);
         patientRepository.save(patientOne);
-        assertThat(patientRepository.findOne(12345678L).getGender()).isEqualTo(Gender.FEMALE);
+        assertThat(patientRepository.getOne(12345678L).getGender()).isEqualTo(Gender.FEMALE);
 
         // Test delete
         patientRepository.delete(22345678L);

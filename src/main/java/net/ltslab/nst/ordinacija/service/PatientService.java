@@ -16,21 +16,21 @@ import net.ltslab.nst.ordinacija.dto.PatientDto;
 public interface PatientService {
 
     List<PatientDto> allPatients();
+    
+    List<PatientDto> activePatients();
 
     PatientDto getPatientById(Long id);
 
     void addOrUpdatePatient(PatientDto patient);
 
-    void deletePatient(Long id);
+    void softDeletePatient(Long id);
 
-    void deletePatient(PatientDto patientDto);
-
-    public List<PatientDto> scheduledForDate(LocalDate date);
+    List<PatientDto> scheduledForDate(LocalDate date);
 
     List<PatientDto> searchForPatients(String searchText);
 
-    public boolean addPatient(PatientDto patientDto);
+    boolean addPatient(PatientDto patientDto);
 
-    public PatientDto getPatientDto(Long patientId);
+    PatientDto getPatientDto(Long patientId);
 
 }

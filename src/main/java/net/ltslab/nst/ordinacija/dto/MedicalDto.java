@@ -8,8 +8,6 @@ package net.ltslab.nst.ordinacija.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.Receipt;
 import net.ltslab.nst.ordinacija.domain.Request;
 import net.ltslab.nst.ordinacija.domain.Result;

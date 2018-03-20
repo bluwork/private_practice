@@ -26,16 +26,16 @@ public interface AppUserService {
     List<AppUserDto> getAllActiveDoctors();
 
     List<AppUserDto> getAllSuspendedUsers();
-
-    void addOrUpdateUser(AppUserDto appUserDto);
+    
+    void updateUser(AppUserDto appUserDto);
 
     void suspendUser(Long appUserId);
 
     void reactivateUser(Long appUserId);
+    
+    boolean addAppUser(AppUserDto appUserDto);
 
-    void deleteAppUser(Long userId);
+    AppUserDto getDoctor(HttpServletRequest request);
 
-    public boolean addAppUser(AppUserDto appUserDto);
-
-    public AppUserDto getDoctor(HttpServletRequest request);
+    AppUserDto getById(Long id);
 }

@@ -11,7 +11,7 @@ import net.ltslab.nst.ordinacija.domain.City;
 import net.ltslab.nst.ordinacija.dto.CityDto;
 import net.ltslab.nst.ordinacija.repository.CityRepository;
 import net.ltslab.nst.ordinacija.service.CityService;
-import net.ltslab.nst.ordinacija.util.CityMapper;
+import net.ltslab.nst.ordinacija.mapping.CityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public CityDto getCityByZipCode(Long zipCode) {
-        return cityMapper.cityToCityDto(cityRepository.findOne(zipCode));
+        return cityMapper.cityToCityDto(cityRepository.getOne(zipCode));
     }
 
     @Override

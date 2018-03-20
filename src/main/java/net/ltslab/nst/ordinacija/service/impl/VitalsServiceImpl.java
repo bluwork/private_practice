@@ -14,8 +14,8 @@ import net.ltslab.nst.ordinacija.service.VitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import net.ltslab.nst.ordinacija.repository.VitalsRepository;
 import net.ltslab.nst.ordinacija.service.PatientService;
-import net.ltslab.nst.ordinacija.util.PatientMapper;
-import net.ltslab.nst.ordinacija.util.VitalsMapper;
+import net.ltslab.nst.ordinacija.mapping.PatientMapper;
+import net.ltslab.nst.ordinacija.mapping.VitalsMapper;
 import org.springframework.stereotype.Service;
 
 /**

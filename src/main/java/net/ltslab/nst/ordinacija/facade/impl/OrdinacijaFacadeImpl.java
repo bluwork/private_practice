@@ -65,9 +65,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public void deletePatient(Long patientId) {
+    public void softDeletePatient(Long patientId) {
 
-        patientService.deletePatient(patientId);
+        patientService.softDeletePatient(patientId);
 
     }
 
@@ -134,6 +134,21 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public boolean addCity(CityDto cityDto) {
         return cityService.addCity(cityDto);
+    }
+
+    @Override
+    public List<PatientDto> getAllActivePatients() {
+        return patientService.activePatients();
+    }
+
+    @Override
+    public AppUserDto getAppUserDto(Long id) {
+        return appUserService.getById(id);
+    }
+
+    @Override
+    public void updateUser(AppUserDto appUserDto) {
+        appUserService.updateUser(appUserDto);
     }
 
 }

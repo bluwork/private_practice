@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.service.AppUserService;
-import net.ltslab.nst.ordinacija.util.AppUserMapper;
+import net.ltslab.nst.ordinacija.mapping.AppUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,6 +50,7 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.name()));
         });
 
+        //return User.withDefaultPasswordEncoder().username(appUser.getUsername()).password(appUser.getPassword()).authorities(authorities).build();
         return new User(appUser.getUsername(), appUser.getPassword(), true, true, true, true, authorities);
     }
 }

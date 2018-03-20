@@ -37,18 +37,12 @@ public class AppUserRepositoryTest {
         AppUser user = appUserRepository.findByUsernameAndActiveTrue("admin");
 
         assertThat(user.getUsername()).isEqualTo("admin");
-        assertThat(user.getPassword()).isEqualTo("Adm1n");
-        assertThat(user.getFirstName()).isEqualTo("Boban");
-        assertThat(user.getLastName()).isEqualTo("Lukic");
+        assertThat(user.getPassword()).isEqualTo("$2y$10$nUrl76SCUWtdzvBT/olxb.pxYgrbQAFED6iMKZMhrBQ8yp0sZn/5q");
+        assertThat(user.getFirstName()).isEqualTo("Glavni");
+        assertThat(user.getLastName()).isEqualTo("Administrator");
 
         AppUser badCredentials = appUserRepository.findByUsername("abcd");
         assertThat(badCredentials).isEqualTo(null);
-
-        List<AppUser> allUsers = appUserRepository.findAll();
-        assertThat(allUsers.get(1).getPassword()).isEqualTo("jova123");
-
-        List<AppUser> activeUsers = appUserRepository.findByActiveTrue();
-        assertThat(activeUsers.size() >= 7).isEqualTo(true);
 
     }
 }

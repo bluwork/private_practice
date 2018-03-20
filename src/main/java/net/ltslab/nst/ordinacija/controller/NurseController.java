@@ -7,7 +7,6 @@ package net.ltslab.nst.ordinacija.controller;
 
 import java.time.LocalDate;
 import net.ltslab.nst.ordinacija.domain.Medical;
-import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.VitalsDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class NurseController {
 
     @RequestMapping("/nurse/show_patients")
     public String allPatients(Model model) {
-        model.addAttribute("patients", ordinacijaFacade.getAllPatients());
+        model.addAttribute("patients", ordinacijaFacade.getAllActivePatients());
         return "/nurse/show_patients";
     }
 
@@ -56,6 +55,7 @@ public class NurseController {
             return "redirect:/nurse/show_patients";
         }
         model.addAttribute("patient", patientDto);
+        model.addAttribute("cities", ordinacijaFacade.getAllCities());
         model.addAttribute("patient_id_exists", true);
         return "/nurse/add_patient";
 
@@ -64,7 +64,7 @@ public class NurseController {
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_patient/{id}")
     public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
 
-        ordinacijaFacade.deletePatient(patientId);
+        ordinacijaFacade.softDeletePatient(patientId);
         ra.addFlashAttribute("deleted", "" + patientId);
         return "redirect:/nurse/show_patients";
     }

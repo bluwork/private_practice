@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.util;
+package net.ltslab.nst.ordinacija.mapping;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Vitals;

@@ -6,21 +6,10 @@
     <body>
         <div th:replace="fragments/header :: header" />
 
-        <form id="delform" th:action="@{/admin/delete_user}" method="post" class="hidden"/>
         <form id="suspendform" th:action="@{/admin/suspend_user}" method="post" class="hidden"/>
         <form id="activateform" th:action="@{/admin/reactivate_user}" method="post" class="hidden"/>
+        <form id="editform" th:action="@{/admin/update_user}" method="post" class="hidden"/>
 
-        <!-- Modal Structure -->
-        <div id="delete" class="modal">
-            <div class="modal-content">
-                <h4 th:text="#{deleting_user}">Deleting user</h4>
-                <p th:text="#{delete_confirmation_text}">Are you sure</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{delete_forever}"  type="submit" form="delform"><i class="material-icons">delete_forever</i></button> 
-                <button class="btn waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{suspend}"   type="submit" form="suspendform"><i class="material-icons">eject</i></button>  
-            </div>
-        </div>
         <div class="container">
             <div class="card amber hoverable">
                 <div class="card-content white-text">
@@ -39,12 +28,12 @@
                 <ul class="collapsible" data-collapsible="accordion">
                     <li th:each="user : ${users}">
                         <div class="collapsible-header">
-                            <span th:inline="text"><i class="material-icons"  th:classappend="${user.active}?'icon-green':'icon-grey'" >account_box</i>[[${user.firstName + ' ' + user.lastName}]]</span>       
+                            <span th:inline="text"><i class="material-icons"  th:classappend="${user.active}?'icon-green':'icon-grey'" >account_circle</i>[[${user.firstName + ' ' + user.lastName}]]</span>       
                         </div>
                         <div class="collapsible-body">
-                            <button th:if="${not user.active}" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{reactivate}" type="submit" form="activateform" th:onClick="|setSelectedUserId('${user.id}')|"><i class="material-icons">edit</i></button>
-                            <button data-target="delete" class="waves-effect waves-light red btn modal-trigger tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{delete_user}" th:onClick="|setSelectedUserId('${user.id}')|"
-                                    th:classappend="${#lists.size(users) == 1}?'disabled':''"><i class="material-icons">delete</i></button>
+                            <button th:if="${not user.active}" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{reactivate}" type="submit" form="activateform" th:onClick="|setSelectedUserId('${user.id}')|"><i class="material-icons">unarchive</i></button>
+                            <button th:if="${user.active}" class="waves-effect waves-light blue btn tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{suspend}"   type="submit" form="suspendform" th:onClick="|setSelectedUserId('${user.id}')|"><i class="material-icons">block</i></button> 
+                            <button th:if="${user.active}" class="waves-effect waves-light blue btn tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{edit}"   type="submit" form="editform" th:onClick="|setSelectedUserId('${user.id}')|"><i class="material-icons">edit</i></button>
                         </div>
                     </li>
                 </ul>
@@ -81,6 +70,10 @@
             $('#activateform').on('submit', function () {
                 var activateUser = $('#activateform').attr('action');
                 $('#activateform').attr('action', activateUser + "?id=" + selectedUserId)
+            });
+             $('#editform').on('submit', function () {
+                var activateUser = $('#editform').attr('action');
+                $('#editform').attr('action', activateUser + "/" + selectedUserId)
             });
 
         </script>

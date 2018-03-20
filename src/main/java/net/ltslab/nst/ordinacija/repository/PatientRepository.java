@@ -26,5 +26,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     public List<Patient> findByFirstNameAndBloodType(String firstName, BloodType bloodType);
 
     public List<Patient> findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate localDate);
+    
+    public List<Patient> findBySoftDeletedFalse();
 
 }

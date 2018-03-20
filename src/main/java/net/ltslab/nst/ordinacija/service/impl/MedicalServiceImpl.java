@@ -15,9 +15,9 @@ import net.ltslab.nst.ordinacija.repository.MedicalRepository;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 import net.ltslab.nst.ordinacija.service.PatientService;
-import net.ltslab.nst.ordinacija.util.AppUserMapper;
-import net.ltslab.nst.ordinacija.util.MedicalMapper;
-import net.ltslab.nst.ordinacija.util.PatientMapper;
+import net.ltslab.nst.ordinacija.mapping.AppUserMapper;
+import net.ltslab.nst.ordinacija.mapping.MedicalMapper;
+import net.ltslab.nst.ordinacija.mapping.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

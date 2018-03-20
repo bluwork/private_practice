@@ -12,16 +12,10 @@ CREATE TABLE  `app_user` (
 
 PRIMARY KEY (`id`)
 
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
  
 
 INSERT INTO `app_user` 
         (`id`, `username`, `password`, `first_name`, `last_name`)
 VALUES 
-        (1, 'admin', 'Adm1n', 'Boban', 'Lukic'),
-        (2, 'doktor_jova', 'jova123', 'Jovan', 'Peric'),
-        (3, 'doktor_pera', 'pera123', 'Petar', 'Milovanovic'),
-        (4, 'doktor_mita', 'mita123', 'Mita', 'Stojanovic'),
-        (5, 'sestra_mara', 'mara123', 'Mara', 'Simic'),
-        (6, 'sestra_visnja', 'visnja123', 'Visnja', 'Surdilovic'),
-        (7, 'sestra_jovka', 'jovka123', 'Jovka', 'Lazovic');
+        (1, 'admin', '$2y$10$nUrl76SCUWtdzvBT/olxb.pxYgrbQAFED6iMKZMhrBQ8yp0sZn/5q', 'Glavni', 'Administrator');

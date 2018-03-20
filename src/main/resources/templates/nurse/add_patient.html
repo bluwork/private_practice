@@ -80,11 +80,13 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input id="phone_number" type="text" class="validate" pattern="^\d{3}-\d{3}-\d{4}$"
+                        <i class="material-icons prefix">phone</i>
+                        <input id="phone_number" type="tel" class="validate" pattern="^\+?\d{0,13}"
                                th:field="*{contactInfo.phone}"/>
                         <label for="phone_number" th:text="#{phone}">Phone Number</label>
                     </div>
                     <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">email</i>
                         <input id="email" type="email" class="validate"
                                th:field="*{contactInfo.email}"/>
                         <label for="email"  th:text="#{email}">Email</label>
@@ -109,6 +111,18 @@
                         <i class="material-icons right">save</i>
                     </button>
                 </div>
+            </form>
+
+            <form method="POST" action="/spring-mvc-xml/uploadFile" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><form:label path="file">Select a file to upload</form:label></td>
+                        <td><input type="file" name="file" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Submit" /></td>
+                    </tr>
+                </table>
             </form>
 
 
@@ -161,7 +175,7 @@
                 checkDate();
             });
 
-      
+
 
         </script>
     </body>

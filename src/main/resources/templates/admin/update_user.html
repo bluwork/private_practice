@@ -11,26 +11,22 @@
                 <span class="card-title" th:text="#{username_exists}">Invalid user name or password</span>
             </div>
 
-            <form class="col s12" th:action="@{/admin/add_user}"  th:object="${new_user}" method="post">
+            <form class="col s12" th:action="@{/admin/update_user}"  th:object="${user}" method="post">
                 <div class="row col s12">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="username" type="text" class="validate" required="true" th:field="*{username}" />
                             <label for="username" th:text="#{username}">Username</label>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <input id="pass" type="password" class="validate" required="true" th:field="*{password}" />
-                            <label for="pass" th:text="#{password}">Password</label>
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate" required="true" th:field="*{password}" />
+                            <label for="password" th:text="#{password}">Password</label>
                         </div>
-                        <div class="input-field col s12 m6">
-                            <input id="conf_pass" type="password" class="validate" required="true"/>
-                            <label for="conf_pass" th:text="#{conf_pass}" data-error="No match!">Conf pass</label>
-                        </div>
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12">
                             <input id="first_name" type="text" class="validate" required="true" th:field="*{firstName}" />
                             <label for="first_name" th:text="#{first_name}">First Name</label>
                         </div>
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12">
                             <input id="last_name" type="text" class="validate" required="true" th:field="*{lastName}" />
                             <label for="last_name" th:text="#{last_name}">Last Name</label>
                         </div>
@@ -45,10 +41,12 @@
                             <option value="ADMIN" th:text="#{role_admin}">Choose your option</option>
                         </select>
                     </div>
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{active}"/>
                 </div>
 
                 <div class="row center">
-                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Save<i class="material-icons right">save</i></button>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{update}">Save<i class="material-icons right">update</i></button>
                 </div>
 
             </form>
@@ -57,22 +55,6 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('select').material_select();
-            });
-            
-            function checkPass() {
-                if ($('#pass').val() == $('#conf_pass').val()) {
-                    $('#conf_pass').removeClass('invalid')
-                    return true;
-                }
-                $('#conf_pass').addClass('invalid')
-                return false;
-            }
-
-            $('form').submit(function () {
-                if (!checkPass()) {
-                    return false;
-                }
-
             });
         </script>
     </body>

@@ -14,7 +14,7 @@ import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.ltslab.nst.ordinacija.repository.PatientRepository;
-import net.ltslab.nst.ordinacija.util.PatientMapper;
+import net.ltslab.nst.ordinacija.mapping.PatientMapper;
 
 /**
  *
@@ -48,13 +48,10 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deletePatient(Long id) {
-        patientRepository.delete(id);
-    }
-
-    @Override
-    public void deletePatient(PatientDto patientDto) {
-        patientRepository.delete(patientMapper.patientDtoToPatient(patientDto));
+    public void softDeletePatient(Long id) {
+        Patient softDeletedPatient = patientRepository.findOne(id);
+        softDeletedPatient.setSoftDeleted(true);
+        patientRepository.saveAndFlush(softDeletedPatient);
     }
 
     @Override
@@ -80,6 +77,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientDto getPatientDto(Long patientId) {
         return patientMapper.patientToPatientDto(patientRepository.findOne(patientId));
+    }
+
+    @Override
+    public List<PatientDto> activePatients() {
+        return patientMapper.patientsToPatientDtos(patientRepository.findBySoftDeletedFalse());
     }
 
 }

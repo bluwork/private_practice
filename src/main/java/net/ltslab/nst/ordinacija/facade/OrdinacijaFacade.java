@@ -29,6 +29,8 @@ public interface OrdinacijaFacade {
     VitalsDto getVitals(Long patientId);
 
     List<PatientDto> getAllPatients();
+    
+    List<PatientDto> getAllActivePatients();
 
     List<AppUserDto> getAllUsers();
 
@@ -48,12 +50,18 @@ public interface OrdinacijaFacade {
 
     boolean addPatient(PatientDto patientDto);
 
-    void deletePatient(Long patientId);
+    void softDeletePatient(Long patientId);
 
     void saveVitals(VitalsDto vitals);
 
     void save(MedicalDto medical);
 
     boolean addCity(CityDto cityDto);
+
+    AppUserDto getAppUserDto(Long id);
+
+    void updateUser(AppUserDto appUserDto);
+
+    
 
 }
