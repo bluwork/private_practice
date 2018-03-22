@@ -6,32 +6,53 @@
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author bobanlukic
  */
+
 @Entity
+@Table(name = "appointment")
 public class Appointment implements Serializable{
 
     private static final long serialVersionUID = -6741529452052740160L;
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name = "doctor_id")
+   
+    @JoinColumn(name = "doctor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private AppUser doctor;
     
-    @Column(name = "patient_id")
+    @JoinColumn(name = "patient_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
     
-    @Column(name = "date_time")
-    private LocalDateTime dateTime;
+    @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    
+    @Column(name = "time")
+    private LocalTime time;
+    
+    @Column (name = "part")
+    private int part;
 
     public Appointment() {
     }
@@ -60,20 +81,38 @@ public class Appointment implements Serializable{
         this.patient = patient;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public int getPart() {
+        return part;
+    }
+
+    public void setPart(int part) {
+        this.part = part;
+    }
+
+    
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.doctor);
         hash = 37 * hash + Objects.hashCode(this.patient);
-        hash = 37 * hash + Objects.hashCode(this.dateTime);
+        hash = 37 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -95,7 +134,7 @@ public class Appointment implements Serializable{
         if (!Objects.equals(this.patient, other.patient)) {
             return false;
         }
-        if (!Objects.equals(this.dateTime, other.dateTime)) {
+        if (!Objects.equals(this.date, other.date)) {
             return false;
         }
         return true;

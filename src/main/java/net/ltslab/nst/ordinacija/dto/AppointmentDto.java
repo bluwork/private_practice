@@ -6,11 +6,9 @@
 package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.Patient;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -21,9 +19,13 @@ public class AppointmentDto implements Serializable{
     private static final long serialVersionUID = 5640076433653943319L;
     
     private Long id;
-    private AppUser doctor;
-    private Patient patient;
-    private LocalDateTime dateTime;
+    private AppUserDto doctor;
+    private PatientDto patient;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    private LocalTime time;
+    private int part;
 
     public AppointmentDto() {
     }
@@ -36,28 +38,53 @@ public class AppointmentDto implements Serializable{
         this.id = id;
     }
 
-    public AppUser getDoctor() {
+    public AppUserDto getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(AppUser doctor) {
+    public void setDoctor(AppUserDto doctor) {
         this.doctor = doctor;
     }
 
-    public Patient getPatient() {
+    public PatientDto getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(PatientDto patient) {
         this.patient = patient;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+   
+
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public int getPart() {
+        return part;
+    }
+
+    public void setPart(int part) {
+        this.part = part;
+    }
+
+    @Override
+    public String toString() {
+        return "AppointmentDto{" + "doctor=" + doctor + ", patient=" + patient + ", date=" + date + ", time=" + time + ", part=" + part + '}';
+    }
+
+  
     
 }

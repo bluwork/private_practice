@@ -31,7 +31,7 @@ public class DoctorController {
     public String doctorPage(HttpServletRequest request, Model model) {
 
         model.addAttribute("doctor", ordinacijaFacade.getDoctor(request));
-        model.addAttribute("patients", ordinacijaFacade.getScheduledPatients(LocalDate.now()));
+        model.addAttribute("patients", ordinacijaFacade.getScheduledPatients(request));
 
         return "/doctor";
     }

@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.mapping;
 
+import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Appointment;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import org.mapstruct.Mapper;
@@ -18,4 +19,5 @@ import org.mapstruct.Mapper;
 public interface AppointmentMapper {
     Appointment appointmentDtoToAppointment(AppointmentDto appointmentDto);
     AppointmentDto appointmentToAppointmentDto(Appointment appointment);
+    List<AppointmentDto> appointementsToAppointementDtos(List<Appointment> appointments);
 }

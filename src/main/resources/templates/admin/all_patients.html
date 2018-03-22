@@ -29,10 +29,9 @@
                     <li th:each="patient : ${patients}">
                         <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
                         <div class="collapsible-body">
-                            <form th:action="@{'/nurse/delete_patient/' + ${patient.id}}" method="post" style="display: inline;">
-                                <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{delete_forever}"  type="submit"><i class="material-icons">delete_forever</i></button> 
+                            <form th:action="@{'/admin/delete_patient/' + ${patient.id}}" method="post" style="display: inline;">
+                                <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{suspend}"  type="submit"><i class="material-icons">delete_forever</i></button> 
                             </form>
-                            <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/schedule_medical/' + ${patient.id}}"><i class="material-icons">schedule</i></a>
                         </div>  
                     </li>
                 </ul>

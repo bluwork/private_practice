@@ -10,9 +10,6 @@
                 <span class="card-patient blue-text text-darken-2" th:inline="text">[[${medical.patient.firstName + ' ' + medical.patient.lastName}]]</span>
             </div>
             <div th:if="${not #lists.isEmpty(medical.patient.vitals)}">
-                <div class="card-panel">
-                    <span class="blue-text text-darken-2" th:text="#{last_vitals}"/>
-                </div>
                 <table>
                     <thead>
                         <tr>
@@ -42,15 +39,15 @@
                 <form class="col s12" action="#" th:action="@{/doctor/new_medical}" th:object="${medical}" method="post">
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea th:field="*{description}" id="description" class="materialize-textarea" data-length="512" required="true"></textarea>
+                            <textarea th:field="*{description}" id="description" class="materialize-textarea" data-length="512" required="true" minlength="5" maxlength="512"></textarea>
                             <label for="description" th:text="#{medical_desc}"></label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea th:field="*{diagnosis}" id="diagnosis" class="materialize-textarea" data-length="128" required="true"></textarea>
+                            <textarea th:field="*{diagnosis}" id="diagnosis" class="materialize-textarea" data-length="128" required="true" minlength="5" maxlength="128"></textarea>
                             <label for="diagnosis" th:text="#{diagnosis}"></label>
                         </div>
                         <div class="input-field col s12">
-                            <textarea th:field="*{therapy}" id="therapy" class="materialize-textarea" data-length="255" required="true"></textarea>
+                            <textarea th:field="*{therapy}" id="therapy" class="materialize-textarea" data-length="255" required="true" minlength="5" maxlength="255"></textarea>
                             <label for="therapy" th:text="#{therapy}"></label>
                         </div>
                     </div>

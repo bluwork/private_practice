@@ -6,7 +6,11 @@
 package net.ltslab.nst.ordinacija.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.Appointment;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.repository.impl.PatientSearchRepositoryImpl;
@@ -15,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.ltslab.nst.ordinacija.repository.PatientRepository;
 import net.ltslab.nst.ordinacija.mapping.PatientMapper;
+import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.service.AppointmentService;
 
 /**
  *
@@ -25,9 +31,17 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     PatientRepository patientRepository;
-
+    
     @Autowired
     PatientMapper patientMapper;
+    
+    @Autowired
+    AppointmentService appointmentService;
+    
+    @Autowired
+    AppUserService appUserService;
+
+  
 
     @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
     PatientSearchRepositoryImpl patientSearchRepository;
@@ -55,11 +69,6 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<PatientDto> scheduledForDate(LocalDate date) {
-        return patientMapper.patientsToPatientDtos(patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(date));
-    }
-
-    @Override
     public List<PatientDto> searchForPatients(String searchText) {
         return patientMapper.patientsToPatientDtos(patientSearchRepository.search(searchText));
     }
@@ -84,4 +93,24 @@ public class PatientServiceImpl implements PatientService {
         return patientMapper.patientsToPatientDtos(patientRepository.findBySoftDeletedFalse());
     }
 
+    @Override
+    public List<PatientDto> sheduledForDoctor(HttpServletRequest request) {
+        AppUser currentDoctor = appUserService.getDoctor(request);
+        List<Appointment> appointments = appointmentService.findByDoctorAndDate(currentDoctor, LocalDate.now());
+        List<Patient> patients = new ArrayList<>();
+        for (Appointment a : appointments) {
+            patients.add(a.getPatient());
+        }
+        return patientMapper.patientsToPatientDtos(patients);
+    }
+
+    @Override
+    public List<PatientDto> scheduledForDate(LocalDate date) {
+        List<Appointment> appointments = appointmentService.findByDate(LocalDate.now());
+        List<Patient> patients = new ArrayList<>();
+        for (Appointment a : appointments) {
+            patients.add(a.getPatient());
+        }
+        return patientMapper.patientsToPatientDtos(patients);
+    }
 }

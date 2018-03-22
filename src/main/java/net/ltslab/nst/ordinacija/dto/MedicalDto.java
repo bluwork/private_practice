@@ -7,10 +7,7 @@ package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-import net.ltslab.nst.ordinacija.domain.Receipt;
-import net.ltslab.nst.ordinacija.domain.Request;
-import net.ltslab.nst.ordinacija.domain.Result;
+
 
 /**
  *
@@ -34,11 +31,8 @@ public class MedicalDto implements Serializable {
 
     private String therapy;
 
-    private List<Request> requests;
-
-    private List<Result> previousResults;
-
-    private List<Receipt> receipts;
+    public MedicalDto() {
+    }
 
     public Long getId() {
         return id;
@@ -96,27 +90,4 @@ public class MedicalDto implements Serializable {
         this.therapy = therapy;
     }
 
-    public List<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
-    }
-
-    public List<Result> getPreviousResults() {
-        return previousResults;
-    }
-
-    public void setPreviousResults(List<Result> previousResults) {
-        this.previousResults = previousResults;
-    }
-
-    public List<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public void setReceipts(List<Receipt> receipts) {
-        this.receipts = receipts;
-    }
 }

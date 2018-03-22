@@ -5,7 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import org.junit.Test;
@@ -13,10 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Timed;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import net.ltslab.nst.ordinacija.repository.AppUserRepository;
 
 /**
  *
@@ -37,7 +34,7 @@ public class AppUserRepositoryTest {
         AppUser user = appUserRepository.findByUsernameAndActiveTrue("admin");
 
         assertThat(user.getUsername()).isEqualTo("admin");
-        assertThat(user.getPassword()).isEqualTo("$2y$10$nUrl76SCUWtdzvBT/olxb.pxYgrbQAFED6iMKZMhrBQ8yp0sZn/5q");
+        assertThat(user.getPassword()).isEqualTo("$2a$05$KevIcBN8FPAyx4ImSKM2punbEjNDQeWGopkQXCX8fkr2Y1uMaWNRC");
         assertThat(user.getFirstName()).isEqualTo("Glavni");
         assertThat(user.getLastName()).isEqualTo("Administrator");
 

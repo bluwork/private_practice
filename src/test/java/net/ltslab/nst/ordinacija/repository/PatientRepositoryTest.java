@@ -51,7 +51,5 @@ public class PatientRepositoryTest {
             assertThat(p.getId()).isNotEqualTo(22345678L);
         });
 
-        List<Patient> scheduled = patientRepository.findByMedScheduleDateOrderByMedScheduleTimeAsc(LocalDate.of(2018, 5, 31));
-        assertThat(scheduled.get(0).getFirstName()).isEqualTo("Antonije");
     }
 }

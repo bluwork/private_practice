@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Add new patient')"/>
+    <body>
+        <div th:replace="fragments/header :: header"/>
+
+        <div class="container">
+
+            <div class="card blue-grey darken-1 hoverable">
+                <div class="card-content white-text">
+                    <div class="card-title">
+                        <span th:inline="text">[[#{new_appointment} +  ' ' + ${appointment.patient.firstName} + ' ' + ${appointment.patient.lastName}]]</span>                     
+                    </div>
+                </div>
+            </div>
+
+
+
+            <form id="appointment_form" th:object="${appointment}" th:action="@{/nurse/check_appointments}" method="post">
+
+              
+
+                <div class="input-field col s12 m6">
+                    <select  id="selector" th:field="*{doctor.id}">
+                        <option th:each="doctor : ${doctors}" th:inline="text" th:value="${doctor.id}">[[${doctor.firstName} + ' ' + ${doctor.lastName}]]</option>
+                    </select>
+                </div>
+                
+                <div class="input-field col s12 m4">
+                    <input id="dob" type="date" th:field="*{date}" required="true"/>
+                </div>
+                <input type="hidden" th:field="*{patient.id}"/>
+                <div class="row center">
+                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{continue}">Submit
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>
+                
+            </form>
+        </div>
+
+        <div th:replace="fragments/footer :: footer"/>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('select').material_select();
+            });
+            $('#selector').change(function () {
+                Materialize.toast('Doctor selected', 2000) // 4000 is the duration of the toast
+            });
+        </script>
+
+    </body>
+
+
+</html>
+

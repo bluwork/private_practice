@@ -7,7 +7,6 @@ package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -84,29 +83,10 @@ public class Patient implements Serializable {
     @Column(name = "medical")
     private List<Medical> medicals;
 
-    @Column(name = "med_schedule_date")
-    private LocalDate medScheduleDate;
-
-    @Column(name = "med_schedule_time")
-    private LocalTime medScheduleTime;
-
     @Column(name = "soft_del")
     private boolean softDeleted;
 
     public Patient() {
-    }
-
-    public Patient(Long patientId, String firstName, String middleName, String lastName, ContactInfo contactInfo, LocalDate dateOfBirth, Gender gender, BloodType bloodType, String allergies, List<Vitals> vitals) {
-        this.id = patientId;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.contactInfo = contactInfo;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.bloodType = bloodType;
-        this.allergies = allergies;
-        this.vitals = vitals;
     }
 
     public Long getId() {
@@ -223,22 +203,6 @@ public class Patient implements Serializable {
         if (getMedicals().contains(medical)) {
             getMedicals().remove(medical);
         }
-    }
-
-    public LocalDate getMedScheduleDate() {
-        return medScheduleDate;
-    }
-
-    public void setMedScheduleDate(LocalDate medScheduleDate) {
-        this.medScheduleDate = medScheduleDate;
-    }
-
-    public LocalTime getMedScheduleTime() {
-        return medScheduleTime;
-    }
-
-    public void setMedScheduleTime(LocalTime medScheduleTime) {
-        this.medScheduleTime = medScheduleTime;
     }
 
     public boolean isSoftDeleted() {

@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 
 /**
@@ -32,5 +33,7 @@ public interface PatientService {
     boolean addPatient(PatientDto patientDto);
 
     PatientDto getPatientDto(Long patientId);
+
+    public List<PatientDto> sheduledForDoctor(HttpServletRequest request);
 
 }

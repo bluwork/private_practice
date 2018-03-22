@@ -18,4 +18,4 @@ PRIMARY KEY (`id`)
 INSERT INTO `app_user` 
         (`id`, `username`, `password`, `first_name`, `last_name`)
 VALUES 
-        (1, 'admin', '$2y$10$nUrl76SCUWtdzvBT/olxb.pxYgrbQAFED6iMKZMhrBQ8yp0sZn/5q', 'Glavni', 'Administrator');
+        (1, 'admin', '$2a$05$KevIcBN8FPAyx4ImSKM2punbEjNDQeWGopkQXCX8fkr2Y1uMaWNRC', 'Glavni', 'Administrator');

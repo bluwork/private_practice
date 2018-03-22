@@ -23,7 +23,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -62,32 +61,10 @@ public class Medical implements Serializable {
     @Column(name = "therapy")
     private String therapy;
 
-    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
-    @Column(name = "requests")
-    private List<Request> requests;
-
-    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
-    @Column(name = "results")
-    private List<Result> previousResults;
-
-    @OneToMany(mappedBy = "medical", cascade = CascadeType.ALL)
-    @Column(name = "receipts")
-    private List<Receipt> receipts;
-
     public Medical() {
 
     }
 
-    public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate, String description, String diagnosis, String therapy, List<Request> requests, List<Result> previousResults) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.medicalDate = medicalDate;
-        this.description = description;
-        this.diagnosis = diagnosis;
-        this.therapy = therapy;
-        this.requests = requests;
-        this.previousResults = previousResults;
-    }
 
     public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate) {
         this.patient = patient;
@@ -134,15 +111,7 @@ public class Medical implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public List<Receipt> getReceipts() {
-        return receipts;
-    }
-
-    public void setReceipts(List<Receipt> receipts) {
-        this.receipts = receipts;
-    }
-
+    
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -157,28 +126,6 @@ public class Medical implements Serializable {
 
     public void setTherapy(String therapy) {
         this.therapy = therapy;
-    }
-
-    public List<Request> getRequests() {
-        if (requests == null) {
-            requests = new ArrayList<>();
-        }
-        return requests;
-    }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
-    }
-
-    public List<Result> getPreviousResults() {
-        if (previousResults == null) {
-            previousResults = new ArrayList<>();
-        }
-        return previousResults;
-    }
-
-    public void setPreviousResults(List<Result> previousResults) {
-        this.previousResults = previousResults;
     }
 
     @Override

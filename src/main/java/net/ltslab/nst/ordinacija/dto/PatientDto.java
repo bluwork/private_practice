@@ -23,7 +23,7 @@ public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 9121707642309561697L;
 
-    private Long id;
+    private Long id; 
     private String firstName;
     private String lastName;
     private String middleName;
@@ -33,12 +33,6 @@ public class PatientDto implements Serializable {
     private Gender gender;
     private BloodType bloodType;
     private String allergies;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate medScheduleDate;
-
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalTime medScheduleTime;
 
     private ContactInfoDto contactInfo;
     
@@ -111,22 +105,6 @@ public class PatientDto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getMedScheduleDate() {
-        return medScheduleDate;
-    }
-
-    public void setMedScheduleDate(LocalDate medScheduleDate) {
-        this.medScheduleDate = medScheduleDate;
-    }
-
-    public LocalTime getMedScheduleTime() {
-        return medScheduleTime;
-    }
-
-    public void setMedScheduleTime(LocalTime medScheduleTime) {
-        this.medScheduleTime = medScheduleTime;
     }
 
     public ContactInfoDto getContactInfo() {

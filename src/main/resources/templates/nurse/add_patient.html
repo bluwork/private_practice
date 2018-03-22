@@ -23,24 +23,24 @@
                 <div class="row">
                     <div class="input-field col s12 m4 l2">
                         <input id="id" type="text" class="validate" required="true"
-                               th:field="*{id}"/>
+                               th:field="*{id}" data-length="13" pattern="^\d{0,13}"/>
                         <label for="id" th:text="#{patient_id}">Patient UID</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m4 ">
                         <input id="first_name" type="text" class="validate" required="true"
-                               th:field="*{firstName}"/>
+                               th:field="*{firstName}" maxlength="20"/>
                         <label for="first_name" th:text="#{first_name}" >First Name</label>
                     </div>
                     <div class="input-field col s12 m4">
                         <input id="middle_name" type="text" class="validate"
-                               th:field="*{middleName}"/>
+                               th:field="*{middleName}" maxlength="20"/>
                         <label for="middle_name" th:text="#{middle_name}">Middle Name</label>
                     </div>
                     <div class="input-field col s12 m4">
                         <input id="last_name" type="text" class="validate" required="true"
-                               th:field="*{lastName}"/>
+                               th:field="*{lastName}" maxlength="20"/>
                         <label for="last_name" th:text="#{last_name}">Last Name</label>
                     </div>
                 </div>
@@ -50,7 +50,6 @@
                     <div class="input-field col s12 m4">
                         <input id="dob" type="date"
                                th:field="*{dateOfBirth}" required="true"/>
-
                     </div>
 
                     <div class="input-field col s6 m4">
@@ -77,6 +76,12 @@
                     </div>
 
                 </div>
+                
+                 <div class="input-field col s12">
+                        <input id="allergies" type="text" class="validate" 
+                               th:field="*{allergies}"/>
+                        <label for="allergies" th:text="#{allergies}">Allergies</label>
+                    </div>
 
                 <div class="row">
                     <div class="input-field col s12 m6">
@@ -97,7 +102,7 @@
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <input id="address" type="text" class="validate" required="true"
-                               th:field="*{contactInfo.address}"/>
+                               th:field="*{contactInfo.address}" maxlength="60"/>
                         <label for="address"  th:text="#{address}">Address</label>
                     </div>
                     <div class="input-field col s12 m6">

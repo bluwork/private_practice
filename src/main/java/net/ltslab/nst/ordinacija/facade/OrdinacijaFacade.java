@@ -8,7 +8,9 @@ package net.ltslab.nst.ordinacija.facade;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
@@ -36,7 +38,7 @@ public interface OrdinacijaFacade {
 
     List<AppUserDto> getAllActiveDoctors();
 
-    List<PatientDto> getScheduledPatients(LocalDate date);
+    List<PatientDto> getScheduledPatients(HttpServletRequest request);
 
     List<PatientDto> searchFor(String searchText);
 
@@ -61,6 +63,14 @@ public interface OrdinacijaFacade {
     AppUserDto getAppUserDto(Long id);
 
     void updateUser(AppUserDto appUserDto);
+
+    List<PatientDto> getAllScheduledPatients(LocalDate date);
+
+    AppointmentDto getAppointmentDto();
+    
+    List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
+
+    public void addAppointment(AppointmentDto appointmentDto);
 
     
 

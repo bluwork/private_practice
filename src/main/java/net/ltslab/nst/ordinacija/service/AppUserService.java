@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.service;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 
 /**
@@ -35,7 +36,9 @@ public interface AppUserService {
     
     boolean addAppUser(AppUserDto appUserDto);
 
-    AppUserDto getDoctor(HttpServletRequest request);
+    AppUserDto getDoctorDto(HttpServletRequest request);
+    
+    AppUser getDoctor(HttpServletRequest request);
 
     AppUserDto getById(Long id);
 }

@@ -113,10 +113,15 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUserDto getDoctor(HttpServletRequest request) {
+    public AppUserDto getDoctorDto(HttpServletRequest request) {
         return findByUsername(request.getUserPrincipal().getName());
     }
 
+    @Override
+    public AppUser getDoctor(HttpServletRequest request) {
+        return appUserRepository.findByUsernameAndActiveTrue(request.getUserPrincipal().getName());
+    }
+    
     @Override
     public AppUserDto getById(Long id) {
         return appUserMapper.appUserToAppUserDto(appUserRepository.findOne(id));

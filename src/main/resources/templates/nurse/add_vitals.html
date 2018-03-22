@@ -31,19 +31,19 @@
             <form id="vitals_form" th:object="${vitals}" th:action="@{/nurse/add_vitals}" method="post">
                 <div class="row col s12">
                     <div class="input-field col s12 m4">
-                        <input id="dbp" type="number" min="0" max="400" class="validate" required="true"
+                        <input id="dbp" type="number" min="30" max="250" class="validate" required="true"
                                th:field="*{diastolicBP}"/>
                         <label for="dbp" th:text="#{diastolic_bp}">Diastolic BP</label>
                     </div>
 
                     <div class="input-field col s12 m4">
-                        <input id="sbp" type="number" min="0" max="400" class="validate" required="true"
+                        <input id="sbp" type="number" min="50" max="300" class="validate" required="true"
                                th:field="*{systolicBP}"/>
                         <label for="sbp" th:text="#{systolic_bp}">Systolic BP</label>
                     </div>
 
                     <div class="input-field col s12 m4">
-                        <input id="temp" type="number" step="0.01" min="30" max="45" class="validate" required="true"
+                        <input id="temp" type="number" step="0.01" min="10" max="50" class="validate" required="true"
                                th:field="*{bodyTemp}"/>
                         <label for="temp" th:text="#{body_temp}">Body Temp</label>
                     </div>
@@ -52,7 +52,7 @@
 
                 <div class="row col s12">
                     <div class="input-field col s12 m4">
-                        <input id="heart" type="number" min="30" max="250" class="validate" required="true"
+                        <input id="heart" type="number" min="30" max="270" class="validate" required="true"
                                th:field="*{heartRate}"/>
                         <label for="heart" th:text="#{heart_rate}">Heart Rate</label>
                     </div>
@@ -62,7 +62,7 @@
                         <label for="height" th:text="#{height}">Height</label>
                     </div>
                     <div class="input-field col s12 m4">
-                        <input id="mass" type="number" min="0" max="1000" class="validate" required="true"
+                        <input id="mass" type="number" min="0" max="500" class="validate" required="true"
                                th:field="*{mass}"/>
                         <label for="mass" th:text="#{mass}">Height</label>
                     </div>

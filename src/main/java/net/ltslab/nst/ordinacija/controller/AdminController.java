@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -91,5 +92,19 @@ public class AdminController {
 
         ordinacijaFacade.reactivateUser(appUserId);
         return "redirect:/admin/all_users";
+    }
+    
+     @RequestMapping("/admin/all_patients")
+    public String allPatients(Model model) {
+        model.addAttribute("patients", ordinacijaFacade.getAllActivePatients());
+        return "/admin/all_patients";
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_patient/{id}")
+    public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
+
+        ordinacijaFacade.softDeletePatient(patientId);
+        ra.addFlashAttribute("deleted", "" + patientId);
+        return "redirect:/admin/all_patients";
     }
 }

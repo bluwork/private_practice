@@ -8,7 +8,9 @@ package net.ltslab.nst.ordinacija.facade.impl;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
@@ -19,6 +21,7 @@ import net.ltslab.nst.ordinacija.service.VitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
+import net.ltslab.nst.ordinacija.service.AppointmentService;
 import net.ltslab.nst.ordinacija.service.CityService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 
@@ -43,6 +46,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Autowired
     CityService cityService;
+    
+    @Autowired
+    AppointmentService appointmentService;
 
     @Override
     public List<PatientDto> getAllPatients() {
@@ -52,11 +58,6 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public List<AppUserDto> getAllActiveDoctors() {
         return appUserService.getAllActiveDoctors();
-    }
-
-    @Override
-    public List<PatientDto> getScheduledPatients(LocalDate date) {
-        return patientService.scheduledForDate(date);
     }
 
     @Override
@@ -98,7 +99,7 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Override
     public AppUserDto getDoctor(HttpServletRequest request) {
-        return appUserService.getDoctor(request);
+        return appUserService.getDoctorDto(request);
     }
 
     @Override
@@ -149,6 +150,31 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public void updateUser(AppUserDto appUserDto) {
         appUserService.updateUser(appUserDto);
+    }
+
+    @Override
+    public List<PatientDto> getScheduledPatients(HttpServletRequest request) {
+        return patientService.sheduledForDoctor(request);
+    }
+
+    @Override
+    public List<PatientDto> getAllScheduledPatients(LocalDate date) {
+        return patientService.scheduledForDate(date);
+    }
+
+    @Override
+    public AppointmentDto getAppointmentDto() {
+        return appointmentService.getAppointmentDto();
+    }
+
+    @Override
+    public List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor) {
+        return appointmentService.getAllAppointmentDtos(date, doctor);
+    }
+
+    @Override
+    public void addAppointment(AppointmentDto appointmentDto) {
+        appointmentService.addAppointment(appointmentDto);
     }
 
 }
