@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='Add User')" />
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{update_user})" />
     <body>
         <div th:replace="fragments/header :: header" />
 
@@ -18,9 +18,13 @@
                             <input id="username" type="text" class="validate" required="true" th:field="*{username}" />
                             <label for="username" th:text="#{username}">Username</label>
                         </div>
-                        <div class="input-field col s12">
-                            <input id="password" type="password" class="validate" required="true" th:field="*{password}" />
-                            <label for="password" th:text="#{password}">Password</label>
+                        <div class="input-field col s12 m6">
+                            <input id="pass" type="password" class="validate" required="true" th:field="*{password}" />
+                            <label for="pass" th:text="#{password}">Password</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="conf_pass" type="password" class="validate" required="true"/>
+                            <label for="conf_pass" th:text="#{conf_pass}" data-error="No match!">Conf pass</label>
                         </div>
                         <div class="input-field col s12">
                             <input id="first_name" type="text" class="validate" required="true" th:field="*{firstName}" />
@@ -46,6 +50,7 @@
                 </div>
 
                 <div class="row center">
+                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/admin/all_users}" th:text="#{cancel}">Cancel</a>
                     <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{update}">Save<i class="material-icons right">update</i></button>
                 </div>
 
@@ -55,6 +60,22 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('select').material_select();
+            });
+
+            function checkPass() {
+                if ($('#pass').val() == $('#conf_pass').val()) {
+                    $('#conf_pass').removeClass('invalid')
+                    return true;
+                }
+                $('#conf_pass').addClass('invalid')
+                return false;
+            }
+
+            $('form').submit(function () {
+                if (!checkPass()) {
+                    return false;
+                }
+
             });
         </script>
     </body>

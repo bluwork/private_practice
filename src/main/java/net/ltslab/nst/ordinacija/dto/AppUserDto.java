@@ -19,11 +19,17 @@ public class AppUserDto implements Serializable {
     private static final long serialVersionUID = -277530629373278448L;
 
     private Long id;
+    
     private String username;
+    
     private String password;
+    
     private String firstName;
+    
     private String lastName;
+    
     private Set<Role> roles;
+    
     private boolean active;
 
     public AppUserDto() {

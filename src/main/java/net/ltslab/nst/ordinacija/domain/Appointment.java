@@ -24,34 +24,33 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author bobanlukic
  */
-
 @Entity
 @Table(name = "appointment")
-public class Appointment implements Serializable{
+public class Appointment implements Serializable {
 
     private static final long serialVersionUID = -6741529452052740160L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-   
+
     @JoinColumn(name = "doctor_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private AppUser doctor;
-    
+
     @JoinColumn(name = "patient_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
-    
+
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    
+
     @Column(name = "time")
     private LocalTime time;
-    
-    @Column (name = "part")
+
+    @Column(name = "part")
     private int part;
 
     public Appointment() {
@@ -104,8 +103,6 @@ public class Appointment implements Serializable{
     public void setPart(int part) {
         this.part = part;
     }
-
-    
 
     @Override
     public int hashCode() {

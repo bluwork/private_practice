@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.facade;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
@@ -31,7 +30,7 @@ public interface OrdinacijaFacade {
     VitalsDto getVitals(Long patientId);
 
     List<PatientDto> getAllPatients();
-    
+
     List<PatientDto> getAllActivePatients();
 
     List<AppUserDto> getAllUsers();
@@ -46,7 +45,7 @@ public interface OrdinacijaFacade {
 
     boolean addAppUser(AppUserDto appUserDto);
 
-    void suspendUser(Long userId);
+    boolean suspendUser(Long userId);
 
     void reactivateUser(Long userId);
 
@@ -67,11 +66,11 @@ public interface OrdinacijaFacade {
     List<PatientDto> getAllScheduledPatients(LocalDate date);
 
     AppointmentDto getAppointmentDto();
-    
+
     List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
 
-    public void addAppointment(AppointmentDto appointmentDto);
+    void addAppointment(AppointmentDto appointmentDto);
 
-    
+    void sendEmail(PatientDto patientDto, String subject, String message);
 
 }

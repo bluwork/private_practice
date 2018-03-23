@@ -23,19 +23,25 @@ public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 9121707642309561697L;
 
-    private Long id; 
+    private Long id;
+    
     private String firstName;
+    
     private String lastName;
+    
     private String middleName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+    
     private Gender gender;
+    
     private BloodType bloodType;
+    
     private String allergies;
 
     private ContactInfoDto contactInfo;
-    
+
     private List<Vitals> vitals;
 
     private List<Medical> medicals;
@@ -130,5 +136,5 @@ public class PatientDto implements Serializable {
     public void setMedicals(List<Medical> medicals) {
         this.medicals = medicals;
     }
-    
+
 }

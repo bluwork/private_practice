@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package net.ltslab.nst.ordinacija.repository;
+
 import java.time.LocalDate;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
@@ -16,10 +17,10 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    public List<Appointment> findByDateOrderByTimeAscPartAsc(LocalDate date);
+    List<Appointment> findByDateOrderByTimeAscPartAsc(LocalDate date);
 
-    public List<Appointment> findByDoctorAndDateOrderByTimeAscPartAsc(AppUser currentDoctor, LocalDate date);
-    
+    List<Appointment> findByDoctorAndDateOrderByTimeAscPartAsc(AppUser currentDoctor, LocalDate date);
+
 }

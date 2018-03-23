@@ -14,32 +14,26 @@
                     </div>
                 </div>
             </div>
-
+            <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
             <form id="post_slot_form" th:action="@{/nurse/add_appointment}" th:object="${appointment}" method="post">
                 <input type="hidden" th:field="*{patient.id}" />
                 <input type="hidden" th:field="*{doctor.id}" />
                 <div class="row" >
-                    
-                        <div class="col s3" th:each="slot : ${slots}">
-                            <div class="card blue ">
-                                <div class="card-content white-text">
-                                    <span class="card-title" th:text="${slot.time.hour}">Card Title</span>
-                                    <p th:text="${slot.partNumber * slot_value}">I am </p>
-                                </div>
-                                <div class="card-action">
-                                    <button class="btn small waves-effect waves-light" th:classappend="${slot.occupied} ? 'disabled' : ''"  type="submit"  th:inline="text"
-                            th:onClick="|setSelectedSlot('${slot.date}','${slot.time}','${slot.partNumber}' )|"><i class="material-icons right">check</i></button> 
-                                   
-                                </div>
+
+                    <div class="col s3" th:each="slot : ${slots}">
+                        <div class="card blue">
+                            <div class="card-content white-text">
+                                <span class="card-title" th:text="${slot.time.hour}">Card Title</span>
+                                <p th:text="${slot.partNumber * slot_value}">I am </p>
+                            </div>
+                            <div class="card-action">
+                                <button class="btn small waves-effect waves-light" th:classappend="${slot.occupied} ? 'disabled' : ''"  type="submit"  th:inline="text"
+                                        th:onClick="|setSelectedSlot('${slot.date}','${slot.time}','${slot.partNumber}' )|"><i class="material-icons right">check</i></button> 
                             </div>
                         </div>
-                    
-
-
-                    
+                    </div>
                 </div>
             </form>
-
         </div>
 
         <div th:replace="fragments/footer :: footer"/>
@@ -47,27 +41,15 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
 
-
-
-            var date;
-            var time;
-            var part;
-
+            var data;
 
             function setSelectedSlot(sdate, stime, spart) {
-
-                date = sdate;
-                time = stime;
-                part = spart;
-
-
+                data = "?d=" + sdate + "&" + "t=" + stime + "&" + "p=" + spart;
             }
 
             $('#post_slot_form').on('submit', function () {
                 var postSlot = $('#post_slot_form').attr('action');
-
-                $('#post_slot_form').attr('action', postSlot + "?d=" + date + "&" + "t=" + time + "&" + "p=" + part);
-
+                $('#post_slot_form').attr('action', postSlot + data);
             });
 
             /*]]>*/

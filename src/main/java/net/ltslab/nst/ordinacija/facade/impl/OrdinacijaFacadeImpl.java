@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.facade.impl;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Component;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import net.ltslab.nst.ordinacija.service.AppointmentService;
 import net.ltslab.nst.ordinacija.service.CityService;
+import net.ltslab.nst.ordinacija.service.MailSenderService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 
 /**
@@ -33,22 +33,25 @@ import net.ltslab.nst.ordinacija.service.MedicalService;
 public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Autowired
-    PatientService patientService;
+    private PatientService patientService;
 
     @Autowired
-    AppUserService appUserService;
+    private AppUserService appUserService;
 
     @Autowired
-    VitalsService vitalsService;
+    private VitalsService vitalsService;
 
     @Autowired
-    MedicalService medicalService;
+    private MedicalService medicalService;
 
     @Autowired
-    CityService cityService;
-    
+    private CityService cityService;
+
     @Autowired
-    AppointmentService appointmentService;
+    private AppointmentService appointmentService;
+
+    @Autowired
+    private MailSenderService mailSenderService;
 
     @Override
     public List<PatientDto> getAllPatients() {
@@ -113,8 +116,8 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public void suspendUser(Long userId) {
-        appUserService.suspendUser(userId);
+    public boolean suspendUser(Long userId) {
+        return appUserService.suspendUser(userId);
     }
 
     @Override
@@ -124,7 +127,7 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Override
     public PatientDto getPatientDto(Long patientId) {
-        return patientService.getPatientDto(patientId);
+        return patientService.getPatientById(patientId);
     }
 
     @Override
@@ -175,6 +178,13 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public void addAppointment(AppointmentDto appointmentDto) {
         appointmentService.addAppointment(appointmentDto);
+    }
+
+    @Override
+    public void sendEmail(PatientDto patientDto, String subject, String text) {
+
+        mailSenderService.sendEmail(patientDto, subject, text);
+
     }
 
 }

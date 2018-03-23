@@ -14,10 +14,12 @@ import org.mapstruct.Mapper;
  *
  * @author bobanlukic
  */
-
 @Mapper(componentModel = "spring")
 public interface AppointmentMapper {
+
     Appointment appointmentDtoToAppointment(AppointmentDto appointmentDto);
+
     AppointmentDto appointmentToAppointmentDto(Appointment appointment);
+
     List<AppointmentDto> appointementsToAppointementDtos(List<Appointment> appointments);
 }

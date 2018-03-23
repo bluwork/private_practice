@@ -23,18 +23,17 @@ import org.springframework.stereotype.Service;
  * @author bobanlukic
  */
 @Service
-public class AppointmentServiceImpl implements AppointmentService{
+public class AppointmentServiceImpl implements AppointmentService {
 
-    
     @Autowired
-    AppointmentRepository appointmentRepository;
-    
+    private AppointmentRepository appointmentRepository;
+
     @Autowired
-    AppointmentMapper appointmentMapper;
-    
+    private AppointmentMapper appointmentMapper;
+
     @Autowired
-    AppUserMapper appUserMapper;
-    
+    private AppUserMapper appUserMapper;
+
     @Override
     public List<Appointment> findByDoctorAndDate(AppUser currentDoctor, LocalDate date) {
         return appointmentRepository.findByDoctorAndDateOrderByTimeAscPartAsc(currentDoctor, date);
@@ -59,5 +58,5 @@ public class AppointmentServiceImpl implements AppointmentService{
     public void addAppointment(AppointmentDto appointmentDto) {
         appointmentRepository.saveAndFlush(appointmentMapper.appointmentDtoToAppointment(appointmentDto));
     }
-    
+
 }

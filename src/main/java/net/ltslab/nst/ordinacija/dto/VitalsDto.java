@@ -95,6 +95,5 @@ public class VitalsDto implements Serializable {
     public void setMass(Integer mass) {
         this.mass = mass;
     }
-    
-    
+
 }

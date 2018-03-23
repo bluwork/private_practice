@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.repository;
 
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
+import net.ltslab.nst.ordinacija.domain.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +18,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
-    public AppUser findByUsername(String username);
+    AppUser findByUsername(String username);
 
-    public List<AppUser> findByActiveTrue();
+    List<AppUser> findByActiveTrue();
 
-    public List<AppUser> findByActiveFalse();
+    List<AppUser> findByActiveFalse();
 
-    public AppUser findByUsernameAndActiveTrue(String username);
+    List<AppUser> findByActiveTrueAndRoles(Role role);
+
+    AppUser findByUsernameAndActiveTrue(String username);
 
 }

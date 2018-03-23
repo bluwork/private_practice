@@ -23,7 +23,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.Role;
 
 /**
@@ -32,7 +31,6 @@ import net.ltslab.nst.ordinacija.domain.enums.Role;
  */
 @Entity
 @Table(name = "app_user")
-@XmlRootElement
 public class AppUser implements Serializable {
 
     private static final long serialVersionUID = 8107371115139601742L;

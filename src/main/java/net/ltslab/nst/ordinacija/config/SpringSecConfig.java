@@ -65,12 +65,12 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .permitAll();
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

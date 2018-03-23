@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.repository.impl;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.repository.PatientSearchRepository;
@@ -26,44 +27,35 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PatientSearchRepositoryImpl implements PatientSearchRepository {
 
-// Spring will inject here the entity manager object
     @PersistenceContext
     private EntityManager entityManager;
-
-    /**
-     * A basic search for Patient. The search is done by exact match per
-     * keywords on fields firstName, lastName, middleName, email or phone
-     *
-     * @param text The query text.
-     */
+    
+    @Override
     public List<Patient> search(String text) {
 
-        // get the full text entity manager
-        FullTextEntityManager fullTextEntityManager
-                = Search.
-                        getFullTextEntityManager(entityManager);
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
-        // create the query using Hibernate Search query DSL
-        QueryBuilder queryBuilder
-                = fullTextEntityManager.getSearchFactory()
-                        .buildQueryBuilder().forEntity(Patient.class).get();
+        QueryBuilder queryBuilder= fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Patient.class).get();
 
-        // a very basic query by keywords - Lucene query, now jpa query
-        Query query
-                = queryBuilder
+        Query query = queryBuilder
                         .keyword()
                         .onFields("firstName", "lastName")
                         .matching(text)
                         .createQuery();
-
-        // wrap Lucene query in an Hibernate Query object
+        
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Patient.class);
 
-        // execute search and return results (sorted by relevance as default)
-        @SuppressWarnings("unchecked")
-        List results = jpaQuery.getResultList();
+        // execute search
 
-        return results;
+        List<Patient> patients = null;
+        try {
+            patients = jpaQuery.getResultList();
+        } catch (NoResultException nre) {
+        
+        }
+        
+        return patients;
+       
     }
 
 }

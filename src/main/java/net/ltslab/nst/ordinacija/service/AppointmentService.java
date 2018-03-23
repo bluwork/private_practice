@@ -18,14 +18,14 @@ import net.ltslab.nst.ordinacija.dto.AppointmentDto;
  */
 public interface AppointmentService {
 
+    AppointmentDto getAppointmentDto();
+    
+    List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
+        
     List<Appointment> findByDoctorAndDate(AppUser currentDoctor, LocalDate now);
 
     List<Appointment> findByDate(LocalDate now);
 
-    AppointmentDto getAppointmentDto();
+    void addAppointment(AppointmentDto appointmentDto);
 
-    List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
-
-    public void addAppointment(AppointmentDto appointmentDto);
-    
 }

@@ -5,16 +5,13 @@
  */
 package net.ltslab.nst.ordinacija.service;
 
-import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.dto.MedicalDto;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 
 /**
  *
  * @author bobanlukic
  */
-public interface MedicalService {
+public interface MailSenderService {
 
-    void addOrUpdate(MedicalDto medicalDto);
-
-    MedicalDto getMedicalDto(HttpServletRequest request, Long patientId);
+    void sendEmail(PatientDto patient, String subject, String messageText);
 }

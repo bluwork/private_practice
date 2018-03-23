@@ -23,10 +23,10 @@ import org.springframework.stereotype.Service;
 public class CityServiceImpl implements CityService {
 
     @Autowired
-    CityRepository cityRepository;
+    private CityRepository cityRepository;
 
     @Autowired
-    CityMapper cityMapper;
+    private CityMapper cityMapper;
 
     @Override
     public List<CityDto> allCities() {
@@ -41,10 +41,12 @@ public class CityServiceImpl implements CityService {
     @Override
     public boolean addCity(CityDto cityDto) {
         City city = cityMapper.cityDtoToCity(cityDto);
+        
         if (cityRepository.findOne(city.getZipCode()) == null) {
             cityRepository.saveAndFlush(city);
             return true;
         }
+        
         return false;
     }
 

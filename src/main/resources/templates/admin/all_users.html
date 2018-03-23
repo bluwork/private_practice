@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='All Users')">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{all_users})">
         <title/>
     </head>
     <body>
@@ -23,6 +23,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div th:if="${not (message == null)}" id="alert_box" class="card-panel red lighten-2" >
+                <span class="card-title" th:text="${message}"></span>
             </div>
             <div th:if="${not #lists.isEmpty(users)}">
                 <ul class="collapsible" data-collapsible="accordion">
@@ -58,11 +61,6 @@
 
             }
 
-            $('#delform').on('submit', function () {
-                var deleteAction = $('#delform').attr('action');
-                $('#delform').attr('action', deleteAction + "?id=" + selectedUserId)
-            });
-
             $('#suspendform').on('submit', function () {
                 var suspend = $('#suspendform').attr('action');
                 $('#suspendform').attr('action', suspend + "?id=" + selectedUserId)
@@ -71,9 +69,14 @@
                 var activateUser = $('#activateform').attr('action');
                 $('#activateform').attr('action', activateUser + "?id=" + selectedUserId)
             });
-             $('#editform').on('submit', function () {
+            $('#editform').on('submit', function () {
                 var activateUser = $('#editform').attr('action');
                 $('#editform').attr('action', activateUser + "/" + selectedUserId)
+            });
+
+            $('#alert_box').click(function () {
+                $("#alert_box").fadeOut("slow", function () {
+                });
             });
 
         </script>

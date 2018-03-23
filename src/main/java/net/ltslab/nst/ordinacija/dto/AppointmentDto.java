@@ -14,17 +14,21 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author bobanlukic
  */
-public class AppointmentDto implements Serializable{
+public class AppointmentDto implements Serializable {
 
     private static final long serialVersionUID = 5640076433653943319L;
-    
+
     private Long id;
-    private AppUserDto doctor;
-    private PatientDto patient;
     
+    private AppUserDto doctor;
+    
+    private PatientDto patient;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    
     private LocalTime time;
+    
     private int part;
 
     public AppointmentDto() {
@@ -54,8 +58,6 @@ public class AppointmentDto implements Serializable{
         this.patient = patient;
     }
 
-   
-
     public LocalDate getDate() {
         return date;
     }
@@ -80,11 +82,4 @@ public class AppointmentDto implements Serializable{
         this.part = part;
     }
 
-    @Override
-    public String toString() {
-        return "AppointmentDto{" + "doctor=" + doctor + ", patient=" + patient + ", date=" + date + ", time=" + time + ", part=" + part + '}';
-    }
-
-  
-    
-}
+ }

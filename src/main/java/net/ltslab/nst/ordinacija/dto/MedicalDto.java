@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-
 /**
  *
  * @author bobanlukic
@@ -20,7 +19,7 @@ public class MedicalDto implements Serializable {
     private Long id;
 
     private PatientDto patient;
-  
+
     private AppUserDto doctor;
 
     private LocalDateTime medicalDate;

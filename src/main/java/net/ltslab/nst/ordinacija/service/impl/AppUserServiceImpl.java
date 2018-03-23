@@ -26,13 +26,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
-    AppUserMapper appUserMapper;
-    
+    private AppUserMapper appUserMapper;
+
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public AppUserDto findByUsername(String username) {
@@ -47,7 +47,7 @@ public class AppUserServiceImpl implements AppUserService {
         }
         return userDtos;
     }
-    
+
     @Override
     public List<AppUserDto> getAllActiveUsers() {
         List<AppUserDto> activeUsersDtos = new ArrayList<>();
@@ -55,24 +55,34 @@ public class AppUserServiceImpl implements AppUserService {
         for (AppUser active : appUserRepository.findByActiveTrue()) {
             activeUsersDtos.add(appUserMapper.appUserToAppUserDto(active));
         }
+
         return activeUsersDtos;
     }
 
     @Override
     public List<AppUserDto> getAllSuspendedUsers() {
+
         List<AppUserDto> suspendedUsersDtos = new ArrayList<>();
 
         for (AppUser suspended : appUserRepository.findByActiveFalse()) {
             suspendedUsersDtos.add(appUserMapper.appUserToAppUserDto(suspended));
         }
+
         return suspendedUsersDtos;
     }
 
     @Override
-    public void suspendUser(Long appUserId) {
+    public boolean suspendUser(Long appUserId) {
+        List<AppUser> activeAdmins = appUserRepository.findByActiveTrueAndRoles(Role.ADMIN);
         AppUser suspendedUser = appUserRepository.findOne(appUserId);
+
+        if (suspendedUser.getRoles().contains(Role.ADMIN) && activeAdmins.size() < 2) {
+            return false;
+        }
+
         suspendedUser.setActive(false);
         appUserRepository.saveAndFlush(suspendedUser);
+        return true;
     }
 
     @Override
@@ -121,7 +131,7 @@ public class AppUserServiceImpl implements AppUserService {
     public AppUser getDoctor(HttpServletRequest request) {
         return appUserRepository.findByUsernameAndActiveTrue(request.getUserPrincipal().getName());
     }
-    
+
     @Override
     public AppUserDto getById(Long id) {
         return appUserMapper.appUserToAppUserDto(appUserRepository.findOne(id));
@@ -129,7 +139,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public void updateUser(AppUserDto appUserDto) {
-        
+
         AppUser appUser = appUserMapper.appUserDtoToAppUser(appUserDto);
         appUser.setPassword(passwordEncoder.encode(appUserDto.getPassword()));
         appUserRepository.saveAndFlush(appUser);

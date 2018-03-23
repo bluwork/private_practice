@@ -20,6 +20,12 @@ public interface AppUserService {
 
     AppUserDto findActiveByUsername(String username);
 
+    AppUserDto getById(Long id);
+
+    AppUserDto getDoctorDto(HttpServletRequest request);
+
+    AppUser getDoctor(HttpServletRequest request);
+
     List<AppUserDto> getAllUsers();
 
     List<AppUserDto> getAllActiveUsers();
@@ -27,18 +33,13 @@ public interface AppUserService {
     List<AppUserDto> getAllActiveDoctors();
 
     List<AppUserDto> getAllSuspendedUsers();
-    
+
     void updateUser(AppUserDto appUserDto);
 
-    void suspendUser(Long appUserId);
-
     void reactivateUser(Long appUserId);
-    
+
+    boolean suspendUser(Long appUserId);
+
     boolean addAppUser(AppUserDto appUserDto);
 
-    AppUserDto getDoctorDto(HttpServletRequest request);
-    
-    AppUser getDoctor(HttpServletRequest request);
-
-    AppUserDto getById(Long id);
 }

@@ -9,11 +9,8 @@
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,13 +62,6 @@ public class Medical implements Serializable {
 
     }
 
-
-    public Medical(Patient patient, AppUser doctor, LocalDateTime medicalDate) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.medicalDate = medicalDate;
-    }
-
     public Long getId() {
         return id;
     }
@@ -111,7 +101,7 @@ public class Medical implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public String getDiagnosis() {
         return diagnosis;
     }

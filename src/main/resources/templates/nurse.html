@@ -26,7 +26,7 @@
             <div th:if="${appointment_added}" id="alert_box" class="card-panel blue lighten-2" >
                 <span class="card-title" th:text="#{appointment_success}"></span>
             </div>
-             <div th:if="not (${added_patient} == null)" id="alert_box" class="card-panel blue lighten-2" >
+            <div th:if="not (${added_patient} == null)" id="alert_box" class="card-panel blue lighten-2" >
                 <span class="card-title" th:inline="text">[[#{patient} + ' ' +  ${added_patient.firstName} + ' ' + ${added_patient.lastName} + ' ' + #{succ_added}  ]]</span>
             </div>
             <div th:if="${not #lists.isEmpty(patients)}">

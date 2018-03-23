@@ -7,14 +7,12 @@ package net.ltslab.nst.ordinacija.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;
-import net.ltslab.nst.ordinacija.domain.Patient;
-import net.ltslab.nst.ordinacija.domain.Vitals;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.VitalsDto;
 import net.ltslab.nst.ordinacija.service.VitalsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import net.ltslab.nst.ordinacija.repository.VitalsRepository;
 import net.ltslab.nst.ordinacija.service.PatientService;
-import net.ltslab.nst.ordinacija.mapping.PatientMapper;
 import net.ltslab.nst.ordinacija.mapping.VitalsMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,16 +24,13 @@ import org.springframework.stereotype.Service;
 public class VitalsServiceImpl implements VitalsService {
 
     @Autowired
-    VitalsRepository vitalsRepository;
+    private VitalsRepository vitalsRepository;
 
     @Autowired
-    PatientService patientService;
-
+    private VitalsMapper vitalsMapper;
+    
     @Autowired
-    VitalsMapper vitalsMapper;
-
-    @Autowired
-    PatientMapper patientMapper;
+    private PatientService patientService;
 
     @Override
     public List<VitalsDto> getAllVitals(Long patientId) {
@@ -44,11 +39,11 @@ public class VitalsServiceImpl implements VitalsService {
 
     @Override
     public VitalsDto getVitalsDto(Long patientId) {
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId));
-        Vitals vitals = new Vitals();
-        vitals.setMeasuringDate(LocalDate.now());
-        vitals.setPatient(patient);
-        return vitalsMapper.vitalsToVitalsDto(vitals);
+        PatientDto patient = patientService.getPatientById(patientId);
+        VitalsDto vitalsDto = new VitalsDto();
+        vitalsDto.setMeasuringDate(LocalDate.now());
+        vitalsDto.setPatient(patient);
+        return vitalsDto;
     }
 
     @Override

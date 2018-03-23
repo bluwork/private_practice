@@ -20,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -29,7 +28,6 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "vitals")
-@XmlRootElement
 public class Vitals implements Serializable {
 
     private static final long serialVersionUID = -1821040339771336496L;
@@ -67,17 +65,6 @@ public class Vitals implements Serializable {
 
     public Vitals() {
 
-    }
-
-    public Vitals(LocalDate measuringDate, Integer diastolicBP, Integer systolicBP, Float bodyTemp, Integer heartRate, Integer height, Integer mass) {
-
-        this.measuringDate = measuringDate;
-        this.diastolicBP = diastolicBP;
-        this.systolicBP = systolicBP;
-        this.bodyTemp = bodyTemp;
-        this.heartRate = heartRate;
-        this.height = height;
-        this.mass = mass;
     }
 
     public Long getId() {

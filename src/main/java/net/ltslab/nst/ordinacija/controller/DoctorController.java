@@ -5,7 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;

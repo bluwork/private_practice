@@ -20,7 +20,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import org.hibernate.search.annotations.Analyze;
@@ -35,7 +34,6 @@ import org.hibernate.search.annotations.Store;
  */
 @Entity
 @Table(name = "patient")
-@XmlRootElement
 @Indexed
 public class Patient implements Serializable {
 

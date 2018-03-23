@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.ltslab.nst.ordinacija.service.impl.util;
+package net.ltslab.nst.ordinacija.util;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,13 +14,16 @@ import java.util.Objects;
  *
  * @author bobanlukic
  */
-public class Slot implements Serializable{
+public class Slot implements Serializable {
 
     private static final long serialVersionUID = -3218454298506311302L;
-    
+
     private LocalDate date;
+    
     private LocalTime time;
+    
     private int partNumber;
+    
     private boolean occupied;
 
     public Slot() {
@@ -95,5 +98,5 @@ public class Slot implements Serializable{
     public String toString() {
         return "Slot{" + "date=" + date + ", time=" + time + ", partNumber=" + partNumber + ", occupied=" + occupied + '}';
     }
-    
+
 }

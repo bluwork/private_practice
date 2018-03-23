@@ -30,21 +30,19 @@ import net.ltslab.nst.ordinacija.service.AppointmentService;
 public class PatientServiceImpl implements PatientService {
 
     @Autowired
-    PatientRepository patientRepository;
-    
-    @Autowired
-    PatientMapper patientMapper;
-    
-    @Autowired
-    AppointmentService appointmentService;
-    
-    @Autowired
-    AppUserService appUserService;
+    private PatientRepository patientRepository;
 
-  
+    @Autowired
+    private PatientMapper patientMapper;
 
-    @Autowired // TODO Videti da li da se ovo objedini u jednu klasu - da i search radi isti repository odozgo
-    PatientSearchRepositoryImpl patientSearchRepository;
+    @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
+    private AppUserService appUserService;
+
+    @Autowired 
+    private PatientSearchRepositoryImpl patientSearchRepository;
 
     @Override
     public List<PatientDto> allPatients() {
@@ -81,11 +79,6 @@ public class PatientServiceImpl implements PatientService {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public PatientDto getPatientDto(Long patientId) {
-        return patientMapper.patientToPatientDto(patientRepository.findOne(patientId));
     }
 
     @Override

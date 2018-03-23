@@ -49,10 +49,18 @@ public class VitalsRepositoryTest {
 
         Patient patientOne = patientRepository.getOne(12345678L);
 
-        Vitals oneVitals = new Vitals(LocalDate.now(), 80, 120, 36.5f, 70, 192, 91);
+        Vitals v = new Vitals();
+        v.setMeasuringDate(LocalDate.now());
+        v.setDiastolicBP(80);
+        v.setSystolicBP(120);
+        v.setBodyTemp(36.5f);
+        v.setHeartRate(70);
+        v.setHeight(192);
+        v.setMass(91);
 
-        oneVitals.setPatient(patientOne);
-        vitalsRepository.saveAndFlush(oneVitals);
+        v.setDiastolicBP(Integer.MIN_VALUE);
+        v.setPatient(patientOne);
+        vitalsRepository.saveAndFlush(v);
 
         patientVitals = vitalsRepository.findByPatientId(12345678L);
 

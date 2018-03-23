@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='All cities')" />
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{all_cities})" />
     <body>
         <div th:replace="fragments/header :: header" />
         <h1>All cities table</h1>
         <div class="container">All cities table content</div>
         <div th:replace="fragments/footer :: footer"></div>
+        <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
     </body>
 </html>

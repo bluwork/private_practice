@@ -17,8 +17,14 @@ import net.ltslab.nst.ordinacija.dto.PatientDto;
 public interface PatientService {
 
     List<PatientDto> allPatients();
-    
+
     List<PatientDto> activePatients();
+    
+    List<PatientDto> scheduledForDate(LocalDate date);
+        
+    List<PatientDto> sheduledForDoctor(HttpServletRequest request);
+    
+    List<PatientDto> searchForPatients(String searchText);
 
     PatientDto getPatientById(Long id);
 
@@ -26,14 +32,6 @@ public interface PatientService {
 
     void softDeletePatient(Long id);
 
-    List<PatientDto> scheduledForDate(LocalDate date);
-
-    List<PatientDto> searchForPatients(String searchText);
-
     boolean addPatient(PatientDto patientDto);
-
-    PatientDto getPatientDto(Long patientId);
-
-    public List<PatientDto> sheduledForDoctor(HttpServletRequest request);
 
 }

@@ -50,7 +50,6 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.name()));
         });
 
-        //return User.withDefaultPasswordEncoder().username(appUser.getUsername()).password(appUser.getPassword()).authorities(authorities).build();
         return new User(appUser.getUsername(), appUser.getPassword(), true, true, true, true, authorities);
     }
 }

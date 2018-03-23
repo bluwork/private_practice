@@ -52,21 +52,20 @@ public class AdminController {
         return "admin/add_user";
 
     }
-    
+
     @RequestMapping("/admin/update_user/{id}")
-    public String showUpdateUser(@PathVariable (name = "id") Long id, Model model) {
+    public String showUpdateUser(@PathVariable(name = "id") Long id, Model model) {
         model.addAttribute("user", ordinacijaFacade.getAppUserDto(id));
         return "/admin/update_user";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/update_user")
     public String updateUser(@ModelAttribute AppUserDto appUserDto, Model model) {
-        
+
         ordinacijaFacade.updateUser(appUserDto);
         return "redirect:/admin/all_users";
 
     }
-
 
     @RequestMapping("/admin/all_users")
     public String allUsers(Model model) {
@@ -81,9 +80,12 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
-    public String suspendUser(@RequestParam(name = "id") Long appUserId) {
+    public String suspendUser(@RequestParam(name = "id") Long appUserId, RedirectAttributes ra) {
 
-        ordinacijaFacade.suspendUser(appUserId);
+        if (!ordinacijaFacade.suspendUser(appUserId)) {
+            ra.addFlashAttribute("message", "One admin must be active. Operation aborted.");
+        }
+
         return "redirect:/admin/all_users";
     }
 
@@ -93,13 +95,13 @@ public class AdminController {
         ordinacijaFacade.reactivateUser(appUserId);
         return "redirect:/admin/all_users";
     }
-    
-     @RequestMapping("/admin/all_patients")
+
+    @RequestMapping("/admin/all_patients")
     public String allPatients(Model model) {
         model.addAttribute("patients", ordinacijaFacade.getAllActivePatients());
         return "/admin/all_patients";
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_patient/{id}")
     public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
 

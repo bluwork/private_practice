@@ -22,6 +22,5 @@ public interface VitalsMapper {
     Vitals vitalsDtoToVitals(VitalsDto vitalsDto);
 
     List<VitalsDto> vitalsToVitalsDtos(List<Vitals> vitals);
-    
-    
+
 }

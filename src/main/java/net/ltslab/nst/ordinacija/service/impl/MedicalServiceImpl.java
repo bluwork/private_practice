@@ -7,17 +7,14 @@ package net.ltslab.nst.ordinacija.service.impl;
 
 import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
-import net.ltslab.nst.ordinacija.domain.AppUser;
-import net.ltslab.nst.ordinacija.domain.Medical;
-import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.repository.MedicalRepository;
 import net.ltslab.nst.ordinacija.service.AppUserService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 import net.ltslab.nst.ordinacija.service.PatientService;
-import net.ltslab.nst.ordinacija.mapping.AppUserMapper;
 import net.ltslab.nst.ordinacija.mapping.MedicalMapper;
-import net.ltslab.nst.ordinacija.mapping.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,22 +26,16 @@ import org.springframework.stereotype.Service;
 public class MedicalServiceImpl implements MedicalService {
 
     @Autowired
-    MedicalRepository medicalRepository;
+    private MedicalRepository medicalRepository;
 
     @Autowired
-    PatientService patientService;
+    private MedicalMapper medicalMapper;
 
     @Autowired
-    AppUserService appUserService;
+    private PatientService patientService;
 
     @Autowired
-    MedicalMapper medicalMapper;
-
-    @Autowired
-    PatientMapper patientMapper;
-
-    @Autowired
-    AppUserMapper appUserMappper;
+    private AppUserService appUserService;
 
     @Override
     public void addOrUpdate(MedicalDto medicalDto) {
@@ -54,11 +45,13 @@ public class MedicalServiceImpl implements MedicalService {
     @Override
     public MedicalDto getMedicalDto(HttpServletRequest request, Long patientId) {
 
-        Patient patient = patientMapper.patientDtoToPatient(patientService.getPatientById(patientId));
-        String doctorName = request.getUserPrincipal().getName();
-        AppUser doctor = appUserMappper.appUserDtoToAppUser(appUserService.findByUsername(doctorName));
-        
-        return medicalMapper.medicalToMedicalDto(new Medical(patient, doctor, LocalDateTime.now()));
+        PatientDto patient = patientService.getPatientById(patientId);
+        AppUserDto doctor = appUserService.findByUsername(request.getUserPrincipal().getName());
+        MedicalDto medicalDto = new MedicalDto();
+        medicalDto.setDoctor(doctor);
+        medicalDto.setPatient(patient);
+        medicalDto.setMedicalDate(LocalDateTime.now());
+        return medicalDto;
     }
 
 }
