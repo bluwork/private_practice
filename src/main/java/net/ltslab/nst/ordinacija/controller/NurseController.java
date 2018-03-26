@@ -68,11 +68,19 @@ public class NurseController {
     }
 
     @RequestMapping("/nurse/search_results")
-    public String search(@RequestParam String searchText, Model model) {
+    public String search(@RequestParam String searchText, Model model, RedirectAttributes ra) {
 
-        model.addAttribute("patients", ordinacijaFacade.searchFor(searchText));
-
-        return "/nurse/search_results";
+        List<PatientDto> searchResult = ordinacijaFacade.searchFor(searchText);
+        
+        if (searchResult != null) {
+            if (!searchResult.isEmpty()) {
+                model.addAttribute("patients", ordinacijaFacade.searchFor(searchText));
+                return "/nurse/search_results";
+            }
+        }
+        ra.addFlashAttribute("zero_res", true);
+        return "redirect:/nurse";
+        
     }
 
     @RequestMapping("/nurse/check_appointments/{id}")

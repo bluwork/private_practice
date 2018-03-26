@@ -29,33 +29,36 @@ public class PatientSearchRepositoryImpl implements PatientSearchRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Override
     public List<Patient> search(String text) {
 
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
-        QueryBuilder queryBuilder= fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Patient.class).get();
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Patient.class).get();
 
-        Query query = queryBuilder
-                        .keyword()
-                        .onFields("firstName", "lastName")
-                        .matching(text)
-                        .createQuery();
+      
         
+                
+        Query query = queryBuilder
+                .keyword()
+                .fuzzy()
+                .onFields("firstName", "lastName")
+                .matching(text)
+                .createQuery();
+
         FullTextQuery jpaQuery = fullTextEntityManager.createFullTextQuery(query, Patient.class);
 
         // execute search
-
         List<Patient> patients = null;
         try {
             patients = jpaQuery.getResultList();
         } catch (NoResultException nre) {
-        
+
         }
-        
+
         return patients;
-       
+
     }
 
 }

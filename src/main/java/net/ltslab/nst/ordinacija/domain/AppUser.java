@@ -177,10 +177,5 @@ public class AppUser implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "AppUser{" + "username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", roles=" + roles + '}';
-    }
-
+    
 }
