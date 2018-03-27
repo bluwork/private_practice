@@ -11,8 +11,10 @@ import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Appointment;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.mapping.AppUserMapper;
 import net.ltslab.nst.ordinacija.mapping.AppointmentMapper;
+import net.ltslab.nst.ordinacija.mapping.PatientMapper;
 import net.ltslab.nst.ordinacija.repository.AppointmentRepository;
 import net.ltslab.nst.ordinacija.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppUserMapper appUserMapper;
+    
+    @Autowired
+    private PatientMapper patientMapper;
 
     @Override
     public List<Appointment> findByDoctorAndDate(AppUser currentDoctor, LocalDate date) {
@@ -57,6 +62,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void addAppointment(AppointmentDto appointmentDto) {
         appointmentRepository.saveAndFlush(appointmentMapper.appointmentDtoToAppointment(appointmentDto));
+    }
+
+    @Override
+    public boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date) {
+        
+        if (appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date).size() > 0) {
+            return true;
+        }
+        return false;
     }
 
 }

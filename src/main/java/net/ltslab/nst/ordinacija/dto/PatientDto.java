@@ -23,21 +23,21 @@ public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 9121707642309561697L;
 
-    private Long id;
-    
+    private String id;
+
     private String firstName;
-    
+
     private String lastName;
-    
+
     private String middleName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    
+
     private Gender gender;
-    
+
     private BloodType bloodType;
-    
+
     private String allergies;
 
     private ContactInfoDto contactInfo;
@@ -45,6 +45,11 @@ public class PatientDto implements Serializable {
     private List<Vitals> vitals;
 
     private List<Medical> medicals;
+    
+    private boolean softDeleted;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateAdded;
 
     public PatientDto() {
     }
@@ -105,11 +110,11 @@ public class PatientDto implements Serializable {
         this.allergies = allergies;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -136,5 +141,23 @@ public class PatientDto implements Serializable {
     public void setMedicals(List<Medical> medicals) {
         this.medicals = medicals;
     }
+
+    public boolean isSoftDeleted() {
+        return softDeleted;
+    }
+
+    public void setSoftDeleted(boolean softDeleted) {
+        this.softDeleted = softDeleted;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+    
+    
 
 }

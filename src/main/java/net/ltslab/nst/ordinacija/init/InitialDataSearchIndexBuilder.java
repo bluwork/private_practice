@@ -25,10 +25,6 @@ public class InitialDataSearchIndexBuilder implements ApplicationListener<Applic
     @PersistenceContext
     private EntityManager entityManager;
 
-    /**
-     * Create an initial Lucene index for the data already present in the
-     * database. This method is called when Spring's startup.
-     */
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
@@ -41,7 +37,7 @@ public class InitialDataSearchIndexBuilder implements ApplicationListener<Applic
                     "An error occurred trying to build the search index: "
                     + e.toString());
         }
-        return;
+
     }
 
 }

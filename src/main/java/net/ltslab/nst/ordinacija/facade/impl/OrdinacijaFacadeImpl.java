@@ -54,8 +54,48 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     private MailSenderService mailSenderService;
 
     @Override
+    public AppUserDto getDoctor(HttpServletRequest request) {
+        return appUserService.getDoctorDto(request);
+    }
+
+    @Override
+    public AppUserDto getAppUserDto(Long id) {
+        return appUserService.getById(id);
+    }
+
+    @Override
+    public PatientDto getPatientDto(String patientId) {
+        return patientService.getPatientById(patientId);
+    }
+
+    @Override
+    public MedicalDto getMedicalDto(HttpServletRequest request, String patientId) {
+        return medicalService.getMedicalDto(request, patientId);
+    }
+
+    @Override
+    public VitalsDto getVitalsDto(String patientId) {
+        return vitalsService.getVitalsDto(patientId);
+    }
+
+    @Override
+    public AppointmentDto getAppointmentDto() {
+        return appointmentService.getAppointmentDto();
+    }
+
+    @Override
+    public List<AppUserDto> getAllUsers() {
+        return appUserService.getAllUsers();
+    }
+
+    @Override
     public List<PatientDto> getAllPatients() {
         return patientService.allPatients();
+    }
+
+    @Override
+    public List<PatientDto> getAllActivePatients() {
+        return patientService.activePatients();
     }
 
     @Override
@@ -64,15 +104,8 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public boolean addPatient(PatientDto patientDto) {
-        return patientService.addPatient(patientDto);
-    }
-
-    @Override
-    public void softDeletePatient(Long patientId) {
-
-        patientService.softDeletePatient(patientId);
-
+    public List<PatientDto> getScheduledPatients(HttpServletRequest request) {
+        return patientService.sheduledForDoctor(request);
     }
 
     @Override
@@ -81,38 +114,23 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public VitalsDto getVitals(Long patientId) {
-        return vitalsService.getVitalsDto(patientId);
+    public List<PatientDto> getAllScheduledPatients(LocalDate date) {
+        return patientService.scheduledForDate(date);
     }
 
     @Override
-    public void saveVitals(VitalsDto vitalsDto) {
-        vitalsService.addOrUpdateVitals(vitalsDto);
+    public List<CityDto> getAllCities() {
+        return cityService.allCities();
     }
 
     @Override
-    public MedicalDto getMedicalDto(HttpServletRequest request, Long patientId) {
-        return medicalService.getMedicalDto(request, patientId);
-    }
-
-    @Override
-    public void save(MedicalDto medicalDto) {
-        medicalService.addOrUpdate(medicalDto);
-    }
-
-    @Override
-    public AppUserDto getDoctor(HttpServletRequest request) {
-        return appUserService.getDoctorDto(request);
+    public List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor) {
+        return appointmentService.getAllAppointmentDtos(date, doctor);
     }
 
     @Override
     public boolean addAppUser(AppUserDto appUserDto) {
         return appUserService.addAppUser(appUserDto);
-    }
-
-    @Override
-    public List<AppUserDto> getAllUsers() {
-        return appUserService.getAllUsers();
     }
 
     @Override
@@ -126,13 +144,24 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public PatientDto getPatientDto(Long patientId) {
-        return patientService.getPatientById(patientId);
+    public boolean addPatient(PatientDto patientDto) {
+        return patientService.addPatient(patientDto);
     }
 
     @Override
-    public List<CityDto> getAllCities() {
-        return cityService.allCities();
+    public void softDeletePatient(String patientId) {
+        patientService.softDeletePatient(patientId);
+
+    }
+
+    @Override
+    public void saveVitals(VitalsDto vitalsDto) {
+        vitalsService.addOrUpdateVitals(vitalsDto);
+    }
+
+    @Override
+    public void save(MedicalDto medicalDto) {
+        medicalService.addOrUpdate(medicalDto);
     }
 
     @Override
@@ -141,38 +170,8 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     }
 
     @Override
-    public List<PatientDto> getAllActivePatients() {
-        return patientService.activePatients();
-    }
-
-    @Override
-    public AppUserDto getAppUserDto(Long id) {
-        return appUserService.getById(id);
-    }
-
-    @Override
     public void updateUser(AppUserDto appUserDto) {
         appUserService.updateUser(appUserDto);
-    }
-
-    @Override
-    public List<PatientDto> getScheduledPatients(HttpServletRequest request) {
-        return patientService.sheduledForDoctor(request);
-    }
-
-    @Override
-    public List<PatientDto> getAllScheduledPatients(LocalDate date) {
-        return patientService.scheduledForDate(date);
-    }
-
-    @Override
-    public AppointmentDto getAppointmentDto() {
-        return appointmentService.getAppointmentDto();
-    }
-
-    @Override
-    public List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor) {
-        return appointmentService.getAllAppointmentDtos(date, doctor);
     }
 
     @Override
@@ -182,9 +181,27 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Override
     public void sendEmail(PatientDto patientDto, String subject, String text) {
-
         mailSenderService.sendEmail(patientDto, subject, text);
+    }
 
+    @Override
+    public boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date) {
+        return appointmentService.isAppointedAlreadyForDate(patient, date);
+    }
+
+    @Override
+    public CityDto getCityDto(Long zipCode) {
+        return cityService.getCityByZipCode(zipCode);
+    }
+
+    @Override
+    public void updateCity(CityDto cityDto) {
+        cityService.updateCity(cityDto);
+    }
+
+    @Override
+    public List<PatientDto> getAllPatientsAddedByDate(LocalDate date) {
+        return patientService.getAllPatientsAddedByDate(date);
     }
 
 }

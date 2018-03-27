@@ -41,7 +41,7 @@ public class Patient implements Serializable {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Column(name = "first_name")
@@ -83,15 +83,18 @@ public class Patient implements Serializable {
 
     @Column(name = "soft_del")
     private boolean softDeleted;
+    
+    @Column(name = "date_added")
+    private LocalDate dateAdded;
 
     public Patient() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -210,6 +213,16 @@ public class Patient implements Serializable {
     public void setSoftDeleted(boolean softDeleted) {
         this.softDeleted = softDeleted;
     }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+    
+    
 
     @Override
     public int hashCode() {

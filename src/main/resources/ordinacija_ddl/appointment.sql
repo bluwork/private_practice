@@ -4,7 +4,7 @@ CREATE TABLE `appointment` (
 
   `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
   `doctor_id`       BIGINT(20) NOT NULL,
-  `patient_id`      BIGINT(20) NOT NULL,
+  `patient_id`      VARCHAR(20) NOT NULL,
   `date`            DATE NOT NULL,
   `time`            TIME NOT NULL,
   `part`            INT(10) NOT NULL,

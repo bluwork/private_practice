@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.BloodType;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+public interface PatientRepository extends JpaRepository<Patient, String> {
 
     List<Patient> findByBloodType(BloodType bloodType);
 
@@ -25,5 +26,11 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     List<Patient> findByFirstNameAndBloodType(String firstName, BloodType bloodType);
 
     List<Patient> findBySoftDeletedFalse();
+
+    Patient findPatientById(String id);
+
+    void deleteById(String id);
+    
+    List<Patient> findByDateAdded(LocalDate date);
 
 }

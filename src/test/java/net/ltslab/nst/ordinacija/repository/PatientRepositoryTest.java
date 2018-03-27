@@ -5,8 +5,6 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-import java.time.LocalDate;
-import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.enums.Gender;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -35,7 +33,7 @@ public class PatientRepositoryTest {
     public void repositoryTest() throws Exception {
 
         // Test findById
-        Patient patientOne = patientRepository.getOne(12345678L);
+        Patient patientOne = patientRepository.getOne("12345678");
 
         assertThat(patientOne.getFirstName()).isEqualTo("Milovan");
         assertThat(patientOne.getGender()).isEqualTo(Gender.MALE);
@@ -43,10 +41,10 @@ public class PatientRepositoryTest {
         // Test save - update
         patientOne.setGender(Gender.FEMALE);
         patientRepository.save(patientOne);
-        assertThat(patientRepository.getOne(12345678L).getGender()).isEqualTo(Gender.FEMALE);
+        assertThat(patientRepository.getOne("12345678").getGender()).isEqualTo(Gender.FEMALE);
 
         // Test delete
-        patientRepository.delete(22345678L);
+        patientRepository.deleteById("22345678");
         patientRepository.findAll().forEach((p) -> {
             assertThat(p.getId()).isNotEqualTo(22345678L);
         });

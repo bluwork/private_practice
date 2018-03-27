@@ -24,7 +24,18 @@
                             <span class="card-title" th:text="#{patients}">Patients</span>
                         </div>
                         <div class="card-action">
-                            <a class="cyan-text darken-1" th:href="@{/admin/all_patients}" th:text="#{show_all}">Show all</a>
+                            <a class="cyan-text darken-1" th:href="@{/admin/all_patients}" th:text="#{show}">Show all</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col s12 m6">
+                    <div class="card white darken-1 white-text text-darken-2 hoverable">
+                        <div class="card-content grey darken-1">
+                            <span class="card-title" th:text="#{cities}">Cities</span>
+                        </div>
+                        <div class="card-action">
+                            <a class="cyan-text darken-1" th:href="@{/admin/all_cities}" th:text="#{show}">Show all</a>
                         </div>
                     </div>
                 </div>

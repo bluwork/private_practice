@@ -1,11 +1,50 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{all_cities})" />
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{all_cities})">
+        <title/>
+    </head>
     <body>
-        <div th:replace="fragments/header :: header" />
-        <h1>All cities table</h1>
-        <div class="container">All cities table content</div>
-        <div th:replace="fragments/footer :: footer"></div>
-        <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
+        <div th:replace="fragments/header :: header"/>
+
+        <div class="container">
+            <div class="card grey darken-1 hoverable">
+                <div class="card-content white-text">
+                    <div class="row card-title col s12">
+                        <div class="col s12 m10">
+                            <span th:text="#{cities}">Cities</span>
+                        </div>
+                        <div class="col s12 m2">
+                            <a class="btn waves-effect waves-light   orange darken-3" th:href="@{/admin/add_city}"><i class="material-icons">add</i></a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="deletionInfo" class="card-panel blue lighten-2" th:if="${deleted} != null">
+                <span class="card-title" th:inline="text">[['City with id: ' + ${deleted} + ' successfully deleted from system.']]</span>
+            </div>
+            <div th:if="${not #lists.isEmpty(cities)}">
+
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li th:each="city : ${cities}">
+                        <div class="collapsible-header" th:inline="text"><i class="material-icons">place</i>[[${city.zipCode + ' ' + city.name}]]</div>
+                        <div class="collapsible-body">
+<!--                            <form th:action="@{'/admin/delete_city/' + ${city.zipCode}}" method="post" style="display: inline;">
+                                <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{suspend}"  type="submit"><i class="material-icons">delete_forever</i></button> 
+                            </form>-->
+                        </div>  
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div th:replace="fragments/footer :: footer"/>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                  $('select').material_select();
+            });
+
+        </script>
     </body>
 </html>

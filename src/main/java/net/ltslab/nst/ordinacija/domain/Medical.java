@@ -1,4 +1,3 @@
-
 package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;

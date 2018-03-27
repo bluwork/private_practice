@@ -16,5 +16,5 @@ public interface MedicalService {
 
     void addOrUpdate(MedicalDto medicalDto);
 
-    MedicalDto getMedicalDto(HttpServletRequest request, Long patientId);
+    MedicalDto getMedicalDto(HttpServletRequest request, String patientId);
 }

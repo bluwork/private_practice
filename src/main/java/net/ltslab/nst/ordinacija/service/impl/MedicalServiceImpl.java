@@ -43,7 +43,7 @@ public class MedicalServiceImpl implements MedicalService {
     }
 
     @Override
-    public MedicalDto getMedicalDto(HttpServletRequest request, Long patientId) {
+    public MedicalDto getMedicalDto(HttpServletRequest request, String patientId) {
 
         PatientDto patient = patientService.getPatientById(patientId);
         AppUserDto doctor = appUserService.findByUsername(request.getUserPrincipal().getName());

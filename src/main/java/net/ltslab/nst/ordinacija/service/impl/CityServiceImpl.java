@@ -41,13 +41,19 @@ public class CityServiceImpl implements CityService {
     @Override
     public boolean addCity(CityDto cityDto) {
         City city = cityMapper.cityDtoToCity(cityDto);
-        
-        if (cityRepository.findOne(city.getZipCode()) == null) {
+
+        if (cityRepository.findCityByZipCode(city.getZipCode()) == null) {
             cityRepository.saveAndFlush(city);
             return true;
         }
-        
+
         return false;
+    }
+
+    @Override
+    public void updateCity(CityDto cityDto) {
+        City city = cityMapper.cityDtoToCity(cityDto);
+        cityRepository.saveAndFlush(city);
     }
 
 }

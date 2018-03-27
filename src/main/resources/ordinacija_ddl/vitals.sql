@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `vitals`;
 CREATE TABLE `vitals` (
 
   `id`              BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `patient_id`      BIGINT(20) DEFAULT NULL,
+  `patient_id`      VARCHAR(20) DEFAULT NULL,
   `measuring_date`  DATE NOT NULL,
   `diastolic_bp`    INT(11) DEFAULT NULL,
   `systolic_bp`     INT(11) DEFAULT NULL,

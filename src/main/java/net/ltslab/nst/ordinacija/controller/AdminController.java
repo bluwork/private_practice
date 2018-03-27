@@ -6,6 +6,7 @@
 package net.ltslab.nst.ordinacija.controller;
 
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.CityDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,40 @@ public class AdminController {
         return "admin/add_user";
 
     }
+    
+    @RequestMapping("/admin/add_city")
+    public String addCity(Model model) {
+        model.addAttribute("city", new CityDto());
+        return "/admin/add_city";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/add_city")
+    public String saveCity(@ModelAttribute CityDto cityDto, Model model) {
+
+        if (ordinacijaFacade.addCity(cityDto)) {
+            return "redirect:/admin/all_cities";
+        }
+        cityDto.setZipCode(null);
+        model.addAttribute("city", cityDto);
+        model.addAttribute("zip_code_exists", true);
+
+        return "admin/add_city";
+
+    }
+    
+    @RequestMapping("/admin/update_city/{zip_code}")
+    public String showUpdateCity(@PathVariable(name = "zip_code") Long zipCode, Model model) {
+        model.addAttribute("city", ordinacijaFacade.getCityDto(zipCode));
+        return "/admin/update_city";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/update_city")
+    public String updateCity(@ModelAttribute CityDto cityDto, Model model) {
+
+        ordinacijaFacade.updateCity(cityDto);
+        return "redirect:/admin/all_cities";
+
+    }
 
     @RequestMapping("/admin/update_user/{id}")
     public String showUpdateUser(@PathVariable(name = "id") Long id, Model model) {
@@ -76,7 +111,8 @@ public class AdminController {
 
     @RequestMapping("/admin/all_cities")
     public String page(Model model) {
-        return "all_cities";
+        model.addAttribute("cities", ordinacijaFacade.getAllCities());
+        return "/admin/all_cities";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
@@ -103,7 +139,7 @@ public class AdminController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/delete_patient/{id}")
-    public String deletePatient(@PathVariable(name = "id") Long patientId, RedirectAttributes ra) {
+    public String deletePatient(@PathVariable(name = "id") String patientId, RedirectAttributes ra) {
 
         ordinacijaFacade.softDeletePatient(patientId);
         ra.addFlashAttribute("deleted", "" + patientId);

@@ -19,11 +19,11 @@ public class Slot implements Serializable {
     private static final long serialVersionUID = -3218454298506311302L;
 
     private LocalDate date;
-    
+
     private LocalTime time;
-    
+
     private int partNumber;
-    
+
     private boolean occupied;
 
     public Slot() {

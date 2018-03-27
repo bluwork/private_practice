@@ -28,7 +28,8 @@
                 </div>
 
                 <div class="input-field col s12 m4">
-                    <input id="dob" type="date" th:field="*{date}" required="true"/>
+                    <input id="appointment_date" type="text" class="datepicker" th:field="*{date}"/>
+                    <label for="appointment_date" th:text="#{appointment_date}">Appointment date</label>
                 </div>
                 <input type="hidden" th:field="*{patient.id}"/>
                 <div class="row center">
@@ -44,12 +45,52 @@
         <div th:replace="fragments/footer :: footer"/>
 
         <script type="text/javascript">
+
             $(document).ready(function () {
+
                 $('select').material_select();
+
+                $('.datepicker').pickadate({
+                    selectMonths: true, // dropdown za mesece
+                    selectYears: 3,    //dropdown za godine
+                    format:'dd-mm-yyyy',
+                    formatSubmit: 'yyyy-mm-dd',
+                    hiddenName: true, // mora da bi se poslao odgovarajuci format
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    min: true,
+                    closeOnSelect: true,
+                    firstDay: 1,
+                    disable: [6 , 7]
+                });
+
+
             });
-            $('#selector').change(function () {
-                Materialize.toast('Doctor selected', 2000) // 4000 is the duration of the toast
+
+            function checkDate() {
+                if ($('#appointment_date').val() == '') {
+                    $('#appointment_date').addClass('invalid')
+                    return false;
+                } else {
+                    $('#appointment_date').removeClass('invalid')
+                    return true;
+                }
+            }
+
+            $('form').submit(function () {
+                if (!checkDate()) {
+                    return false;
+                }
+
             });
+
+            $('#appointment_date').change(function () {
+                checkDate();
+            });
+
+
+
         </script>
 
     </body>

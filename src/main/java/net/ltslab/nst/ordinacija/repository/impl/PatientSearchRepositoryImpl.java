@@ -37,9 +37,6 @@ public class PatientSearchRepositoryImpl implements PatientSearchRepository {
 
         QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Patient.class).get();
 
-      
-        
-                
         Query query = queryBuilder
                 .keyword()
                 .fuzzy()

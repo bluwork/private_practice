@@ -28,4 +28,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
     AppUser findByUsernameAndActiveTrue(String username);
 
+    AppUser findAppUserById(Long appUserId);
+
 }

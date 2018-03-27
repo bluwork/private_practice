@@ -11,6 +11,7 @@ import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Appointment;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
+import net.ltslab.nst.ordinacija.dto.PatientDto;
 
 /**
  *
@@ -19,13 +20,15 @@ import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 public interface AppointmentService {
 
     AppointmentDto getAppointmentDto();
-    
+
     List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
-        
+
     List<Appointment> findByDoctorAndDate(AppUser currentDoctor, LocalDate now);
 
     List<Appointment> findByDate(LocalDate now);
 
     void addAppointment(AppointmentDto appointmentDto);
+
+    boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date);
 
 }

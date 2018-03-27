@@ -28,17 +28,17 @@ public class VitalsServiceImpl implements VitalsService {
 
     @Autowired
     private VitalsMapper vitalsMapper;
-    
+
     @Autowired
     private PatientService patientService;
 
     @Override
-    public List<VitalsDto> getAllVitals(Long patientId) {
+    public List<VitalsDto> getAllVitals(String patientId) {
         return vitalsMapper.vitalsToVitalsDtos(vitalsRepository.findByPatientId(patientId));
     }
 
     @Override
-    public VitalsDto getVitalsDto(Long patientId) {
+    public VitalsDto getVitalsDto(String patientId) {
         PatientDto patient = patientService.getPatientById(patientId);
         VitalsDto vitalsDto = new VitalsDto();
         vitalsDto.setMeasuringDate(LocalDate.now());
@@ -53,7 +53,7 @@ public class VitalsServiceImpl implements VitalsService {
 
     @Override
     public void deleteVitals(Long id) {
-        vitalsRepository.delete(id);
+        vitalsRepository.deleteById(id);
     }
 
 }

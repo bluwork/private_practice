@@ -12,4 +12,8 @@ CREATE TABLE `roles` (
 INSERT INTO  `roles`
         (`app_user`, `roles`)
 VALUES
-        (1, 'ADMIN');
+        (1, 'ADMIN'),
+        (2, 'DOCTOR'),
+        (3, 'DOCTOR'),
+        (4, 'NURSE'),
+        (5, 'NURSE');

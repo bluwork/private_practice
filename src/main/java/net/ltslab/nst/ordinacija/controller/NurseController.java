@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  *
  * @author bobanlukic
  */
+
 @Controller
 public class NurseController {
 
@@ -42,6 +43,7 @@ public class NurseController {
     @RequestMapping("/nurse")
     public String nurse(Model model) {
         model.addAttribute("patients", ordinacijaFacade.getAllScheduledPatients(LocalDate.now()));
+        model.addAttribute("today_added", ordinacijaFacade.getAllPatientsAddedByDate(LocalDate.now()));
         return "nurse";
     }
 
@@ -54,12 +56,15 @@ public class NurseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto, Model model, RedirectAttributes ra) {
-
+        
+        patientDto.setDateAdded(LocalDate.now());
+        
         if (ordinacijaFacade.addPatient(patientDto)) {
             ra.addFlashAttribute("added_patient", patientDto);
             ordinacijaFacade.sendEmail(patientDto, "Welcome to Ordinacija", "Welcome to our private practice. King regards, Ordinacija.");
             return "redirect:/nurse";
         }
+        
         model.addAttribute("patient", patientDto);
         model.addAttribute("cities", ordinacijaFacade.getAllCities());
         model.addAttribute("patient_id_exists", true);
@@ -71,7 +76,7 @@ public class NurseController {
     public String search(@RequestParam String searchText, Model model, RedirectAttributes ra) {
 
         List<PatientDto> searchResult = ordinacijaFacade.searchFor(searchText);
-        
+
         if (searchResult != null) {
             if (!searchResult.isEmpty()) {
                 model.addAttribute("patients", ordinacijaFacade.searchFor(searchText));
@@ -80,11 +85,11 @@ public class NurseController {
         }
         ra.addFlashAttribute("zero_res", true);
         return "redirect:/nurse";
-        
+
     }
 
     @RequestMapping("/nurse/check_appointments/{id}")
-    public String checkAppointments(@PathVariable(name = "id") Long patientId, Model model) {
+    public String checkAppointments(@PathVariable(name = "id") String patientId, Model model) {
 
         AppointmentDto appDto = ordinacijaFacade.getAppointmentDto();
         PatientDto patientDto = ordinacijaFacade.getPatientDto(patientId);
@@ -135,17 +140,22 @@ public class NurseController {
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_appointment")
     public String saveAppointment(@ModelAttribute AppointmentDto appointmentDto, RedirectAttributes ra,
             @RequestParam(name = "d") String date, @RequestParam(name = "t") String time, @RequestParam(name = "p") int part) {
-        appointmentDto.setDate(LocalDate.parse(date));
-        appointmentDto.setTime(LocalTime.parse(time));
-        appointmentDto.setPart(part);
-        ordinacijaFacade.addAppointment(appointmentDto);
+        if (ordinacijaFacade.isAppointedAlreadyForDate(appointmentDto.getPatient(), LocalDate.parse(date))) {
+            ra.addFlashAttribute("already_appointed", true);
+        } else {
+            appointmentDto.setDate(LocalDate.parse(date));
+            appointmentDto.setTime(LocalTime.parse(time));
+            appointmentDto.setPart(part);
+            ordinacijaFacade.addAppointment(appointmentDto);
         ra.addFlashAttribute("appointment_added", true);
+        }
+        
         return "redirect:/nurse";
     }
 
     @RequestMapping("/nurse/add_vitals/{id}")
-    public String addVitals(@PathVariable(name = "id") Long patientId, Model model) {
-        model.addAttribute("vitals", ordinacijaFacade.getVitals(patientId));
+    public String addVitals(@PathVariable(name = "id") String patientId, Model model) {
+        model.addAttribute("vitals", ordinacijaFacade.getVitalsDto(patientId));
         return "/nurse/add_vitals";
     }
 

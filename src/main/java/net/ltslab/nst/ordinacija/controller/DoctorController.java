@@ -5,6 +5,8 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
@@ -36,9 +38,17 @@ public class DoctorController {
     }
 
     @RequestMapping("/doctor/medical/{id}")
-    public String medical(HttpServletRequest request, @PathVariable(name = "id") Long patientId, Model model) {
+    public String medical(HttpServletRequest request, @PathVariable(name = "id") String patientId, Model model) {
 
-        model.addAttribute("medical", ordinacijaFacade.getMedicalDto(request, patientId));
+        MedicalDto medicalDto = ordinacijaFacade.getMedicalDto(request, patientId);
+        
+        if (medicalDto != null) {
+            long age = ChronoUnit.YEARS.between(medicalDto.getPatient().getDateOfBirth(), LocalDate.now());
+            model.addAttribute("age", age);
+        }
+        
+        model.addAttribute("medical", medicalDto);
+        
         return "/doctor/medical";
 
     }

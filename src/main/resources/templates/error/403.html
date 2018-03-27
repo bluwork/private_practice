@@ -8,7 +8,7 @@
                 <h1 th:text="#{access_denied}">Access is denied</h1>
                 <div class="row " th:inline="text"><div sec:authentication="principal"></div> [[' ' + #{not_have_access_rights}]]</div>
             </div>
-            <a class="btn" th:href="@{/login}" th:text="#{login_page}">Login</a>
+            <a class="btn" th:href="@{/logout}" th:text="#{login_page}">Login</a>
         </div>
         <div th:replace="fragments/footer :: footer" />
     </body>

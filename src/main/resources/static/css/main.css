@@ -62,3 +62,11 @@ i.icon-grey {
     color: grey;
 }
 
+.app-card {
+    size: 50px;
+}
+
+textarea.materialize-textarea {
+    height: 6rem;
+}
+

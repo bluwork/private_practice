@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{add_city})" />
+    <body>
+        <div th:replace="fragments/header :: header" />
+
+
+        <div class="container">
+
+            <div id="errorMessage" class="card-panel red lighten-2" th:if="${zip_code_exists}">
+                <span class="card-title" th:text="#{zip_code_exists}">Invalid user name or password</span>
+            </div>
+
+            <form class="col s12" th:action="@{/admin/add_city}"  th:object="${city}" method="post">
+                <div class="row col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input id="zip_code" type="text" class="validate" th:field="*{zipCode}" data-length="5" required="true" pattern="[0-9]{5}" />
+                            <label for="zip_code" th:text="#{zip_code}">Username</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input id="name" type="text" class="validate" required="true" th:field="*{name}" />
+                            <label for="name" th:text="#{name}">Password</label>
+                        </div>
+        
+                    </div>
+                </div>
+
+                <div class="row center">
+                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/admin/all_cities}" th:text="#{cancel}">Cancel</a>
+                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Save<i class="material-icons right">save</i></button>
+                </div>
+
+            </form>
+        </div>
+        <div th:replace="fragments/footer :: footer" />
+
+    </body>
+</html>
+

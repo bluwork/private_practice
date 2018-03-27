@@ -14,9 +14,9 @@ import net.ltslab.nst.ordinacija.dto.VitalsDto;
  */
 public interface VitalsService {
 
-    List<VitalsDto> getAllVitals(Long patientId);
+    List<VitalsDto> getAllVitals(String patientId);
 
-    VitalsDto getVitalsDto(Long id);
+    VitalsDto getVitalsDto(String patientId);
 
     void addOrUpdateVitals(VitalsDto vitals);
 

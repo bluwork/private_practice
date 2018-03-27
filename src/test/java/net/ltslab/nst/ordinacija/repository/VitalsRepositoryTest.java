@@ -6,7 +6,6 @@
 package net.ltslab.nst.ordinacija.repository;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Patient;
 import net.ltslab.nst.ordinacija.domain.Vitals;
@@ -18,8 +17,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import net.ltslab.nst.ordinacija.repository.PatientRepository;
-import net.ltslab.nst.ordinacija.repository.VitalsRepository;
 
 /**
  *
@@ -41,13 +38,13 @@ public class VitalsRepositoryTest {
 
     public void repositoryTest() throws Exception {
 
-        List<Vitals> patientVitals = vitalsRepository.findByPatientId(12345678L);
+        List<Vitals> patientVitals = vitalsRepository.findByPatientId("12345678");
 
         assertThat(patientVitals.get(0).getBodyTemp()).isEqualTo(36.8f);
         assertThat(patientVitals.get(0).getHeight()).isEqualTo(192);
         assertThat(patientVitals.get(0).getMass()).isEqualTo(84);
 
-        Patient patientOne = patientRepository.getOne(12345678L);
+        Patient patientOne = patientRepository.getOne("12345678");
 
         Vitals v = new Vitals();
         v.setMeasuringDate(LocalDate.now());
@@ -62,19 +59,10 @@ public class VitalsRepositoryTest {
         v.setPatient(patientOne);
         vitalsRepository.saveAndFlush(v);
 
-        patientVitals = vitalsRepository.findByPatientId(12345678L);
+        patientVitals = vitalsRepository.findByPatientId("12345678");
 
         assertThat(patientVitals.get(2).getBodyTemp()).isEqualTo(36.5f);
         assertThat(patientVitals.get(2).getHeight()).isEqualTo(192);
-        assertThat(patientVitals.get(2).getMass()).isEqualTo(91);
-
-//
-//        
-//        
-//       
-//        
-//        
-//        
-//       
+        assertThat(patientVitals.get(2).getMass()).isEqualTo(91);  
     }
 }

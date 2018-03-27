@@ -23,17 +23,21 @@ public interface OrdinacijaFacade {
 
     AppUserDto getDoctor(HttpServletRequest request);
 
-    PatientDto getPatientDto(Long patientId);
+    AppUserDto getAppUserDto(Long id);
 
-    MedicalDto getMedicalDto(HttpServletRequest request, Long patientId);
+    PatientDto getPatientDto(String patientId);
 
-    VitalsDto getVitals(Long patientId);
+    MedicalDto getMedicalDto(HttpServletRequest request, String patientId);
+
+    VitalsDto getVitalsDto(String patientId);
+
+    AppointmentDto getAppointmentDto();
+
+    List<AppUserDto> getAllUsers();
 
     List<PatientDto> getAllPatients();
 
     List<PatientDto> getAllActivePatients();
-
-    List<AppUserDto> getAllUsers();
 
     List<AppUserDto> getAllActiveDoctors();
 
@@ -41,7 +45,11 @@ public interface OrdinacijaFacade {
 
     List<PatientDto> searchFor(String searchText);
 
+    List<PatientDto> getAllScheduledPatients(LocalDate date);
+
     List<CityDto> getAllCities();
+
+    List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
 
     boolean addAppUser(AppUserDto appUserDto);
 
@@ -51,7 +59,7 @@ public interface OrdinacijaFacade {
 
     boolean addPatient(PatientDto patientDto);
 
-    void softDeletePatient(Long patientId);
+    void softDeletePatient(String patientId);
 
     void saveVitals(VitalsDto vitals);
 
@@ -59,18 +67,18 @@ public interface OrdinacijaFacade {
 
     boolean addCity(CityDto cityDto);
 
-    AppUserDto getAppUserDto(Long id);
-
     void updateUser(AppUserDto appUserDto);
-
-    List<PatientDto> getAllScheduledPatients(LocalDate date);
-
-    AppointmentDto getAppointmentDto();
-
-    List<AppointmentDto> getAllAppointmentDtos(LocalDate date, AppUserDto doctor);
 
     void addAppointment(AppointmentDto appointmentDto);
 
     void sendEmail(PatientDto patientDto, String subject, String message);
+
+    boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date);
+
+    CityDto getCityDto(Long zipCode);
+
+    void updateCity(CityDto cityDto);
+
+    List<PatientDto> getAllPatientsAddedByDate(LocalDate now);
 
 }

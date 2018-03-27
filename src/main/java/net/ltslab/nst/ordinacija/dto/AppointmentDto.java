@@ -19,16 +19,16 @@ public class AppointmentDto implements Serializable {
     private static final long serialVersionUID = 5640076433653943319L;
 
     private Long id;
-    
+
     private AppUserDto doctor;
-    
+
     private PatientDto patient;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    
+
     private LocalTime time;
-    
+
     private int part;
 
     public AppointmentDto() {
@@ -82,4 +82,4 @@ public class AppointmentDto implements Serializable {
         this.part = part;
     }
 
- }
+}

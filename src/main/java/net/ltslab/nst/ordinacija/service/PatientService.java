@@ -19,19 +19,21 @@ public interface PatientService {
     List<PatientDto> allPatients();
 
     List<PatientDto> activePatients();
-    
+
     List<PatientDto> scheduledForDate(LocalDate date);
-        
+
     List<PatientDto> sheduledForDoctor(HttpServletRequest request);
-    
+
     List<PatientDto> searchForPatients(String searchText);
 
-    PatientDto getPatientById(Long id);
+    PatientDto getPatientById(String id);
 
     void addOrUpdatePatient(PatientDto patient);
 
-    void softDeletePatient(Long id);
+    void softDeletePatient(String id);
 
     boolean addPatient(PatientDto patientDto);
+
+    List<PatientDto> getAllPatientsAddedByDate(LocalDate date);
 
 }

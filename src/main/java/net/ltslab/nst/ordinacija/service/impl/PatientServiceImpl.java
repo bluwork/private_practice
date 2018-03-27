@@ -41,7 +41,7 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private AppUserService appUserService;
 
-    @Autowired 
+    @Autowired
     private PatientSearchRepositoryImpl patientSearchRepository;
 
     @Override
@@ -50,8 +50,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientDto getPatientById(Long id) {
-        return patientMapper.patientToPatientDto(patientRepository.findOne(id));
+    public PatientDto getPatientById(String id) {
+        return patientMapper.patientToPatientDto(patientRepository.findPatientById(id));
     }
 
     @Override
@@ -60,8 +60,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void softDeletePatient(Long id) {
-        Patient softDeletedPatient = patientRepository.findOne(id);
+    public void softDeletePatient(String id) {
+        Patient softDeletedPatient = patientRepository.findPatientById(id);
         softDeletedPatient.setSoftDeleted(true);
         patientRepository.saveAndFlush(softDeletedPatient);
     }
@@ -105,5 +105,10 @@ public class PatientServiceImpl implements PatientService {
             patients.add(a.getPatient());
         }
         return patientMapper.patientsToPatientDtos(patients);
+    }
+
+    @Override
+    public List<PatientDto> getAllPatientsAddedByDate(LocalDate date) {
+        return patientMapper.patientsToPatientDtos(patientRepository.findByDateAdded(date));
     }
 }

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `patient`;
 
 CREATE TABLE `patient` (
 
-  `id`                BIGINT(20) NOT NULL UNIQUE,
+  `id`                VARCHAR(20) NOT NULL UNIQUE,
   `first_name`        VARCHAR(30) DEFAULT NULL,
   `middle_name`       VARCHAR(30) DEFAULT NULL,
   `last_name`         VARCHAR(30) DEFAULT NULL,
@@ -11,6 +11,7 @@ CREATE TABLE `patient` (
   `blood_type`        VARCHAR(15) DEFAULT NULL,
   `allergies`         VARCHAR(255) DEFAULT NULL,
   `soft_del`          TINYINT(1) DEFAULT 0,
+  `date_added`        DATE DEFAULT NULL,
   `contact_info`      BIGINT(20) DEFAULT NULL,
   
 

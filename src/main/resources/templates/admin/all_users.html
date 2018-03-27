@@ -11,7 +11,7 @@
         <form id="editform" th:action="@{/admin/update_user}" method="post" class="hidden"/>
 
         <div class="container">
-            <div class="card amber hoverable">
+            <div class="card brown lighten-2 hoverable">
                 <div class="card-content white-text">
                     <div class="row card-title col s12">
 
@@ -57,8 +57,6 @@
                 $('#delete').modal('open');
                 selectedUserId = userId;
                 //Materialize.toast('Selected User id ' + selectedUserId, 1000) // 4000 is the duration of the toast
-
-
             }
 
             $('#suspendform').on('submit', function () {

@@ -45,5 +45,10 @@ databaseChangeLog:
                 relativeToChangeLogFile: true
                 splitStatements:         true
                 stripComments:           true
+            - sqlFile:
+                path:                    ordinacija_ddl/prescription.sql
+                relativeToChangeLogFile: true
+                splitStatements:         true
+                stripComments:           true
 
             

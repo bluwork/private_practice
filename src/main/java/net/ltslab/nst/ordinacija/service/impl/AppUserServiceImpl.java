@@ -74,7 +74,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public boolean suspendUser(Long appUserId) {
         List<AppUser> activeAdmins = appUserRepository.findByActiveTrueAndRoles(Role.ADMIN);
-        AppUser suspendedUser = appUserRepository.findOne(appUserId);
+        AppUser suspendedUser = appUserRepository.findAppUserById(appUserId);
 
         if (suspendedUser.getRoles().contains(Role.ADMIN) && activeAdmins.size() < 2) {
             return false;
@@ -87,7 +87,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public void reactivateUser(Long appUserId) {
-        AppUser activatedUser = appUserRepository.findOne(appUserId);
+        AppUser activatedUser = appUserRepository.findAppUserById(appUserId);
         activatedUser.setActive(true);
         appUserRepository.saveAndFlush(activatedUser);
     }
@@ -134,7 +134,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUserDto getById(Long id) {
-        return appUserMapper.appUserToAppUserDto(appUserRepository.findOne(id));
+        return appUserMapper.appUserToAppUserDto(appUserRepository.findAppUserById(id));
     }
 
     @Override
