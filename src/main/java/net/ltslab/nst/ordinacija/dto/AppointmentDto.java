@@ -30,6 +30,8 @@ public class AppointmentDto implements Serializable {
     private LocalTime time;
 
     private int part;
+    
+    private boolean realized;
 
     public AppointmentDto() {
     }
@@ -80,6 +82,14 @@ public class AppointmentDto implements Serializable {
 
     public void setPart(int part) {
         this.part = part;
+    }
+
+    public boolean isRealized() {
+        return realized;
+    }
+
+    public void setRealized(boolean realized) {
+        this.realized = realized;
     }
 
 }

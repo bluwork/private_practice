@@ -7,7 +7,8 @@ package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Medical;
 import net.ltslab.nst.ordinacija.domain.Vitals;
@@ -45,9 +46,11 @@ public class PatientDto implements Serializable {
     private List<Vitals> vitals;
 
     private List<Medical> medicals;
-    
+
     private boolean softDeleted;
     
+    private long age;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateAdded;
 
@@ -127,6 +130,9 @@ public class PatientDto implements Serializable {
     }
 
     public List<Vitals> getVitals() {
+        if (vitals == null) {
+            vitals = new ArrayList<>();
+        }
         return vitals;
     }
 
@@ -135,6 +141,9 @@ public class PatientDto implements Serializable {
     }
 
     public List<Medical> getMedicals() {
+        if (medicals == null) {
+            medicals = new ArrayList<>();
+        }
         return medicals;
     }
 
@@ -157,7 +166,14 @@ public class PatientDto implements Serializable {
     public void setDateAdded(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
     }
-    
-    
+
+    public long getAge() {
+        age = ChronoUnit.YEARS.between(getDateOfBirth(), LocalDate.now());
+        return age;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
+    }
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle='Add new patient')"/>
+    <head th:replace="fragments/layout :: head_fragment (pageTitle='Update patient')"/>
     <body>
         <div th:replace="fragments/header :: header"/>
 
@@ -10,23 +10,14 @@
             <div class="card orange darken hoverable">
                 <div class="card-content white-text">
                     <div class="card-title">
-                        <span th:text="#{new_patient}">New Patient</span>                     
+                        <span th:text="#{patient}">Patient</span>                     
                     </div>
                 </div>
             </div>
 
-            <div id="errorMessage" class="card-panel red lighten-2" th:if="${patient_id_exists}">
-                <span class="card-title" th:text="#{patient_id_exists}">Patient id exists</span>
-            </div>
-            <form action="#" th:action="@{/nurse/add_patient}" th:object="${patient}" method="post">
+            <form  th:action="@{/nurse/update_patient}" th:object="${patient}" method="post">
 
-                <div class="row">
-                    <div class="input-field col s12 m4 l2">
-                        <input id="id" type="text" class="validate" required="true"
-                               th:field="*{id}" data-length="13" pattern="[0-9]{13}"/>
-                        <label for="id" th:text="#{patient_id}">Patient UID</label>
-                    </div>
-                </div>
+               
                 <div class="row">
                     <div class="input-field col s12 m4 ">
                         <input id="first_name" type="text" class="validate" required="true"
@@ -112,9 +103,13 @@
                         </select>
                     </div>
                 </div>
+                 <div class="row">
+                 <input type="hidden" th:field="*{id}" />
+                 <input type="hidden" th:field="*{contactInfo.id}" />
+                 </div>
                 <div class="row center">
                     <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
-                    <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Submit
+                    <button class="btn waves-effect waves-light" type="submit" th:text="#{save}">Submit
                         <i class="material-icons right">save</i>
                     </button>
                 </div>

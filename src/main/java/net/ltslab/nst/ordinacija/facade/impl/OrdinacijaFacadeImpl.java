@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
+import net.ltslab.nst.ordinacija.dto.DiagnosisDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.VitalsDto;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import net.ltslab.nst.ordinacija.service.AppointmentService;
 import net.ltslab.nst.ordinacija.service.CityService;
+import net.ltslab.nst.ordinacija.service.DiagnosisService;
 import net.ltslab.nst.ordinacija.service.MailSenderService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 
@@ -52,6 +54,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Autowired
     private MailSenderService mailSenderService;
+    
+    @Autowired
+    private DiagnosisService diagnosisService;
 
     @Override
     public AppUserDto getDoctor(HttpServletRequest request) {
@@ -202,6 +207,36 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public List<PatientDto> getAllPatientsAddedByDate(LocalDate date) {
         return patientService.getAllPatientsAddedByDate(date);
+    }
+
+    @Override
+    public List<DiagnosisDto> getDiagnoses() {
+        return diagnosisService.allDiagnoses();
+    }
+
+    @Override
+    public boolean addDiagnosis(DiagnosisDto diagnosisDto) {
+        return diagnosisService.addDiagnosis(diagnosisDto);
+    }
+
+    @Override
+    public void updateDiagnosis(DiagnosisDto diagnosisDto) {
+        diagnosisService.updateDiagnosis(diagnosisDto);
+    }
+
+    @Override
+    public DiagnosisDto getDiagnosisDto(String code) {
+        return diagnosisService.getDiagnosisByCode(code);
+    }
+
+    @Override
+    public void updatePatient(PatientDto patientDto) {
+        patientService.updatePatient(patientDto);
+    }
+
+    @Override
+    public List<PatientDto> getAllFinishedPatients(LocalDate date) {
+        return patientService.finishedForDate(date);
     }
 
 }

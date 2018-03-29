@@ -8,63 +8,81 @@
         <div class="container col s12">
             <div class="card-panel cyan">
                 <h4 class="card-patient center-align" th:inline="text">[[${medical.patient.firstName + ' ' + medical.patient.lastName}]]</h4>
-                <p class="card-patient center-align" th:inline="text">[[ #{age} + ' ' + ${age}]]</p>
+                <p class="card-patient center-align" th:inline="text">[[ #{age} + ' ' + ${medical.patient.age}]]</p>
                 <div th:if="${not #lists.isEmpty(medical.patient.vitals)}">
-                <table>
-                    <thead>
-                        <tr>
-                            <th th:text="#{measuring_date}"></th>
-                            <th th:text="#{diastolic_bp}"></th>
-                            <th th:text="#{systolic_bp}"></th>
-                            <th th:text="#{body_temp}"></th>
-                            <th th:text="#{heart_rate}"></th>
-                            <th th:text="#{height}"></th>
-                            <th th:text="#{mass}"></th>
-                        </tr>
-                    </thead>
-                    <tbody th:each="v : ${medical.patient.vitals}">
-                        <tr>
-                            <td th:text="${v.measuringDate}"></td>
-                            <td th:text="${v.diastolicBP}"></td>
-                            <td th:text="${v.systolicBP}"></td>
-                            <td th:text="${v.bodyTemp}"></td>
-                            <td th:text="${v.heartRate}"></td>
-                            <td th:text="${v.height}"></td>
-                            <td th:text="${v.mass}"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th th:text="#{measuring_date}"></th>
+                                <th th:text="#{diastolic_bp}"></th>
+                                <th th:text="#{systolic_bp}"></th>
+                                <th th:text="#{body_temp}"></th>
+                                <th th:text="#{heart_rate}"></th>
+                                <th th:text="#{height}"></th>
+                                <th th:text="#{mass}"></th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="v : ${medical.patient.vitals}">
+                            <tr>
+                                <td th:text="${v.measuringDate}"></td>
+                                <td th:text="${v.diastolicBP}"></td>
+                                <td th:text="${v.systolicBP}"></td>
+                                <td th:text="${v.bodyTemp}"></td>
+                                <td th:text="${v.heartRate}"></td>
+                                <td th:text="${v.height}"></td>
+                                <td th:text="${v.mass}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </div>
-            
+
             <div class="row">
-                <form class="col s12" action="#" th:action="@{/doctor/new_medical}" th:object="${medical}" method="post">
+                <form class="col s12"  th:action="@{/doctor/medical}" th:object="${medical}" method="post">
+                     <input type="hidden" th:field="*{patient.id}" />
+                    <input type="hidden" th:field="*{doctor.id}" />
+                    <input type="hidden" th:field="*{medicalDate}" />
                     <div class="row">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12">
                             <textarea th:field="*{description}" id="description" class="materialize-textarea" data-length="512" required="true" minlength="5" maxlength="512"></textarea>
                             <label for="description" th:text="#{medical_desc}"></label>
                         </div>
-                        <div class="col s12 m6">
-                            <div class="input-field col s12">
-                                <textarea th:field="*{diagnosis}" id="diagnosis" class="materialize-textarea" rows="20" data-length="128" required="true" minlength="5" maxlength="128"></textarea>
-                                <label for="diagnosis" th:text="#{diagnosis}"></label>
+                        <div class="row">
+
+                            <div class="input-field col s12 m6">
+                                <select th:field="*{diagnosis.code}">
+                                    <option th:each="diagnosis : ${diagnoses}" th:text="${diagnosis.name}" th:value="${diagnosis.code}"></option>
+                                </select>
                             </div>
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 m6">
                                 <textarea th:field="*{therapy}" id="therapy" class="materialize-textarea" data-length="255" required="true" minlength="5" maxlength="255"></textarea>
                                 <label for="therapy" th:text="#{therapy}"></label>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" th:field="*{patient.id}" />
-                    <input type="hidden" th:field="*{doctor.id}" />
-                    <input type="hidden" th:field="*{medicalDate}" />
+                    <div class="row" th:if="${not #lists.isEmpty(medical.prescriptions)}">
+                        <div th:each="p, prescriptionStat : *{prescriptions}" >
+                            <label for="description" th:text="#{prescription}"></label>
+                            <input th:field="*{prescriptions[__${prescriptionStat.index}__].description}" id="description" required="true" minlength="5" maxlength="128"/>
+                       
+                        </div>
+
+                    </div>
+                   
                     <div class="row center">
                         <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/doctor}" th:text="#{cancel}">Cancel</a>
-                        <button class="btn waves-effect waves-light" type="submit" name="action" th:text="#{save}">Submit<i class="material-icons right">save</i></button>
+                        <button class="btn waves-effect waves-light" type="submit" name="save" th:text="#{save}">Submit<i class="material-icons right">save</i></button>
                     </div>
                 </form>
             </div>
         </div>
         <div th:replace="fragments/footer :: footer" />
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('select').material_select();
+            });
+
+        </script>
     </body>
 </html>

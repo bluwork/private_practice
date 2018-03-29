@@ -15,6 +15,7 @@
                         <div class="card-action">
                             <a class="brown-text lighten-2" th:href="@{/admin/all_users}" th:text="#{show}">Show</a>
                             <a class="brown-text lighten-2" th:href="@{/admin/add_user}" th:text="#{add_new}">Add new</a>
+                            <a class="brown-text lighten-2" th:href="@{/admin/import_users}" th:text="#{import}">Add new</a>
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col s12 m6">
                     <div class="card white darken-1 white-text text-darken-2 hoverable">
                         <div class="card-content grey darken-1">
@@ -39,7 +40,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col s12 m6">
+                    <div class="card white darken-1 white-text text-darken-2 hoverable">
+                        <div class="card-content grey darken-1">
+                            <span class="card-title" th:text="#{diagnoses}">Diagnoses</span>
+                        </div>
+                        <div class="card-action">
+                            <a class="cyan-text darken-1" th:href="@{/admin/all_diagnoses}" th:text="#{show}">Show all</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+
         </div>
         <div th:replace="fragments/footer :: footer" />
     </body>

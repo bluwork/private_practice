@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{all_cities})">
+    <head th:replace="fragments/layout :: head_fragment (pageTitle=#{diagnoses})">
         <title/>
     </head>
     <body>
@@ -12,10 +12,10 @@
                 <div class="card-content white-text">
                     <div class="row card-title col s12">
                         <div class="col s12 m10">
-                            <span th:text="#{cities}">Cities</span>
+                            <span th:text="#{diagnoses}">Diagnoses</span>
                         </div>
                         <div class="col s12 m2">
-                            <a class="btn waves-effect waves-light   orange darken-3" th:href="@{/admin/add_city}"><i class="material-icons">add</i></a> 
+                            <a class="btn waves-effect waves-light   orange darken-3" th:href="@{/admin/add_diagnosis}"><i class="material-icons">add</i></a> 
                         </div>
                     </div>
                 </div>
@@ -23,11 +23,11 @@
             <div id="deletionInfo" class="card-panel blue lighten-2" th:if="${deleted} != null">
                 <span class="card-title" th:inline="text">[['City with id: ' + ${deleted} + ' successfully deleted from system.']]</span>
             </div>
-            <div th:if="${not #lists.isEmpty(cities)}">
+            <div th:if="${not #lists.isEmpty(diagnoses)}">
 
                 <ul class="collapsible" data-collapsible="accordion">
-                    <li th:each="city : ${cities}">
-                        <div class="collapsible-header" th:inline="text"><i class="material-icons">place</i>[[${city.zipCode + ' ' + city.name}]]</div>
+                    <li th:each="diagnosis : ${diagnoses}">
+                        <div class="collapsible-header" th:inline="text">[[${diagnosis.code + ' ' + diagnosis.name}]]</div>
                         <div class="collapsible-body">
                             <!--                            <form th:action="@{'/admin/delete_city/' + ${city.zipCode}}" method="post" style="display: inline;">
                                                             <button class="btn waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" th:attr="data-tooltip=#{suspend}"  type="submit"><i class="material-icons">delete_forever</i></button> 

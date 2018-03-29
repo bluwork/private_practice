@@ -83,7 +83,7 @@ public class Patient implements Serializable {
 
     @Column(name = "soft_del")
     private boolean softDeleted;
-    
+
     @Column(name = "date_added")
     private LocalDate dateAdded;
 
@@ -221,8 +221,6 @@ public class Patient implements Serializable {
     public void setDateAdded(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
     }
-    
-    
 
     @Override
     public int hashCode() {

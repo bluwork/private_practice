@@ -2,8 +2,13 @@ package net.ltslab.nst.ordinacija.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -44,11 +50,18 @@ public class Medical implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "diagnosis")
-    private String diagnosis;
+    @JoinColumn(name = "diagnosis")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Diagnosis diagnosis;
 
     @Column(name = "therapy")
     private String therapy;
+
+    @ElementCollection
+    @CollectionTable(
+        name="prescription",
+        joinColumns = @JoinColumn(name="medical_id"))
+    private List<Prescription> prescriptions;
 
     public Medical() {
 
@@ -94,11 +107,11 @@ public class Medical implements Serializable {
         this.description = description;
     }
 
-    public String getDiagnosis() {
+    public Diagnosis getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
+    public void setDiagnosis(Diagnosis diagnosis) {
         this.diagnosis = diagnosis;
     }
 
@@ -108,6 +121,17 @@ public class Medical implements Serializable {
 
     public void setTherapy(String therapy) {
         this.therapy = therapy;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        if (prescriptions == null) {
+            prescriptions = new ArrayList<>();
+        }
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
     }
 
     @Override

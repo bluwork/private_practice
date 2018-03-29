@@ -5,7 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.repository;
 
-import net.ltslab.nst.ordinacija.domain.Prescription;
+import net.ltslab.nst.ordinacija.domain.Diagnosis;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface PrescriptionRepository extends JpaRepository<Prescription, Long>{
+public interface DiagnosisRepository extends JpaRepository<Diagnosis, String>{
+
+    public Object findDiagnosisByCode(String code);
     
 }

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.VitalsDto;
@@ -16,26 +18,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import net.ltslab.nst.ordinacija.util.Slot;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
  * @author bobanlukic
  */
-
 @Controller
 public class NurseController {
 
     //TODO Ovo ubaciti u properties
     public static final int START_HOUR = 7;
     public static final int FINAL_HOUR = 17;
-    public static final int SLOTS_IN_HOUR = 3;
+    public static final int SLOTS_IN_HOUR = 4;
 
     @Autowired
     OrdinacijaFacade ordinacijaFacade;
@@ -44,6 +45,7 @@ public class NurseController {
     public String nurse(Model model) {
         model.addAttribute("patients", ordinacijaFacade.getAllScheduledPatients(LocalDate.now()));
         model.addAttribute("today_added", ordinacijaFacade.getAllPatientsAddedByDate(LocalDate.now()));
+        model.addAttribute("finished", ordinacijaFacade.getAllFinishedPatients(LocalDate.now()));
         return "nurse";
     }
 
@@ -56,20 +58,36 @@ public class NurseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_patient")
     public String addNewPatient(@ModelAttribute PatientDto patientDto, Model model, RedirectAttributes ra) {
-        
+
         patientDto.setDateAdded(LocalDate.now());
-        
+
         if (ordinacijaFacade.addPatient(patientDto)) {
             ra.addFlashAttribute("added_patient", patientDto);
             ordinacijaFacade.sendEmail(patientDto, "Welcome to Ordinacija", "Welcome to our private practice. King regards, Ordinacija.");
             return "redirect:/nurse";
         }
-        
+
         model.addAttribute("patient", patientDto);
         model.addAttribute("cities", ordinacijaFacade.getAllCities());
         model.addAttribute("patient_id_exists", true);
         return "/nurse/add_patient";
 
+    }
+    
+    @RequestMapping("/nurse/update_patient/{id}")
+    public String preparePatientUpdate(@PathVariable(name = "id") String patientId, Model model) {
+        
+        model.addAttribute("patient", ordinacijaFacade.getPatientDto(patientId));
+        model.addAttribute("cities", ordinacijaFacade.getAllCities());
+        return "/nurse/update_patient";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/nurse/update_patient")
+    public String updatePatient(@ModelAttribute PatientDto patientDto, RedirectAttributes ra) {
+        
+        ordinacijaFacade.updatePatient(patientDto);
+        ra.addFlashAttribute("patient_updated", patientDto);
+        return "redirect:/nurse";
     }
 
     @RequestMapping("/nurse/search_results")
@@ -88,36 +106,32 @@ public class NurseController {
 
     }
 
-    @RequestMapping("/nurse/check_appointments/{id}")
-    public String checkAppointments(@PathVariable(name = "id") String patientId, Model model) {
+    @RequestMapping(value = "/nurse/add_appointment")
+    public String checkAppointments(HttpServletRequest request, Model model) {
 
-        AppointmentDto appDto = ordinacijaFacade.getAppointmentDto();
-        PatientDto patientDto = ordinacijaFacade.getPatientDto(patientId);
-        appDto.setPatient(patientDto);
+        Map<String, String[]> paramMap = request.getParameterMap();
 
-        model.addAttribute("appointment", appDto);
+        if (paramMap.containsKey("id")) {
+            String patId = paramMap.get("id")[0];
+            AppointmentDto appDto = ordinacijaFacade.getAppointmentDto();
+            PatientDto patientDto = ordinacijaFacade.getPatientDto(patId);
+            appDto.setPatient(patientDto);
 
-        model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
+            model.addAttribute("appointment", appDto);
 
-        return "/nurse/check_appointments";
+            model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
+        }
+
+        return "/nurse/add_appointment";
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/nurse/check_appointments")
+    @RequestMapping(value = "/nurse/add_appointment", params = {"prepare"}, method = RequestMethod.POST)
     public String getAllAppointments(@ModelAttribute AppointmentDto appointmentDto, RedirectAttributes ra) {
 
-        ra.addFlashAttribute("appointment", appointmentDto);
+        List<Slot> allSlots = generateSlots(appointmentDto.getDate());
 
-        return "redirect:/nurse/add_appointment";
-    }
-
-    @RequestMapping("/nurse/add_appointment")
-    public String addAppointment(Model model) {
-
-        AppointmentDto appDto = (AppointmentDto) model.asMap().get("appointment");
-        List<Slot> allSlots = generateSlots(appDto.getDate());
-
-        for (AppointmentDto a : ordinacijaFacade.getAllAppointmentDtos(appDto.getDate(), appDto.getDoctor())) {
+        for (AppointmentDto a : ordinacijaFacade.getAllAppointmentDtos(appointmentDto.getDate(), appointmentDto.getDoctor())) {
 
             Slot s = new Slot();
             s.setDate(a.getDate());
@@ -130,11 +144,13 @@ public class NurseController {
 
         }
 
-        model.addAttribute("slots", allSlots);
-        model.addAttribute("slot_value", 60 / SLOTS_IN_HOUR);
+        //appointmentDto.setPatient(ordinacijaFacade.getPatientDto(appointmentDto.getPatient().getId()));
+        ra.addFlashAttribute("slots", allSlots);
+        ra.addFlashAttribute("slot_value", 60 / SLOTS_IN_HOUR);
+        ra.addFlashAttribute("appointment", appointmentDto);
+        ra.addFlashAttribute("hide", true);
 
-        return "/nurse/add_appointment";
-
+        return "redirect:/nurse/add_appointment";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_appointment")
@@ -147,19 +163,20 @@ public class NurseController {
             appointmentDto.setTime(LocalTime.parse(time));
             appointmentDto.setPart(part);
             ordinacijaFacade.addAppointment(appointmentDto);
-        ra.addFlashAttribute("appointment_added", true);
+            ra.addFlashAttribute("appointment_added", true);
         }
-        
+
         return "redirect:/nurse";
     }
 
-    @RequestMapping("/nurse/add_vitals/{id}")
-    public String addVitals(@PathVariable(name = "id") String patientId, Model model) {
+    @RequestMapping(value = "/nurse/add_vitals", params = {"id"})
+    public String addVitals(@RequestParam(name = "id") String patientId, Model model) {
+
         model.addAttribute("vitals", ordinacijaFacade.getVitalsDto(patientId));
         return "/nurse/add_vitals";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/nurse/add_vitals")
+    @RequestMapping(value = "/nurse/add_vitals", method = RequestMethod.POST)
     public String postVitals(@ModelAttribute VitalsDto vitals, RedirectAttributes ra) {
 
         ordinacijaFacade.saveVitals(vitals);

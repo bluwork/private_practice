@@ -52,6 +52,9 @@ public class Appointment implements Serializable {
 
     @Column(name = "part")
     private int part;
+    
+    @Column(name = "realized")
+    private boolean realized;
 
     public Appointment() {
     }
@@ -103,6 +106,15 @@ public class Appointment implements Serializable {
     public void setPart(int part) {
         this.part = part;
     }
+
+    public boolean isRealized() {
+        return realized;
+    }
+
+    public void setRealized(boolean realized) {
+        this.realized = realized;
+    }
+    
 
     @Override
     public int hashCode() {

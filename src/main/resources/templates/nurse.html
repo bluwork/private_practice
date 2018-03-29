@@ -4,17 +4,18 @@
     <body>
         <div th:replace="fragments/header :: header" />
         <div class="container">
-            
+
             <div class="row">
-                <form class="col s12 m6" action="#" th:action="@{/nurse/search_results}" >
-                    <input type="text" placeholder="Search" th:placeholder="#{search}" name="searchText" required="true" />
+
+                <form action="#" th:action="@{/nurse/search_results}" >
+                    <div class="input-field">
+                        <input id="search" type="text" name="searchText" required="true" />
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    </div>
                 </form>
 
-               <div class="fixed-action-btn"> 
-                    <a class="btn-floating btn-large waves-effect waves-light   orange darken-3" th:href="@{/nurse/add_patient}"><i class="material-icons">person_add</i></a> 
-                </div>
             </div>
-            
+            <a class="btn-large waves-effect waves-light   orange darken-3" th:href="@{/nurse/add_patient}"><i class="material-icons">person_add</i></a> 
             <div th:if="${vitals_added}" id="alert_box" class="card-panel blue lighten-2" >
                 <span class="card-title" th:text="#{vitals_success}"></span>
             </div>
@@ -30,48 +31,74 @@
             <div th:if="${zero_search}" id="alert_box" class="card-panel red lighten-2" >
                 <span class="card-title" th:text="#{no_search_results}"></span>
             </div>
+            <div th:if="not ${patient_updated == null}" id="alert_box" class="card-panel green lighten-2" >
+                <span class="card-title" th:inline="text">[['Patient ' + ${patient_updated.firstName} + ' successfully updated.' ]]</span>
+            </div>
 
             <div class="row">
                 <div class="col s12 m6">
-                    <div class="card cyan darken-1 hoverable">
-                        <div class="card-content white-text">
-                            <div class="row card-title center-align">
-                                <span th:text="#{today_patients}">Today Patients</span>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div th:if="${not #lists.isEmpty(patients)}">
-
+                        <div class="card cyan darken-1 hoverable">
+                            <div class="card-content white-text">
+                                <div class="row card-title center-align">
+                                    <span th:text="#{today_patients}">Today Patients</span>
+                                </div>
+                            </div>
+                        </div>
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="patient : ${patients}">
                                 <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
                                 <div class="collapsible-body">
-                                    <a class="waves-effect waves-light btn" th:href="@{'/nurse/add_vitals/' + ${patient.id}}"><i class="material-icons">favorite</i></a>
-                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/check_appointments/' + ${patient.id}}"><i class="material-icons">schedule</i></a>
+                                    <a class="waves-effect waves-light btn" th:href="@{'/nurse/add_vitals?id=' + ${patient.id}}"><i class="material-icons">favorite</i></a>
+                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/add_appointment?id=' + ${patient.id}}"><i class="material-icons">schedule</i></a>
+                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/update_patient/' + ${patient.id}}"><i class="material-icons">update</i></a>
                                 </div>  
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col s12 m6">
-                    <div class="card cyan darken-1 hoverable">
-                        <div class="card-content white-text">
-                            <div class="row card-title center-align">
 
-                                <span th:text="#{recently_added}">Today Patients</span>
+                    <div th:if="${not #lists.isEmpty(today_added)}">
+                        <div class="card cyan darken-1 hoverable">
+                            <div class="card-content white-text">
+                                <div class="row card-title center-align">
 
+                                    <span th:text="#{recently_added}">Today Patients</span>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div th:if="${not #lists.isEmpty(today_added)}">
-
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="added : ${today_added}">
                                 <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${added.firstName + ' ' + added.lastName}]]</div>
                                 <div class="collapsible-body">
-                                    <a class="waves-effect waves-light btn" th:href="@{'/nurse/add_vitals/' + ${added.id}}"><i class="material-icons">favorite</i></a>
-                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/check_appointments/' + ${added.id}}"><i class="material-icons">schedule</i></a>
+                                    <a class="waves-effect waves-light btn" th:href="@{'/nurse/add_vitals?id=' + ${added.id}}"><i class="material-icons">favorite</i></a>
+                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/add_appointment?id=' + ${added.id}}"><i class="material-icons">schedule</i></a>
+                                </div>  
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+
+                    <div th:if="${not #lists.isEmpty(finished)}">
+                        <div class="card cyan darken-1 hoverable">
+                            <div class="card-content white-text">
+                                <div class="row card-title center-align">
+
+                                    <span th:text="#{medical_finished}">Medical Finished</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li th:each="fin : ${finished}">
+                                <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${fin.firstName + ' ' + fin.lastName}]]</div>
+                                <div class="collapsible-body">
+                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/add_appointment?id=' + ${fin.id}}"><i class="material-icons">schedule</i></a>
                                 </div>  
                             </li>
                         </ul>
@@ -85,9 +112,7 @@
                 $("#alert_box").fadeOut("slow", function () {
                 });
             });
-            $(document).ready(function () {
-                $('.fixed-action-btn').floatingActionButton();
-            });
+
         </script>
 
     </body>

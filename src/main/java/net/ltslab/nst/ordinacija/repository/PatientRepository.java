@@ -30,7 +30,7 @@ public interface PatientRepository extends JpaRepository<Patient, String> {
     Patient findPatientById(String id);
 
     void deleteById(String id);
-    
+
     List<Patient> findByDateAdded(LocalDate date);
 
 }

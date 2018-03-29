@@ -14,6 +14,7 @@ import net.ltslab.nst.ordinacija.dto.PatientDto;
  *
  * @author bobanlukic
  */
+
 public interface PatientService {
 
     List<PatientDto> allPatients();
@@ -35,5 +36,9 @@ public interface PatientService {
     boolean addPatient(PatientDto patientDto);
 
     List<PatientDto> getAllPatientsAddedByDate(LocalDate date);
+
+    void updatePatient(PatientDto patientDto);
+
+    List<PatientDto> finishedForDate(LocalDate date);
 
 }

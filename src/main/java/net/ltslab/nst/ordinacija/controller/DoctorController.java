@@ -5,11 +5,10 @@
  */
 package net.ltslab.nst.ordinacija.controller;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
+import net.ltslab.nst.ordinacija.jms.PrescriptionSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +27,10 @@ public class DoctorController {
     @Autowired
     OrdinacijaFacade ordinacijaFacade;
 
+    //TEMPORARY - Blu
+    @Autowired
+    PrescriptionSender prescriptionSender;
+
     @RequestMapping("/doctor")
     public String doctorPage(HttpServletRequest request, Model model) {
 
@@ -37,26 +40,43 @@ public class DoctorController {
         return "/doctor";
     }
 
-    @RequestMapping("/doctor/medical/{id}")
+    @RequestMapping(value = "/doctor/medical/{id}")
     public String medical(HttpServletRequest request, @PathVariable(name = "id") String patientId, Model model) {
+          
+        model.addAttribute("medical", ordinacijaFacade.getMedicalDto(request, patientId));
+        model.addAttribute("diagnoses", ordinacijaFacade.getDiagnoses());
 
-        MedicalDto medicalDto = ordinacijaFacade.getMedicalDto(request, patientId);
-        
-        if (medicalDto != null) {
-            long age = ChronoUnit.YEARS.between(medicalDto.getPatient().getDateOfBirth(), LocalDate.now());
-            model.addAttribute("age", age);
-        }
-        
-        model.addAttribute("medical", medicalDto);
-        
+        return "/doctor/medical";
+
+    }
+    @RequestMapping(value = "/doctor/medical")
+    public String medicalRedirect() {
+
         return "/doctor/medical";
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/doctor/new_medical")
-    public String postMedical(@ModelAttribute MedicalDto medical) {
+//    @RequestMapping(method= RequestMethod.POST, value = "/doctor/medical", params = {"addPrescription"})
+//    public String addPrescription(@ModelAttribute MedicalDto medical, RedirectAttributes ra) {
+//        medical.getPrescriptions().add(new PrescriptionDto());
+//        ra.addFlashAttribute("medical", medical);
+//        return "redirect:/doctor/medical";
+//    }
+//
+//    @RequestMapping(method = RequestMethod.POST, value = "/doctor/medical", params = {"removePrescription"})
+//    public String removePrescription(
+//            @ModelAttribute MedicalDto medical, final BindingResult bindingResult,
+//            final HttpServletRequest req) {
+//        final Integer rowId = Integer.valueOf(req.getParameter("removePrescription"));
+//        medical.getPrescriptions().remove(rowId.intValue());
+//        return "/doctor/medical";
+//    }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/doctor/medical", params = {"save"})
+    public String postMedical(@ModelAttribute MedicalDto medical) {
+        
         ordinacijaFacade.save(medical);
+        
         return "redirect:/doctor";
     }
 

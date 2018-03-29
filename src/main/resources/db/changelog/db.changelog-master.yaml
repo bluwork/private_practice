@@ -36,6 +36,11 @@ databaseChangeLog:
                 splitStatements:         true
                 stripComments:           true
             - sqlFile:
+                path:                    ordinacija_ddl/diagnosis.sql
+                relativeToChangeLogFile: true
+                splitStatements:         true
+                stripComments:           true
+            - sqlFile:
                 path:                    ordinacija_ddl/medical.sql
                 relativeToChangeLogFile: true
                 splitStatements:         true

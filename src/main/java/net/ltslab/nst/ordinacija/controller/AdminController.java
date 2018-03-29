@@ -7,6 +7,7 @@ package net.ltslab.nst.ordinacija.controller;
 
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
+import net.ltslab.nst.ordinacija.dto.DiagnosisDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,7 @@ public class AdminController {
         return "admin/add_user";
 
     }
-    
+
     @RequestMapping("/admin/add_city")
     public String addCity(Model model) {
         model.addAttribute("city", new CityDto());
@@ -73,7 +74,7 @@ public class AdminController {
         return "admin/add_city";
 
     }
-    
+
     @RequestMapping("/admin/update_city/{zip_code}")
     public String showUpdateCity(@PathVariable(name = "zip_code") Long zipCode, Model model) {
         model.addAttribute("city", ordinacijaFacade.getCityDto(zipCode));
@@ -85,6 +86,40 @@ public class AdminController {
 
         ordinacijaFacade.updateCity(cityDto);
         return "redirect:/admin/all_cities";
+
+    }
+    
+    @RequestMapping("/admin/add_diagnosis")
+    public String addDiagnosis(Model model) {
+        model.addAttribute("diagnosis", new DiagnosisDto());
+        return "/admin/add_diagnosis";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/add_diagnosis")
+    public String saveDiagnosis(@ModelAttribute DiagnosisDto diagnosisDto, Model model) {
+
+        if (ordinacijaFacade.addDiagnosis(diagnosisDto)) {
+            return "redirect:/admin/all_diagnoses";
+        }
+        diagnosisDto.setCode(null);
+        model.addAttribute("city", diagnosisDto);
+        model.addAttribute("diagnosis_code_exists", true);
+
+        return "admin/add_diagnosis";
+
+    }
+
+    @RequestMapping("/admin/update_diagnosis/{code}")
+    public String showUpdateDiagnosis(@PathVariable(name = "code") String code, Model model) {
+        model.addAttribute("diagnosis", ordinacijaFacade.getDiagnosisDto(code));
+        return "/admin/update_diagnosis";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/admin/update_diagnosis")
+    public String updateDiagnosis(@ModelAttribute DiagnosisDto diagnosisDto, Model model) {
+
+        ordinacijaFacade.updateDiagnosis(diagnosisDto);
+        return "redirect:/admin/all_diagnoses";
 
     }
 
@@ -113,6 +148,12 @@ public class AdminController {
     public String page(Model model) {
         model.addAttribute("cities", ordinacijaFacade.getAllCities());
         return "/admin/all_cities";
+    }
+    
+    @RequestMapping("/admin/all_diagnoses")
+    public String allDiagnoses(Model model) {
+        model.addAttribute("diagnoses", ordinacijaFacade.getDiagnoses());
+        return "/admin/all_diagnoses";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/admin/suspend_user")
@@ -144,5 +185,11 @@ public class AdminController {
         ordinacijaFacade.softDeletePatient(patientId);
         ra.addFlashAttribute("deleted", "" + patientId);
         return "redirect:/admin/all_patients";
+    }
+
+    @RequestMapping("/admin/import_users")
+    public String importUsers(Model model) {
+
+        return "/admin/import_users";
     }
 }

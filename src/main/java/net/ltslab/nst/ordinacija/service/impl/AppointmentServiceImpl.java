@@ -35,7 +35,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppUserMapper appUserMapper;
-    
+
     @Autowired
     private PatientMapper patientMapper;
 
@@ -66,11 +66,31 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date) {
-        
-        if (appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date).size() > 0) {
-            return true;
-        }
-        return false;
+
+        return appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date).size() > 0;
+    }
+
+    @Override
+    public void confirmAppointmentRealization(PatientDto patient, LocalDate date) {
+         for (Appointment a : appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date)) {
+             a.setRealized(true);
+             appointmentRepository.saveAndFlush(a);
+         }
+    }
+
+    @Override
+    public List<Appointment> findByDateAndRealizedTrue(LocalDate date) {
+        return appointmentRepository.findByDateAndRealizedTrue(date);
+    }
+
+    @Override
+    public List<Appointment> findByDateAndRealizedFalse(LocalDate date) {
+        return appointmentRepository.findByDateAndRealizedFalse(date);
+    }
+
+    @Override
+    public List<Appointment> findByDoctorAndDateAndRealizedFalse(AppUser currentDoctor, LocalDate date) {
+        return appointmentRepository.findByDoctorAndDateAndRealizedFalse(currentDoctor, date);
     }
 
 }

@@ -5,8 +5,10 @@
  */
 package net.ltslab.nst.ordinacija.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.Prescription;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
@@ -15,6 +17,7 @@ import net.ltslab.nst.ordinacija.service.AppUserService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
 import net.ltslab.nst.ordinacija.service.PatientService;
 import net.ltslab.nst.ordinacija.mapping.MedicalMapper;
+import net.ltslab.nst.ordinacija.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +39,15 @@ public class MedicalServiceImpl implements MedicalService {
 
     @Autowired
     private AppUserService appUserService;
+    
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Override
     public void addOrUpdate(MedicalDto medicalDto) {
-        medicalRepository.saveAndFlush(medicalMapper.medicalDtoToMedical(medicalDto));
+        
+        appointmentService.confirmAppointmentRealization(medicalDto.getPatient(), LocalDate.now());
+        medicalRepository.save(medicalMapper.medicalDtoToMedical(medicalDto));
     }
 
     @Override
@@ -47,10 +55,15 @@ public class MedicalServiceImpl implements MedicalService {
 
         PatientDto patient = patientService.getPatientById(patientId);
         AppUserDto doctor = appUserService.findByUsername(request.getUserPrincipal().getName());
+        
+        
         MedicalDto medicalDto = new MedicalDto();
         medicalDto.setDoctor(doctor);
         medicalDto.setPatient(patient);
         medicalDto.setMedicalDate(LocalDateTime.now());
+        for (int i = 0; i < 3; i ++) {
+            medicalDto.getPrescriptions().add(new Prescription());
+        }
         return medicalDto;
     }
 

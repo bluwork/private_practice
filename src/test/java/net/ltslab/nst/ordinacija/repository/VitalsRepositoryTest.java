@@ -63,6 +63,6 @@ public class VitalsRepositoryTest {
 
         assertThat(patientVitals.get(2).getBodyTemp()).isEqualTo(36.5f);
         assertThat(patientVitals.get(2).getHeight()).isEqualTo(192);
-        assertThat(patientVitals.get(2).getMass()).isEqualTo(91);  
+        assertThat(patientVitals.get(2).getMass()).isEqualTo(91);
     }
 }

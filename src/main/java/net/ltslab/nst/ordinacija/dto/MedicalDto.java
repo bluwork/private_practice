@@ -7,7 +7,9 @@ package net.ltslab.nst.ordinacija.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
+import net.ltslab.nst.ordinacija.domain.Prescription;
 /**
  *
  * @author bobanlukic
@@ -26,10 +28,12 @@ public class MedicalDto implements Serializable {
 
     private String description;
 
-    private String diagnosis;
+    private DiagnosisDto diagnosis;
 
     private String therapy;
 
+    private List<Prescription> prescriptions;
+    
     public MedicalDto() {
     }
 
@@ -73,11 +77,11 @@ public class MedicalDto implements Serializable {
         this.description = description;
     }
 
-    public String getDiagnosis() {
+    public DiagnosisDto getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
+    public void setDiagnosis(DiagnosisDto diagnosis) {
         this.diagnosis = diagnosis;
     }
 
@@ -88,5 +92,18 @@ public class MedicalDto implements Serializable {
     public void setTherapy(String therapy) {
         this.therapy = therapy;
     }
+
+    public List<Prescription> getPrescriptions() {
+        if (prescriptions == null) {
+            prescriptions = new ArrayList<>();
+        }
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
+
+   
 
 }

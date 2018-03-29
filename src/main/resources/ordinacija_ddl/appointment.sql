@@ -8,10 +8,11 @@ CREATE TABLE `appointment` (
   `date`            DATE NOT NULL,
   `time`            TIME NOT NULL,
   `part`            INT(10) NOT NULL,
+  `realized`        TINYINT(1) DEFAULT 0,
   
   PRIMARY KEY (`id`),
 
   CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `app_user` (`id`),
   CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`id`)
 
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

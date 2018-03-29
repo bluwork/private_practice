@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
+import net.ltslab.nst.ordinacija.dto.DiagnosisDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 import net.ltslab.nst.ordinacija.dto.VitalsDto;
@@ -80,5 +81,17 @@ public interface OrdinacijaFacade {
     void updateCity(CityDto cityDto);
 
     List<PatientDto> getAllPatientsAddedByDate(LocalDate now);
+
+    List<DiagnosisDto> getDiagnoses();
+
+    boolean addDiagnosis(DiagnosisDto diagnosisDto);
+
+    void updateDiagnosis(DiagnosisDto diagnosisDto);
+
+    DiagnosisDto getDiagnosisDto(String code);
+
+    void updatePatient(PatientDto patientDto);
+
+    List<PatientDto> getAllFinishedPatients(LocalDate date);
 
 }

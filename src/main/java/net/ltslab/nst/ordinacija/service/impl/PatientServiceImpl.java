@@ -89,7 +89,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDto> sheduledForDoctor(HttpServletRequest request) {
         AppUser currentDoctor = appUserService.getDoctor(request);
-        List<Appointment> appointments = appointmentService.findByDoctorAndDate(currentDoctor, LocalDate.now());
+        List<Appointment> appointments = appointmentService.findByDoctorAndDateAndRealizedFalse(currentDoctor, LocalDate.now());
         List<Patient> patients = new ArrayList<>();
         for (Appointment a : appointments) {
             patients.add(a.getPatient());
@@ -99,7 +99,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<PatientDto> scheduledForDate(LocalDate date) {
-        List<Appointment> appointments = appointmentService.findByDate(LocalDate.now());
+        List<Appointment> appointments = appointmentService.findByDateAndRealizedFalse(LocalDate.now());
         List<Patient> patients = new ArrayList<>();
         for (Appointment a : appointments) {
             patients.add(a.getPatient());
@@ -110,5 +110,20 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDto> getAllPatientsAddedByDate(LocalDate date) {
         return patientMapper.patientsToPatientDtos(patientRepository.findByDateAdded(date));
+    }
+
+    @Override
+    public void updatePatient(PatientDto patientDto) {
+        patientRepository.saveAndFlush(patientMapper.patientDtoToPatient(patientDto));
+    }
+
+    @Override
+    public List<PatientDto> finishedForDate(LocalDate date) {
+       List<Appointment> appointments = appointmentService.findByDateAndRealizedTrue(LocalDate.now());
+       List<Patient> patients = new ArrayList<>();
+       for (Appointment a : appointments) {
+           patients.add(a.getPatient());
+       }
+       return patientMapper.patientsToPatientDtos(patients);
     }
 }

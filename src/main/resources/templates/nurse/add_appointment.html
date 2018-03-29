@@ -5,30 +5,57 @@
     <body>
         <div th:replace="fragments/header :: header"/>
 
-
         <div class="container">
-            <div class="card orange darken hoverable">
+
+            <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
                     <div class="card-title">
-                        <span th:text="#{appointment}">New Appointment</span>                     
+                        <span th:inline="text">[[#{new_appointment} +  ' ' + ${appointment.patient.firstName} + ' ' + ${appointment.patient.lastName}]]</span>                     
                     </div>
                 </div>
             </div>
-            <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
+            <form  th:if="not ${hide}" id="appointment_form" th:object="${appointment}" th:action="@{/nurse/add_appointment}" method="post">
+
+                <div class="input-field col s12 m6">
+                    <select  id="selector" th:field="*{doctor.id}">
+                        <option th:each="doctor : ${doctors}" th:inline="text" th:value="${doctor.id}">[[${doctor.firstName} + ' ' + ${doctor.lastName}]]</option>
+                    </select>
+                </div>
+
+                <div class="input-field col s12 m4">
+                    <input id="appointment_date" type="text" class="datepicker" th:field="*{date}"/>
+                    <label for="appointment_date" th:text="#{appointment_date}">Appointment date</label>
+                </div>
+                <input type="hidden" th:field="*{patient.id}" />
+                <input type="hidden" th:field="*{patient.firstName}"/>
+                <input type="hidden" th:field="*{patient.lastName}"/>
+                <div class="row center">
+                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
+                    <button class="btn waves-effect waves-light" type="submit"  name = "prepare" th:text="#{continue}">Submit
+                        <i class="material-icons right">save</i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="container">
+
             <form id="post_slot_form" th:action="@{/nurse/add_appointment}" th:object="${appointment}" method="post">
                 <input type="hidden" th:field="*{patient.id}" />
                 <input type="hidden" th:field="*{doctor.id}" />
                 <div class="row" >
 
                     <div class="col s3" th:each="slot : ${slots}">
-                        <div class="card blue">
+                        <div class="card cyan">
                             <div class="card-content white-text">
                                 <span class="card-title" th:text="${slot.time.hour}">Card Title</span>
                                 <p th:text="${slot.partNumber * slot_value}">I am </p>
                             </div>
                             <div class="card-action">
                                 <button class="btn small waves-effect waves-light" th:classappend="${slot.occupied} ? 'disabled' : ''"  type="submit"  th:inline="text"
-                                        th:onClick="|setSelectedSlot('${slot.date}','${slot.time}','${slot.partNumber}' )|"><i class="material-icons right">check</i></button> 
+                                        th:onClick="|setSelectedSlot('${slot.date}','${slot.time}','${slot.partNumber}' )|"><i class="material-icons right">check</i></button>
+                                <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/nurse}" th:text="#{cancel}">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -39,6 +66,50 @@
         <div th:replace="fragments/footer :: footer"/>
 
         <script th:inline="javascript">
+
+            $(document).ready(function () {
+
+                $('select').material_select();
+
+                $('.datepicker').pickadate({
+                    selectMonths: true, // dropdown za mesece
+                    selectYears: 3, //dropdown za godine
+                    format: 'dd-mm-yyyy',
+                    formatSubmit: 'yyyy-mm-dd',
+                    hiddenName: true, // mora da bi se poslao odgovarajuci format
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    min: true,
+                    closeOnSelect: true,
+                    firstDay: 1,
+                    disable: [6, 7]
+                });
+
+
+            });
+
+            function checkDate() {
+                if ($('#appointment_date').val() == '') {
+                    $('#appointment_date').addClass('invalid')
+                    return false;
+                } else {
+                    $('#appointment_date').removeClass('invalid')
+                    return true;
+                }
+            }
+
+            $('form').submit(function () {
+                if (!checkDate()) {
+                    return false;
+                }
+
+            });
+
+            $('#appointment_date').change(function () {
+                checkDate();
+            });
+
             /*<![CDATA[*/
 
             var data;
@@ -53,6 +124,8 @@
             });
 
             /*]]>*/
+
         </script>
+
     </body>
 </html>

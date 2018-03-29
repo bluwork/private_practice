@@ -31,4 +31,12 @@ public interface AppointmentService {
 
     boolean isAppointedAlreadyForDate(PatientDto patient, LocalDate date);
 
+    void confirmAppointmentRealization(PatientDto patient, LocalDate date);
+
+    List<Appointment> findByDateAndRealizedTrue(LocalDate now);
+
+    List<Appointment> findByDateAndRealizedFalse(LocalDate now);
+
+    public List<Appointment> findByDoctorAndDateAndRealizedFalse(AppUser currentDoctor, LocalDate now);
+
 }
