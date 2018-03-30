@@ -8,6 +8,7 @@ package net.ltslab.nst.ordinacija.facade;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.Prescription;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
@@ -96,6 +97,10 @@ public interface OrdinacijaFacade {
 
     List<AppointmentDto> getAllAppointmentDtosAfter(PatientDto patientDto, LocalDate date);
 
-    public void deleteAppointment(Long appointmentId);
+    void deleteAppointment(Long appointmentId);
+
+    void sendAppointmentConfirmationMail(AppointmentDto appointmentDto);
+
+    public void postPrescriptions(String patientId, List<Prescription> prescriptions);
 
 }

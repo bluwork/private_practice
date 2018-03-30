@@ -5,6 +5,7 @@
  */
 package net.ltslab.nst.ordinacija.service;
 
+import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
 
 /**
@@ -14,4 +15,6 @@ import net.ltslab.nst.ordinacija.dto.PatientDto;
 public interface MailSenderService {
 
     void sendEmail(PatientDto patient, String subject, String messageText);
+
+    public void sendAppointmentConfirmation(AppointmentDto appointmentDto);
 }

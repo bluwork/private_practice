@@ -43,4 +43,6 @@ public interface AppointmentService {
 
     void deleteAppointment(Long appointmentId);
 
+    public AppointmentDto getAppointmentDto(Long id);
+
 }

@@ -165,6 +165,7 @@ public class NurseController {
             appointmentDto.setTime(LocalTime.parse(time));
             appointmentDto.setPart(part);
             ordinacijaFacade.addAppointment(appointmentDto);
+            ordinacijaFacade.sendAppointmentConfirmationMail(appointmentDto);
             ra.addFlashAttribute("appointment_added", true);
         }
 

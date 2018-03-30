@@ -55,8 +55,7 @@
                                 <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
                                 <div class="collapsible-body">
                                     <a class="waves-effect waves-light btn" th:href="@{'/nurse/add_vitals?id=' + ${patient.id}}"><i class="material-icons">favorite</i></a>
-                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/add_appointment?id=' + ${patient.id}}"><i class="material-icons">schedule</i></a>
-                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/update_patient/' + ${patient.id}}"><i class="material-icons">update</i></a>
+                                    <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{'/nurse/update_patient/' + ${patient.id}}"><i class="material-icons">edit</i></a>
                                 </div>  
                             </li>
                         </ul>

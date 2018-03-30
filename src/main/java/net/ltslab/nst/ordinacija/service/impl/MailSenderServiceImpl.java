@@ -5,8 +5,13 @@
  */
 package net.ltslab.nst.ordinacija.service.impl;
 
+import net.ltslab.nst.ordinacija.dto.AppUserDto;
+import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
+import net.ltslab.nst.ordinacija.service.AppUserService;
+import net.ltslab.nst.ordinacija.service.AppointmentService;
 import net.ltslab.nst.ordinacija.service.MailSenderService;
+import net.ltslab.nst.ordinacija.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,7 +29,15 @@ public class MailSenderServiceImpl implements MailSenderService {
     @Autowired
     private JavaMailSender jms;
 
-    @Async
+    @Autowired
+    private AppointmentService appoinmentService;
+
+    @Autowired
+    private AppUserService appUserService;
+
+    @Autowired
+    private PatientService patientService;
+
     @Override
     public void sendEmail(PatientDto patientDto, String subject, String messageText) throws MailException {
 
@@ -40,8 +53,36 @@ public class MailSenderServiceImpl implements MailSenderService {
         smm.setSubject(subject);
         smm.setText(messageText);
 
-        jms.send(smm);
+        send(smm);
 
     }
 
+    @Override
+    public void sendAppointmentConfirmation(AppointmentDto dto) {
+
+        PatientDto patient = patientService.getPatientById(dto.getPatient().getId());
+
+        String patientMail = patient.getContactInfo().getEmail();
+
+        AppUserDto doctor = appUserService.getById(dto.getDoctor().getId());
+
+        if (patientMail == null || patientMail.isEmpty()) {
+            return;
+        }
+
+        SimpleMailMessage smm = new SimpleMailMessage();
+        smm.setTo(patientMail);
+        smm.setFrom("ordiaplikacija@gmail.com");
+        smm.setSubject("Ordinacija Appointment confirmation");
+        smm.setText("Dear  " + patient.getFirstName() + ",\n"
+                + "You make appointment for " + dto.getDate() + " in " + dto.getTime() + "\n"
+                + "Your doctor: " + doctor.getFirstName() + "  " + doctor.getLastName() + ". \nKing regards.");
+
+        send(smm);
+    }
+
+    @Async
+    private void send(SimpleMailMessage smm) {
+        jms.send(smm);
+    }
 }

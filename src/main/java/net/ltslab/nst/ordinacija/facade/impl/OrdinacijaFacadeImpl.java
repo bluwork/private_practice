@@ -6,8 +6,10 @@
 package net.ltslab.nst.ordinacija.facade.impl;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.ltslab.nst.ordinacija.domain.Prescription;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import net.ltslab.nst.ordinacija.dto.CityDto;
@@ -26,6 +28,7 @@ import net.ltslab.nst.ordinacija.service.CityService;
 import net.ltslab.nst.ordinacija.service.DiagnosisService;
 import net.ltslab.nst.ordinacija.service.MailSenderService;
 import net.ltslab.nst.ordinacija.service.MedicalService;
+import net.ltslab.nst.ordinacija.service.MessagingService;
 
 /**
  *
@@ -57,6 +60,9 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     
     @Autowired
     private DiagnosisService diagnosisService;
+    
+    @Autowired
+    private MessagingService messagingService;
 
     @Override
     public AppUserDto getDoctor(HttpServletRequest request) {
@@ -247,6 +253,21 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
     @Override
     public void deleteAppointment(Long appointmentId) {
         appointmentService.deleteAppointment(appointmentId);
+    }
+
+    @Override
+    public void sendAppointmentConfirmationMail(AppointmentDto appointmentDto) {
+        mailSenderService.sendAppointmentConfirmation(appointmentDto);
+    }
+
+    @Override
+    public void postPrescriptions(String patientId, List<Prescription> prescriptions) {
+        for (Prescription p : prescriptions) {
+            HashMap<String, String> presc = new HashMap<>();
+            presc.put("patient_id", patientId);
+            presc.put("desc", p.getDescription());
+            messagingService.sendPrescriptionUp(presc);
+        }
     }
 
 }

@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.controller;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.facade.OrdinacijaFacade;
-import net.ltslab.nst.ordinacija.jms.PrescriptionSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +25,6 @@ public class DoctorController {
 
     @Autowired
     OrdinacijaFacade ordinacijaFacade;
-
-    //TEMPORARY - Blu
-    @Autowired
-    PrescriptionSender prescriptionSender;
 
     @RequestMapping("/doctor")
     public String doctorPage(HttpServletRequest request, Model model) {
@@ -56,26 +51,11 @@ public class DoctorController {
 
     }
 
-//    @RequestMapping(method= RequestMethod.POST, value = "/doctor/medical", params = {"addPrescription"})
-//    public String addPrescription(@ModelAttribute MedicalDto medical, RedirectAttributes ra) {
-//        medical.getPrescriptions().add(new PrescriptionDto());
-//        ra.addFlashAttribute("medical", medical);
-//        return "redirect:/doctor/medical";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/doctor/medical", params = {"removePrescription"})
-//    public String removePrescription(
-//            @ModelAttribute MedicalDto medical, final BindingResult bindingResult,
-//            final HttpServletRequest req) {
-//        final Integer rowId = Integer.valueOf(req.getParameter("removePrescription"));
-//        medical.getPrescriptions().remove(rowId.intValue());
-//        return "/doctor/medical";
-//    }
-
     @RequestMapping(method = RequestMethod.POST, value = "/doctor/medical", params = {"save"})
     public String postMedical(@ModelAttribute MedicalDto medical) {
         
         ordinacijaFacade.save(medical);
+        ordinacijaFacade.postPrescriptions(medical.getPatient().getId(), medical.getPrescriptions());
         
         return "redirect:/doctor";
     }
