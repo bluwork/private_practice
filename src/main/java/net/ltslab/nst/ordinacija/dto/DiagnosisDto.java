@@ -13,11 +13,10 @@ import javax.persistence.Id;
  *
  * @author bobanlukic
  */
-public class DiagnosisDto implements Serializable{
+public class DiagnosisDto implements Serializable {
 
     private static final long serialVersionUID = 5609596343447539931L;
-    
-    
+
     private String code;
 
     private String name;
@@ -40,5 +39,5 @@ public class DiagnosisDto implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-        
+
 }

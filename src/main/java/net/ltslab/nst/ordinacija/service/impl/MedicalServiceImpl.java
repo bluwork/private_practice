@@ -42,13 +42,13 @@ public class MedicalServiceImpl implements MedicalService {
 
     @Autowired
     private AppUserService appUserService;
-    
+
     @Autowired
     private AppointmentService appointmentService;
 
     @Override
     public void addOrUpdate(MedicalDto medicalDto) {
-        
+
         appointmentService.confirmAppointmentRealization(medicalDto.getPatient(), LocalDate.now());
         medicalRepository.save(medicalMapper.medicalDtoToMedical(medicalDto));
     }
@@ -57,29 +57,25 @@ public class MedicalServiceImpl implements MedicalService {
     public MedicalDto getMedicalDto(HttpServletRequest request, String patientId) {
 
         PatientDto patient = patientService.getPatientById(patientId);
-        
-        
-        
+
         List<Vitals> allVitals = patient.getVitals();
-        
+
         while (allVitals.size() > 3) {
             allVitals.remove(0);
         }
-       
-        
+
         AppUserDto doctor = appUserService.findByUsername(request.getUserPrincipal().getName());
-        
-        
+
         MedicalDto medicalDto = new MedicalDto();
-        
+
         medicalDto.setDoctor(doctor);
-        
+
         medicalDto.setPatient(patient);
-        
+
         medicalDto.setMedicalDate(LocalDateTime.now());
-        
+
         medicalDto.getPrescriptions().add(new Prescription());
-        
+
         return medicalDto;
     }
 

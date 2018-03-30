@@ -23,11 +23,9 @@ public class Prescription implements Serializable {
 
     @Column(name = "description")
     private String description;
-    
+
     public Prescription() {
     }
-
- 
 
     public String getDescription() {
         return description;
@@ -36,7 +34,7 @@ public class Prescription implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -59,7 +57,7 @@ public class Prescription implements Serializable {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-       
+
         return true;
     }
 

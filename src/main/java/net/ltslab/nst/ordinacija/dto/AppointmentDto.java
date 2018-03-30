@@ -30,7 +30,7 @@ public class AppointmentDto implements Serializable {
     private LocalTime time;
 
     private int part;
-    
+
     private boolean realized;
 
     public AppointmentDto() {

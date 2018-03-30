@@ -10,9 +10,9 @@
                         <span class="card-title" th:text="#{patients}">Patients</span>
                     </div>
                 </div>
-                 <div th:unless="${not #lists.isEmpty(patients)}" >
-                        <h6 th:inline="text">[['No patients for today. Maybe is time for break? :)']]<i class="material-icons">smile</i> </h6>
-                    </div>
+                <div th:unless="${not #lists.isEmpty(patients)}" >
+                    <h6 th:inline="text">[['No patients for today. Maybe is time for break? :)']]<i class="material-icons">smile</i> </h6>
+                </div>
                 <div th:if="${not #lists.isEmpty(patients)}">
 
                     <ul class="collapsible" data-collapsible="accordion">

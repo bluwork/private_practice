@@ -13,7 +13,7 @@ import net.ltslab.nst.ordinacija.dto.DiagnosisDto;
  * @author bobanlukic
  */
 public interface DiagnosisService {
-    
+
     List<DiagnosisDto> allDiagnoses();
 
     boolean addDiagnosis(DiagnosisDto diagnosisDto);

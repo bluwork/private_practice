@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import net.ltslab.nst.ordinacija.domain.Prescription;
+
 /**
  *
  * @author bobanlukic
@@ -33,7 +34,7 @@ public class MedicalDto implements Serializable {
     private String therapy;
 
     private List<Prescription> prescriptions;
-    
+
     public MedicalDto() {
     }
 
@@ -103,7 +104,5 @@ public class MedicalDto implements Serializable {
     public void setPrescriptions(List<Prescription> prescriptions) {
         this.prescriptions = prescriptions;
     }
-
-   
 
 }

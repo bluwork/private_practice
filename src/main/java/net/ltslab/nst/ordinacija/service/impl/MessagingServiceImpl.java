@@ -17,14 +17,13 @@ import org.springframework.stereotype.Service;
  * @author asdf
  */
 @Service
-public class MessagingServiceImpl implements MessagingService{
+public class MessagingServiceImpl implements MessagingService {
 
-    
-     public static final String APP_QUEUE_IDENTIFIER = "fromGlobal";
-     public static final String GLOBAL_QUEUE_IDENTIFIER = "toGlobal";
-     
-     @Autowired
-     JmsTemplate jmsTemplate;
+    public static final String APP_QUEUE_IDENTIFIER = "fromGlobal";
+    public static final String GLOBAL_QUEUE_IDENTIFIER = "toGlobal";
+
+    @Autowired
+    JmsTemplate jmsTemplate;
 
     @JmsListener(destination = APP_QUEUE_IDENTIFIER, containerFactory = "myFactory")
     @Override
@@ -37,5 +36,5 @@ public class MessagingServiceImpl implements MessagingService{
         System.out.println("Sending an prescription message.");
         jmsTemplate.convertAndSend(GLOBAL_QUEUE_IDENTIFIER, messageMap);
     }
-    
+
 }

@@ -57,10 +57,10 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
 
     @Autowired
     private MailSenderService mailSenderService;
-    
+
     @Autowired
     private DiagnosisService diagnosisService;
-    
+
     @Autowired
     private MessagingService messagingService;
 

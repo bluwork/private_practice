@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author bobanlukic
  */
 @Repository
-public interface DiagnosisRepository extends JpaRepository<Diagnosis, String>{
+public interface DiagnosisRepository extends JpaRepository<Diagnosis, String> {
 
     public Object findDiagnosisByCode(String code);
-    
+
 }

@@ -16,10 +16,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VitalsRepository extends JpaRepository<Vitals, Long> {
-    
+
     List<Vitals> findByPatientId(String patientId);
 
     public void deleteById(Long id);
-    
 
 }

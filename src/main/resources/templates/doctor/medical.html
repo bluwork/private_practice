@@ -39,7 +39,7 @@
 
             <div class="row">
                 <form class="col s12"  th:action="@{/doctor/medical}" th:object="${medical}" method="post">
-                     <input type="hidden" th:field="*{patient.id}" />
+                    <input type="hidden" th:field="*{patient.id}" />
                     <input type="hidden" th:field="*{doctor.id}" />
                     <input type="hidden" th:field="*{medicalDate}" />
                     <div class="row">
@@ -64,11 +64,11 @@
                         <div th:each="p, prescriptionStat : *{prescriptions}" >
                             <label for="description" th:text="#{prescription}"></label>
                             <input th:field="*{prescriptions[__${prescriptionStat.index}__].description}" id="description" required="true" minlength="5" maxlength="128"/>
-                       
+
                         </div>
 
                     </div>
-                   
+
                     <div class="row center">
                         <a class="waves-effect waves-light btn deep-purple darken-2" th:href="@{/doctor}" th:text="#{cancel}">Cancel</a>
                         <button class="btn waves-effect waves-light" type="submit" name="save" th:text="#{save}">Submit<i class="material-icons right">save</i></button>
@@ -80,7 +80,7 @@
         <script type="text/javascript">
 
             $(document).ready(function () {
-                $('select').material_select();
+            $('select').material_select();
             });
 
         </script>

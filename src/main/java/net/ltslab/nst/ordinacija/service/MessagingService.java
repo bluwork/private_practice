@@ -12,6 +12,8 @@ import java.util.HashMap;
  * @author asdf
  */
 public interface MessagingService {
+
     void receiveMessage(HashMap<String, String> messageMap);
+
     void sendPrescriptionUp(HashMap<String, String> messageMap);
 }

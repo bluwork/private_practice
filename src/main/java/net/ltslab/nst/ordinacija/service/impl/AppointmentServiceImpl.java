@@ -72,10 +72,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void confirmAppointmentRealization(PatientDto patient, LocalDate date) {
-         for (Appointment a : appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date)) {
-             a.setRealized(true);
-             appointmentRepository.saveAndFlush(a);
-         }
+        for (Appointment a : appointmentRepository.findByPatientAndDate(patientMapper.patientDtoToPatient(patient), date)) {
+            a.setRealized(true);
+            appointmentRepository.saveAndFlush(a);
+        }
     }
 
     @Override

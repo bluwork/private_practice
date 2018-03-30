@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    
+
                     <div class="card cyan darken-1 hoverable">
                         <div class="card-content white-text">
                             <div class="row card-title center-align">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                     <div th:unless="${not #lists.isEmpty(today_added)}" >
+                    <div th:unless="${not #lists.isEmpty(today_added)}" >
                         <h6 th:inline="text">[['No new patients added for now.']]<i class="material-icons">smile</i> </h6>
                     </div>
                     <div th:if="${not #lists.isEmpty(today_added)}">
@@ -115,8 +115,8 @@
         <footer th:replace="fragments/footer :: footer" />
         <script type="text/javascript">
             $('#alert_box').click(function () {
-                $("#alert_box").fadeOut("slow", function () {
-                });
+            $("#alert_box").fadeOut("slow", function () {
+            });
             });
 
         </script>

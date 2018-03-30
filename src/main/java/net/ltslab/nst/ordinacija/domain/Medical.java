@@ -59,8 +59,8 @@ public class Medical implements Serializable {
 
     @ElementCollection
     @CollectionTable(
-        name="prescription",
-        joinColumns = @JoinColumn(name="medical_id"))
+            name = "prescription",
+            joinColumns = @JoinColumn(name = "medical_id"))
     private List<Prescription> prescriptions;
 
     public Medical() {

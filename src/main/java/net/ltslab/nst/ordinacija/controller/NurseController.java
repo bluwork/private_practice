@@ -73,10 +73,10 @@ public class NurseController {
         return "/nurse/add_patient";
 
     }
-    
+
     @RequestMapping("/nurse/update_patient/{id}")
     public String preparePatientUpdate(@PathVariable(name = "id") String patientId, Model model) {
-        
+
         model.addAttribute("patient", ordinacijaFacade.getPatientDto(patientId));
         model.addAttribute("cities", ordinacijaFacade.getAllCities());
         return "/nurse/update_patient";
@@ -84,7 +84,7 @@ public class NurseController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/nurse/update_patient")
     public String updatePatient(@ModelAttribute PatientDto patientDto, RedirectAttributes ra) {
-        
+
         ordinacijaFacade.updatePatient(patientDto);
         ra.addFlashAttribute("patient_updated", patientDto);
         return "redirect:/nurse";
@@ -118,7 +118,7 @@ public class NurseController {
             appDto.setPatient(patientDto);
 
             model.addAttribute("appointment", appDto);
-            
+
             model.addAttribute("appointments", ordinacijaFacade.getAllAppointmentDtosAfter(patientDto, LocalDate.now().minusDays(1L)));
 
             model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
@@ -171,8 +171,9 @@ public class NurseController {
 
         return "redirect:/nurse";
     }
-     @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_appointment/{patient_id}")
-    public String deleteAppointment(@ModelAttribute AppointmentDto appointmentDto, @PathVariable (name = "patient_id") String patientId, @RequestParam (name = "app_id") Long app_id) {
+
+    @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_appointment/{patient_id}")
+    public String deleteAppointment(@ModelAttribute AppointmentDto appointmentDto, @PathVariable(name = "patient_id") String patientId, @RequestParam(name = "app_id") Long app_id) {
         ordinacijaFacade.deleteAppointment(app_id);
         return "redirect:/nurse/add_appointment?id=" + patientId;
     }

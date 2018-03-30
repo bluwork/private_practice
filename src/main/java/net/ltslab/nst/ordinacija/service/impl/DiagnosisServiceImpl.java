@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
  * @author bobanlukic
  */
 @Service
-public class DiagnosisServiceImpl implements DiagnosisService{
+public class DiagnosisServiceImpl implements DiagnosisService {
+
     @Autowired
     private DiagnosisRepository diagnosisRepository;
 

@@ -88,7 +88,7 @@ public class AdminController {
         return "redirect:/admin/all_cities";
 
     }
-    
+
     @RequestMapping("/admin/add_diagnosis")
     public String addDiagnosis(Model model) {
         model.addAttribute("diagnosis", new DiagnosisDto());
@@ -149,7 +149,7 @@ public class AdminController {
         model.addAttribute("cities", ordinacijaFacade.getAllCities());
         return "/admin/all_cities";
     }
-    
+
     @RequestMapping("/admin/all_diagnoses")
     public String allDiagnoses(Model model) {
         model.addAttribute("diagnoses", ordinacijaFacade.getDiagnoses());

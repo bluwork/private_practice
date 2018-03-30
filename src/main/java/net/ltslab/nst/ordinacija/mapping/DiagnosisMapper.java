@@ -18,9 +18,9 @@ import org.mapstruct.Mapper;
 public interface DiagnosisMapper {
 
     DiagnosisDto diagnosisToDiagnosisDto(Diagnosis diagnosis);
-    
+
     Diagnosis diagnosisDtoToDiagnosis(DiagnosisDto diagnosisDto);
 
-    List<DiagnosisDto> diagnosesToDiagnosisDtos (List<Diagnosis> diagnoses);
+    List<DiagnosisDto> diagnosesToDiagnosisDtos(List<Diagnosis> diagnoses);
 
 }

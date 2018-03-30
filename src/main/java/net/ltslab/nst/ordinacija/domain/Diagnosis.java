@@ -18,10 +18,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "diagnosis")
-public class Diagnosis implements Serializable{
-    
+public class Diagnosis implements Serializable {
+
     private static final long serialVersionUID = -1505893885601213150L;
-    
+
     @Id
     @Column(name = "code")
     private String code;
@@ -76,6 +76,5 @@ public class Diagnosis implements Serializable{
         }
         return true;
     }
-    
-    
+
 }

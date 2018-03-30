@@ -14,7 +14,6 @@ import net.ltslab.nst.ordinacija.dto.PatientDto;
  *
  * @author bobanlukic
  */
-
 public interface PatientService {
 
     List<PatientDto> allPatients();

@@ -119,11 +119,11 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<PatientDto> finishedForDate(LocalDate date) {
-       List<Appointment> appointments = appointmentService.findByDateAndRealizedTrue(LocalDate.now());
-       List<Patient> patients = new ArrayList<>();
-       for (Appointment a : appointments) {
-           patients.add(a.getPatient());
-       }
-       return patientMapper.patientsToPatientDtos(patients);
+        List<Appointment> appointments = appointmentService.findByDateAndRealizedTrue(LocalDate.now());
+        List<Patient> patients = new ArrayList<>();
+        for (Appointment a : appointments) {
+            patients.add(a.getPatient());
+        }
+        return patientMapper.patientsToPatientDtos(patients);
     }
 }

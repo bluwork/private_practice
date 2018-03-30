@@ -37,13 +37,14 @@ public class DoctorController {
 
     @RequestMapping(value = "/doctor/medical/{id}")
     public String medical(HttpServletRequest request, @PathVariable(name = "id") String patientId, Model model) {
-          
+
         model.addAttribute("medical", ordinacijaFacade.getMedicalDto(request, patientId));
         model.addAttribute("diagnoses", ordinacijaFacade.getDiagnoses());
 
         return "/doctor/medical";
 
     }
+
     @RequestMapping(value = "/doctor/medical")
     public String medicalRedirect() {
 
@@ -53,10 +54,10 @@ public class DoctorController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/doctor/medical", params = {"save"})
     public String postMedical(@ModelAttribute MedicalDto medical) {
-        
+
         ordinacijaFacade.save(medical);
         ordinacijaFacade.postPrescriptions(medical.getPatient().getId(), medical.getPrescriptions());
-        
+
         return "redirect:/doctor";
     }
 

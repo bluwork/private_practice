@@ -48,7 +48,7 @@ public class PatientDto implements Serializable {
     private List<Medical> medicals;
 
     private boolean softDeleted;
-    
+
     private long age;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
