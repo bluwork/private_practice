@@ -93,4 +93,14 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.findByDoctorAndDateAndRealizedFalse(currentDoctor, date);
     }
 
+    @Override
+    public List<AppointmentDto> getAllAppointmentDtosAfter(PatientDto patientDto, LocalDate date) {
+        return appointmentMapper.appointementsToAppointementDtos(appointmentRepository.findByPatientAndDateGreaterThan(patientMapper.patientDtoToPatient(patientDto), date));
+    }
+
+    @Override
+    public void deleteAppointment(Long appointmentId) {
+        appointmentRepository.delete(appointmentId);
+    }
+
 }

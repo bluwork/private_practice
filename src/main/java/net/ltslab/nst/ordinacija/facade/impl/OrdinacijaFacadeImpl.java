@@ -239,4 +239,14 @@ public class OrdinacijaFacadeImpl implements OrdinacijaFacade {
         return patientService.finishedForDate(date);
     }
 
+    @Override
+    public List<AppointmentDto> getAllAppointmentDtosAfter(PatientDto patientDto, LocalDate date) {
+        return appointmentService.getAllAppointmentDtosAfter(patientDto, date);
+    }
+
+    @Override
+    public void deleteAppointment(Long appointmentId) {
+        appointmentService.deleteAppointment(appointmentId);
+    }
+
 }

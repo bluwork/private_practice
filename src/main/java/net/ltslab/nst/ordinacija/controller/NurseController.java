@@ -118,6 +118,8 @@ public class NurseController {
             appDto.setPatient(patientDto);
 
             model.addAttribute("appointment", appDto);
+            
+            model.addAttribute("appointments", ordinacijaFacade.getAllAppointmentDtosAfter(patientDto, LocalDate.now().minusDays(1L)));
 
             model.addAttribute("doctors", ordinacijaFacade.getAllActiveDoctors());
         }
@@ -167,6 +169,11 @@ public class NurseController {
         }
 
         return "redirect:/nurse";
+    }
+     @RequestMapping(method = RequestMethod.POST, value = "/nurse/delete_appointment/{patient_id}")
+    public String deleteAppointment(@ModelAttribute AppointmentDto appointmentDto, @PathVariable (name = "patient_id") String patientId, @RequestParam (name = "app_id") Long app_id) {
+        ordinacijaFacade.deleteAppointment(app_id);
+        return "redirect:/nurse/add_appointment?id=" + patientId;
     }
 
     @RequestMapping(value = "/nurse/add_vitals", params = {"id"})

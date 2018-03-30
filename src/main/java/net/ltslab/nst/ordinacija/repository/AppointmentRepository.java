@@ -10,6 +10,7 @@ import java.util.List;
 import net.ltslab.nst.ordinacija.domain.AppUser;
 import net.ltslab.nst.ordinacija.domain.Appointment;
 import net.ltslab.nst.ordinacija.domain.Patient;
+import net.ltslab.nst.ordinacija.dto.AppointmentDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,5 +32,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByDateAndRealizedFalse(LocalDate date);
 
     List<Appointment> findByDoctorAndDateAndRealizedFalse(AppUser currentDoctor, LocalDate date);
+
+    List<Appointment> findByPatientAndDateGreaterThan(Patient patientDtoToPatient, LocalDate date);
 
 }

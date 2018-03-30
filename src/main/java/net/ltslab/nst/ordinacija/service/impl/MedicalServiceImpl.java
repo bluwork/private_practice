@@ -7,8 +7,11 @@ package net.ltslab.nst.ordinacija.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.ltslab.nst.ordinacija.domain.Prescription;
+import net.ltslab.nst.ordinacija.domain.Vitals;
 import net.ltslab.nst.ordinacija.dto.AppUserDto;
 import net.ltslab.nst.ordinacija.dto.MedicalDto;
 import net.ltslab.nst.ordinacija.dto.PatientDto;
@@ -54,16 +57,29 @@ public class MedicalServiceImpl implements MedicalService {
     public MedicalDto getMedicalDto(HttpServletRequest request, String patientId) {
 
         PatientDto patient = patientService.getPatientById(patientId);
+        
+        
+        
+        List<Vitals> allVitals = patient.getVitals();
+        
+        while (allVitals.size() > 3) {
+            allVitals.remove(0);
+        }
+       
+        
         AppUserDto doctor = appUserService.findByUsername(request.getUserPrincipal().getName());
         
         
         MedicalDto medicalDto = new MedicalDto();
+        
         medicalDto.setDoctor(doctor);
+        
         medicalDto.setPatient(patient);
+        
         medicalDto.setMedicalDate(LocalDateTime.now());
-        for (int i = 0; i < 3; i ++) {
-            medicalDto.getPrescriptions().add(new Prescription());
-        }
+        
+        medicalDto.getPrescriptions().add(new Prescription());
+        
         return medicalDto;
     }
 

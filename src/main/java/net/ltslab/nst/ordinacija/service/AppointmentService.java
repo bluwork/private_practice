@@ -37,6 +37,10 @@ public interface AppointmentService {
 
     List<Appointment> findByDateAndRealizedFalse(LocalDate now);
 
-    public List<Appointment> findByDoctorAndDateAndRealizedFalse(AppUser currentDoctor, LocalDate now);
+    List<Appointment> findByDoctorAndDateAndRealizedFalse(AppUser currentDoctor, LocalDate now);
+
+    List<AppointmentDto> getAllAppointmentDtosAfter(PatientDto patientDto, LocalDate date);
+
+    void deleteAppointment(Long appointmentId);
 
 }

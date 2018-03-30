@@ -94,4 +94,8 @@ public interface OrdinacijaFacade {
 
     List<PatientDto> getAllFinishedPatients(LocalDate date);
 
+    List<AppointmentDto> getAllAppointmentDtosAfter(PatientDto patientDto, LocalDate date);
+
+    public void deleteAppointment(Long appointmentId);
+
 }

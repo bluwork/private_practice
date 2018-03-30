@@ -5,13 +5,11 @@
         <div th:replace="fragments/header :: header" />
         <div class="container">
 
-            <div class="row">
+            <div class="search-wrapper">
 
-                <form action="#" th:action="@{/nurse/search_results}" >
-                    <div class="input-field">
-                        <input id="search" type="text" name="searchText" required="true" />
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                    </div>
+                <form  class="search" action="#" th:action="@{/nurse/search_results}" >
+                    <input id="search" type="text" name="searchText" required="true" class="validate" th:placeholder="#{search}" pattern=".{4,}"/>
+
                 </form>
 
             </div>
@@ -36,17 +34,22 @@
             </div>
 
             <div class="row">
-                <div class="col s12 m6">
+                <div class="col s12 m4">
+                    <div class="card cyan darken-1 hoverable">
+                        <div class="card-content white-text">
+                            <div class="row card-title center-align">
+                                <span th:text="#{today_patients}">Today Patients</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:unless="${not #lists.isEmpty(patients)}" >
+                        <h6 th:inline="text">[['No patients for today. Maybe is time for break? :)']]<i class="material-icons">smile</i> </h6>
+                    </div>
 
 
                     <div th:if="${not #lists.isEmpty(patients)}">
-                        <div class="card cyan darken-1 hoverable">
-                            <div class="card-content white-text">
-                                <div class="row card-title center-align">
-                                    <span th:text="#{today_patients}">Today Patients</span>
-                                </div>
-                            </div>
-                        </div>
+
+
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="patient : ${patients}">
                                 <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${patient.firstName + ' ' + patient.lastName}]]</div>
@@ -59,18 +62,22 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col s12 m4">
+                    
+                    <div class="card cyan darken-1 hoverable">
+                        <div class="card-content white-text">
+                            <div class="row card-title center-align">
 
-                    <div th:if="${not #lists.isEmpty(today_added)}">
-                        <div class="card cyan darken-1 hoverable">
-                            <div class="card-content white-text">
-                                <div class="row card-title center-align">
+                                <span th:text="#{recently_added}">Today Patients</span>
 
-                                    <span th:text="#{recently_added}">Today Patients</span>
-
-                                </div>
                             </div>
                         </div>
+                    </div>
+                     <div th:unless="${not #lists.isEmpty(today_added)}" >
+                        <h6 th:inline="text">[['No new patients added for now.']]<i class="material-icons">smile</i> </h6>
+                    </div>
+                    <div th:if="${not #lists.isEmpty(today_added)}">
+
                         <ul class="collapsible" data-collapsible="accordion">
                             <li th:each="added : ${today_added}">
                                 <div class="collapsible-header" th:inline="text"><i class="material-icons">person</i>[[${added.firstName + ' ' + added.lastName}]]</div>
@@ -82,7 +89,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col s12 m4">
 
                     <div th:if="${not #lists.isEmpty(finished)}">
                         <div class="card cyan darken-1 hoverable">

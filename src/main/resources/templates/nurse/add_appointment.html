@@ -5,17 +5,34 @@
     <body>
         <div th:replace="fragments/header :: header"/>
 
+        <form type="hidden" id="delete_appointment" th:action="@{'/nurse/delete_appointment/' + ${appointment.patient.id}}" method="post" />
         <div class="container">
 
             <div class="card blue-grey darken-1 hoverable">
                 <div class="card-content white-text">
                     <div class="card-title">
-                        <span th:inline="text">[[#{new_appointment} +  ' ' + ${appointment.patient.firstName} + ' ' + ${appointment.patient.lastName}]]</span>                     
+                        <span th:inline="text">[[${appointment.patient.firstName} + ' ' + ${appointment.patient.lastName}]]</span>                     
                     </div>
                 </div>
             </div>
-            <form  th:if="not ${hide}" id="appointment_form" th:object="${appointment}" th:action="@{/nurse/add_appointment}" method="post">
-
+            <form   th:if="not ${hide}" id="appointment_form" th:object="${appointment}" th:action="@{/nurse/add_appointment}" method="post">
+                <div th:if="${not #lists.isEmpty(appointments)}">
+                    <div class="card cyan darken-1 hoverable">
+                        <div class="card-content white-text">
+                            <div class="row card-title center-align">
+                                <span th:text="#{appointments}">Patient Appointments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li th:each="appointment,appointmentStats : ${appointments}">
+                            <div class="collapsible-header" th:inline="text"><i class="material-icons">schedule</i>[[${appointment.date + ' ' + appointment.time  + ' Doctor: ' + appointment.doctor.firstName + ' ' + appointment.doctor.lastName}]]</div>
+                            <div class="collapsible-body">
+                                <button class="btn small waves-effect waves-light red" th:onClick="|deleteAppointment(${appointments[__appointmentStats.index__].id})|" type="button"><i class="material-icons right">delete</i></button>
+                           </div>  
+                        </li>
+                    </ul>
+                </div>
                 <div class="input-field col s12 m6">
                     <select  id="selector" th:field="*{doctor.id}">
                         <option th:each="doctor : ${doctors}" th:inline="text" th:value="${doctor.id}">[[${doctor.firstName} + ' ' + ${doctor.lastName}]]</option>
@@ -26,6 +43,8 @@
                     <input id="appointment_date" type="text" class="datepicker" th:field="*{date}"/>
                     <label for="appointment_date" th:text="#{appointment_date}">Appointment date</label>
                 </div>
+
+
                 <input type="hidden" th:field="*{patient.id}" />
                 <input type="hidden" th:field="*{patient.firstName}"/>
                 <input type="hidden" th:field="*{patient.lastName}"/>
@@ -99,7 +118,7 @@
                 }
             }
 
-            $('form').submit(function () {
+            $('#appointment_form').submit(function () {
                 if (!checkDate()) {
                     return false;
                 }
@@ -122,6 +141,14 @@
                 var postSlot = $('#post_slot_form').attr('action');
                 $('#post_slot_form').attr('action', postSlot + data);
             });
+            
+            function deleteAppointment(appId) {
+                var delAppointment = $('#delete_appointment').attr('action');
+                $('#delete_appointment').attr('action', delAppointment + "?app_id="  + appId);
+                $('#delete_appointment').submit();
+                
+                Materialize.toast("a d d", 1000) ;
+            }
 
             /*]]>*/
 
