@@ -129,3 +129,6 @@ local.properties
 # PDT-specific
 .buildpath
 /nbproject/
+
+# Lucene indexes
+~/lucene/**
