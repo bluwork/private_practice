@@ -132,3 +132,7 @@ local.properties
 
 # Lucene indexes
 ~/lucene/**
+
+
+.sts*
+mvnw.c*
