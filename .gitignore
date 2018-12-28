@@ -131,8 +131,8 @@ local.properties
 /nbproject/
 
 # Lucene indexes
-~/lucene/**
+~/lucene/*
 
 
-.sts*
-mvnw.c*
+sts4-cache/*
+mvnw.cmd
