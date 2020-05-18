@@ -100,12 +100,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void deleteAppointment(Long appointmentId) {
-        appointmentRepository.delete(appointmentId);
+        appointmentRepository.deleteById(appointmentId);
     }
 
     @Override
     public AppointmentDto getAppointmentDto(Long id) {
-        return appointmentMapper.appointmentToAppointmentDto(appointmentRepository.findOne(id));
+        return appointmentMapper.appointmentToAppointmentDto(appointmentRepository.getOne(id));
     }
 
 }

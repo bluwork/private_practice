@@ -49,6 +49,6 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public DiagnosisDto getDiagnosisByCode(String code) {
-        return diagnosisMapper.diagnosisToDiagnosisDto(diagnosisRepository.findOne(code));
+        return diagnosisMapper.diagnosisToDiagnosisDto(diagnosisRepository.getOne(code));
     }
 }
