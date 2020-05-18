@@ -16,4 +16,5 @@ VALUES
         (2, 'DOCTOR'),
         (3, 'DOCTOR'),
         (4, 'NURSE'),
-        (5, 'NURSE');
+        (5, 'NURSE'),
+        (6, 'ADMIN');

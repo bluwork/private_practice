@@ -22,4 +22,5 @@ VALUES
         (2, 'dr_jova', '$2a$04$oJfnkHg7Mqg7aZWXtjy3xO0/wNKyPWcquwsI0.xorERI00CjxZaua', 'Jovan', 'Jovanovic'),
         (3, 'dr_dragana', '$2a$04$ahIdT28SkHXNSiSt/NrrO.Saosx9Y0AOMRK9d.FAl5UMo.kg3wJTi', 'Dragana', 'Jovanovic'),
         (4, 'st_pera', '$2a$04$FVydfmApvLawFPo/a/mphuPOnT4RJQQtTglxKDIY8eebAIwm8BIeO', 'Petar', 'Milovanovic'),
-        (5, 'st_una', '$2a$04$QEgZYEmEUYWCg4b3t4R8TOsLMZeqea2sKvG7VVw5DmAIxwSI3KShq', 'Una', 'Stojanovic');
+        (5, 'st_una', '$2a$04$QEgZYEmEUYWCg4b3t4R8TOsLMZeqea2sKvG7VVw5DmAIxwSI3KShq', 'Una', 'Stojanovic'),
+        (6, 'tester', '$2y$12$geiFbU076Jypl2AKt8QRVOsHGqHkUJnxcQCV1GkecZWJFzV.fy4MS', 'Tes', 'Teric');
