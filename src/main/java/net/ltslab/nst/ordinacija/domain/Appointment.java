@@ -8,7 +8,6 @@ package net.ltslab.nst.ordinacija.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -26,6 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "appointment")
+@Data
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = -6741529452052740160L;
@@ -55,97 +56,5 @@ public class Appointment implements Serializable {
 
     @Column(name = "realized")
     private boolean realized;
-
-    public Appointment() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public AppUser getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(AppUser doctor) {
-        this.doctor = doctor;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    public int getPart() {
-        return part;
-    }
-
-    public void setPart(int part) {
-        this.part = part;
-    }
-
-    public boolean isRealized() {
-        return realized;
-    }
-
-    public void setRealized(boolean realized) {
-        this.realized = realized;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.doctor);
-        hash = 37 * hash + Objects.hashCode(this.patient);
-        hash = 37 * hash + Objects.hashCode(this.date);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Appointment other = (Appointment) obj;
-        if (!Objects.equals(this.doctor, other.doctor)) {
-            return false;
-        }
-        if (!Objects.equals(this.patient, other.patient)) {
-            return false;
-        }
-        if (!Objects.equals(this.date, other.date)) {
-            return false;
-        }
-        return true;
-    }
 
 }
