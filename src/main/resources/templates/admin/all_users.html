@@ -47,34 +47,34 @@
             var selectedUserId;
             $(document).ready(function () {
 
-            $('.collapsible').collapsible();
-            $('.modal').modal();
-            //                $('.tooltipped').tooltip({delay: 50});
+                $('.collapsible').collapsible();
+                $('.modal').modal();
+                //                $('.tooltipped').tooltip({delay: 50});
 
             });
 
             function setSelectedUserId(userId) {
-            $('#delete').modal('open');
-            selectedUserId = userId;
-            //Materialize.toast('Selected User id ' + selectedUserId, 1000) // 4000 is the duration of the toast
+                $('#delete').modal('open');
+                selectedUserId = userId;
+                //Materialize.toast('Selected User id ' + selectedUserId, 1000) // 4000 is the duration of the toast
             }
 
             $('#suspendform').on('submit', function () {
-            var suspend = $('#suspendform').attr('action');
-            $('#suspendform').attr('action', suspend + "?id=" + selectedUserId)
+                var suspend = $('#suspendform').attr('action');
+                $('#suspendform').attr('action', suspend + "?id=" + selectedUserId)
             });
             $('#activateform').on('submit', function () {
-            var activateUser = $('#activateform').attr('action');
-            $('#activateform').attr('action', activateUser + "?id=" + selectedUserId)
+                var activateUser = $('#activateform').attr('action');
+                $('#activateform').attr('action', activateUser + "?id=" + selectedUserId)
             });
             $('#editform').on('submit', function () {
-            var activateUser = $('#editform').attr('action');
-            $('#editform').attr('action', activateUser + "/" + selectedUserId)
+                var activateUser = $('#editform').attr('action');
+                $('#editform').attr('action', activateUser + "/" + selectedUserId)
             });
 
             $('#alert_box').click(function () {
-            $("#alert_box").fadeOut("slow", function () {
-            });
+                $("#alert_box").fadeOut("slow", function () {
+                });
             });
 
         </script>
