@@ -28,6 +28,9 @@ public class AdminController {
 
     @Autowired
     OrdinacijaFacade ordinacijaFacade;
+    
+   
+    
 
     @RequestMapping("/admin")
     public String admin() {
